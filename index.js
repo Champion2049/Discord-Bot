@@ -37,7 +37,7 @@ client.on('message', async message => {
        const command = args.shift().toLowerCase();
   if (command === 'kick') {
     if (message.member.hasPermission("KICK_MEMBERS")) {
-      if (!message.mentions.users.size) {
+      if (args[0]) {
         return message.reply('You must tag 1 user.');
       } else {
         let member = message.mentions.members.first();
