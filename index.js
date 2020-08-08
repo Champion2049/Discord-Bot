@@ -8,7 +8,6 @@ const fs = require('fs');
 const { ALL } = require('dns');
 const { title } = require('process');
 const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
-const token  = ""
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
@@ -667,4 +666,4 @@ client.on('message', async message => {
 }
 })
 
-client.login(process.env.token);  
+client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');  
