@@ -8,6 +8,7 @@ const fs = require('fs');
 const { ALL } = require('dns');
 const { title } = require('process');
 const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
+const token  = ""
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
@@ -31,33 +32,32 @@ client.on('message', message =>{
   }
 );
 
-client.on('message', message => {
+client.on('message', async message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
-  if (!message.guild) return;
   if (command === 'kick') {
-      const mentions = message
-      const tag = `<@${member.id}>`
-      if (
-        member.hasPermission('ADMINISTRATOR') ||
-        member.hasPermission('KICK_MEMBERS')
-      ) {
-        const target = mentions.users.first()
-        if (target) {
-          const targetMember = message.guild.members.cache.get(target.id)
-          targetMember.kick()
-          message.channel.send(`${tag} That user has kicked`)
-        } else {
-          message.channel.send(`${tag} Please specify someone to kick.`)
-        }
+    if (message.member.hasPermission("KICK_MEMBERS")) {
+      if (!message.mentions.users.size) {
+        return message.reply('You must tag 1 user.');
       } else {
-        message.channel.send(
-          `${tag} You do not have permission to use this command.`
-        )
+        let member = message.mentions.members.first();
+        let reason = message.content.split(" ").slice(22);
+        if (member.kickable == false) {
+          message.channel.send("That user cannot be kicked!");
+          return;
+        } else {
+          await member.send(`You have been kicked from \`${message.guild.name}\`. Reason: \`${reason}\``)
+         .catch(err => message.channel.send(`⚠ Unable to alert ${member} of reason.`));
+         await member.kick(reason);
+         await message.channel.send(`👋 ${member} has been kicked!`);
+console.log(`${message.author.tag} kicked ${member.user.tag} from '${message.guild.name}'.`);
+            }
+          }
+        }
       }
-    }
-  })
+    })
+
 client.on('message', message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
