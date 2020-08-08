@@ -37,23 +37,24 @@ client.on('message', message => {
        const command = args.shift().toLowerCase();
   if (!message.guild) return;
   if (command === 'kick') {
-    const user = message.mentions.users.first();
-    //if(args[0]){
-      //message.channel.send("Please mention the user to kick!")
-    //}
-    if (user) {
-      const member = message.guild.member(user);
-      if (member.hasPermission("ADMINISTRATOR")) {
-           member.kick('Optional reason that will display in the audit logs').then(() => {
-            message.reply(`Successfully kicked ${user.tag}`);
-           })
-          .catch(err => {
-            message.reply('I was unable to kick the member');
-            console.error(err);
-          })
-          }
-        }else {
-        message.reply("That user isn't in this guild!");
+      const mentions = message
+      const tag = `<@${member.id}>`
+      if (
+        member.hasPermission('ADMINISTRATOR') ||
+        member.hasPermission('KICK_MEMBERS')
+      ) {
+        const target = mentions.users.first()
+        if (target) {
+          const targetMember = message.guild.members.cache.get(target.id)
+          targetMember.kick()
+          message.channel.send(`${tag} That user has kicked`)
+        } else {
+          message.channel.send(`${tag} Please specify someone to kick.`)
+        }
+      } else {
+        message.channel.send(
+          `${tag} You do not have permission to use this command.`
+        )
       }
     }
   })
