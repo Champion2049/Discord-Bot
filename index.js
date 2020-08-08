@@ -1,0 +1,669 @@
+const Discord = require('discord.js');
+const client = new Discord.Client(); 
+const prefix = 'dc';
+var version = '2.3.7';
+var servers = {};
+const ytdl = require("ytdl-core");
+const fs = require('fs');
+const { ALL } = require('dns');
+const { title } = require('process');
+const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for(const file of commandFiles){
+    const command = require(`./commands/${file}`)
+    client.commands.set(command.name, command);
+}
+
+client.once('ready', () => {
+    console.log('Easy Use Bot is online!' + version);
+    client.user.setActivity(`\ndchelp | https://discord.gg/9jHXwta | Version: ${version}`, {type: "WATCHING"}).catch(console.error);
+});
+client.on('message', message =>{
+       if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+
+       if(command === 'ping'){
+           client.commands.get('ping').execute(message, args);
+       }
+       
+  }
+);
+
+client.on('message', message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (!message.guild) return;
+  if (command === 'kick') {
+    const user = message.mentions.users.first();
+    //if(args[0]){
+      //message.channel.send("Please mention the user to kick!")
+    //}
+    if (user) {
+      const member = message.guild.member(user);
+      if (member.hasPermission("ADMINISTRATOR")) {
+           member.kick('Optional reason that will display in the audit logs').then(() => {
+            message.reply(`Successfully kicked ${user.tag}`);
+           })
+          .catch(err => {
+            message.reply('I was unable to kick the member');
+            console.error(err);
+          })
+          }
+        }else {
+        message.reply("That user isn't in this guild!");
+      }
+    }
+  })
+client.on('message', message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (!message.guild) return;
+  if (command === 'ban') {
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+        member
+          .ban({
+            reason: 'They were bad!',
+          })
+          .then(() => {
+            message.reply(`Successfully banned ${user.tag}`);
+          })
+          .catch(err => {
+            message.reply('I was unable to ban the member');
+            console.error(err);
+          });
+      } else {
+        message.reply("That user isn't in this guild!");
+      }
+    } else {
+      message.reply("You didn't mention the user to ban!");
+    }
+  }
+});
+
+client.on('message', message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'avatar') {
+  if (message.mentions.users.first()) {
+    user = message.mentions.users.first();
+  } else if (args[0]) {
+    user = message.guild.members.cache.get(args[0]).user;
+  } else {
+    user = message.author;
+  }
+  
+  let avatar = user.displayAvatarURL({size: 4096, dynamic: true});
+  const embed = new Discord.MessageEmbed()
+  .setTitle(`${user.tag}'s Avatar`)
+  .setDescription(`[Download Avatar of **${user.tag}**](${avatar})`)
+  .setColor(0x1d1d1d)
+  .setImage(avatar)
+  .setFooter('Bot made by Champion2049#3714');
+  
+  return message.channel.send(embed);
+  }
+})
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'poll') {
+    if (!args) return message.reply("You must have something to vote for!")
+    if (!message.content.includes("?")) return message.reply("Please include a ? in your vote!")
+    let msgArgs = args.slice(1).join("");
+    const embed = new Discord.MessageEmbed()
+   .setTitle(message.content.slice(6))
+   .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
+   .setColor(0x14C9ED)
+   .setDescription('React with ✅ if you **agree** and to ❌ if you **disagree**')
+   .setAuthor(`🗳 ${message.author.username} started a poll! 🗳`)
+   message.channel.send(embed).then(messageReaction => {
+   messageReaction.react('✅');
+   messageReaction.react('❌');
+   message.delete();
+  })
+}
+})
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+client.on('message', message => {
+	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`);
+	if (!prefixRegex.test(message.content)) return;
+
+	const [, matchedPrefix] = message.content.match(prefixRegex);
+	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+   if (command === 'prefix') {
+		message.reply(`you can either ping me or use \`${prefix}\` as my prefix.`);
+	}
+});
+client.on('message', message => {
+  let args = message.content.substring(prefix.length).split(" "); 
+  switch (args[0]){
+    case 'play':
+      function play(connection, message){
+        var server = servers[message.guild.id];
+        server.dispatcher = connection.play(ytdl(server.queue[0], {filter: "audioonly"}));
+        server.queue.shift();
+        server.dispatcher.on("finish", () =>{
+          if(server.queue[0]){
+              play(connection, message);
+          }else{
+              connection.disconnect();
+          }
+          });
+      }
+      let validate = ytdl.validateURL(args[1]);
+      if (!validate){
+         message.reply("Please provide a valid URL");
+         return;
+      }
+      if(!message.member.voice.channel){
+        message.reply('Please join a voice channel first');
+        return;
+      }
+      if(!servers[message.guild.id]) servers[message.guild.id] = {
+        queue: []
+      }
+      var server = servers[message.guild.id];
+      server.queue.push(args[1]);
+      if(!message.member.voice.connection) message.member.voice.channel.join().then(function(connection){
+        play(connection, message);
+        return;
+      })
+      break;
+  }
+})
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'botinfo') {
+    let inline = true
+    let bicon = client.user.displayAvatarURL;
+    let usersize = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+    let chansize = client.channels
+    let uptimxd = client.uptime 
+    let servsize = client.guilds.cache.size
+    let botembed = new Discord.MessageEmbed()
+    .setColor("#00ff00")
+    .setThumbnail(bicon)
+    .addField("Bot Name", `🤖 ${client.user.username}`, inline)
+    .addField("Bot Owner", "👑 Champion2049#3714" , inline )
+    .addField("Bot ID", '🆔 730644349897015307')
+    .addField("Servers", `🛡 ${servsize}`, inline)
+    .addField("Users", `👨‍💻👩‍💻${usersize}`, inline)
+    .addField("Bot Library", "📜 Discord.js", inline)
+    .addField("Created On",`🏗 ${client.user.createdAt}`)
+    .addField("Bot Version", `⏱ ${version}`)
+    .setTitle(`Click here to Invite the bot!`)
+    .setURL('https://discordapp.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
+    .setFooter(`Information about: ${client.user.username}. Developed by: Champion2049`)
+    .setTimestamp()
+    
+    message.channel.send(botembed);
+}
+})
+const urban = require("urban");
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+       if(command === 'urban'){
+    if(args.length < 1) return message.reply("Please enter something!");
+    let XD = args.join(" "); 
+
+    urban(XD).first(json => {
+        if(!json) return message.reply("No results found!")
+
+        const embed = new Discord.MessageEmbed()
+        .setColor("00ff00")
+        .setTitle(json.word)
+        .setDescription(json.definition)
+        .addField("Upvotes", json.thumbs_up, true)
+        .addField("Downvotes", json.thumbs_down, true)
+        .setFooter(`Written by: ${json.author}`);
+        message.channel.send(embed)
+        message.delete();
+    });
+  }
+})
+  client.on('message', async message => {
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
+         const args = message.content.slice(prefix.length).split(/ +/);
+         const command = args.shift().toLowerCase();
+         if(command === '8ball'){
+    if(!args[1]) return message.reply("Please enter a full question with 2 or more words!");
+    let replies = ["Yes", "No", "I don't know", "Ask again later!", "Cya", "I am not sure!", "Please No", "You tell me", "Without a doubt", "Cannot predict now", "Without a doubt", ];
+    let result = Math.floor((Math.random() * replies.length));
+    let question = args.join(" ");
+    const embed = new Discord.MessageEmbed()
+    .setAuthor(message.author.username)
+    .setColor("#00ff00")
+    .addField("Question", question)
+    .addField("Answer", replies[result])
+    message.channel.send(embed)
+    message.delete();
+         }
+  })
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+       if(command === 'clear'){
+if(args[0] == "clear"){
+  let helpembxd = new Discord.MessageEmbed()
+  .setColor("#00ff00")
+  .addField(`clear Command", "Usage: ${prefix}clear <amount>`)
+  message.channel.send(helpembxd);
+  return;
+} 
+message.delete()
+if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You don't have premssions to do that!");
+if(!args[0]) return message.channel.send('Please enter a number of messages to clear! `Usage: dcclear <amount>`');
+message.channel.bulkDelete(args[0]).then(() => {
+message.channel.send(`**__Cleared ${args[0]} messages.__**`).then(message => message.delete(2000));
+})
+       }
+});
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+       if(command === 'warn'){
+  if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You don't have premission to do that!");
+  let reason = args.slice(1).join(' ');
+  let user = message.mentions.users.first();
+  if (message.mentions.users.size < 1) return message.reply('You must mention someone to warn them.');
+  if (reason.length < 1) return message.reply('You must have a reason for the warning.');
+  let dmsEmbed = new Discord.MessageEmbed()
+  .setTitle("Warn")
+  .setColor("#00ff00")
+  .setDescription(`You have been warned on \`${message.guild.name}\``)
+  .addField("Warned by", message.author.tag)
+  .addField("Reason", reason);
+  user.send(dmsEmbed);
+  message.delete();
+  message.channel.send(`${user.tag} has been warned`)
+}
+})
+const giphy = require('giphy-api')("W8g6R14C0hpH6ZMon9HV9FTqKs4o4rCk");
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+       if(command === 'gif'){
+  if (args.length === 0) {
+    message.channel.send('No Search terms!')
+    return;
+  }
+  if (args.length === 1) {
+    term = args.toString()
+  } else {
+    term = args.join(" ");
+  }
+  giphy.search(term).then(function (res) {
+    let id = res.data[0].id
+    let msgurl = `https://media.giphy.com/media/${id}/giphy.gif`
+    const embed = {
+      "color": 3066993,
+      "timestamp": new Date(),
+      "footer": {
+        "icon_url": "https://raw.githubusercontent.com/Giphy/GiphyAPI/f68a8f1663f29dd9e8e4ea728421eb2977e42d83/api_giphy_logo_sparkle_clear.gif",
+        "text": "Powered by Giphy"
+      },
+      "image": {
+        "url": msgurl
+      },
+      "fields": [
+        {
+          "name": "Search Term",
+          "value": "`" + term + "`",
+          "inline": true
+        },
+        {
+          "name": "Page URL",
+          "value": "[Giphy](" + res.data[0].url + ")",
+          "inline": true
+        }
+      ]
+    };
+    message.channel.send({ embed });
+    message.delete();
+  })
+    }
+  })
+      client.on('message', async message => {
+        if(!message.content.startsWith(prefix) || message.author.bot) return;
+             const args = message.content.slice(prefix.length).split(/ +/);
+             const command = args.shift().toLowerCase();
+             if(command === 'google'){
+          if(args.length < 1) message.channel.send('I need to know what to search...');
+          message.reply('\nhttps://google.com/search?q='+args)
+      }
+    })
+    client.on('message', async message => {
+      if(!message.content.startsWith(prefix) || message.author.bot) return;
+           const args = message.content.slice(prefix.length).split(/ +/);
+           const command = args.shift().toLowerCase();
+           if(command === 'youtube'){
+        if(args.length < 1) message.channel.send('I need to know what to search...');
+        message.reply('\nhttps://www.youtube.com/results?search_query='+args)
+    }
+  })
+  const createCaptcha = require('./captcha.js');
+  client.on('guildMemberAdd', async member => {
+      const captcha = await createCaptcha();
+      try {
+          const msg = await member.send('You have to verify yourself soon, or else you will be kicked out', {
+              files: [{
+                  attachment: `${__dirname}/captchas/${captcha}.png`,
+                  name: `${captcha}.png`
+              }]
+          });
+          try {
+              const filter = m => {
+                  if(m.author.bot) return;
+                  if(m.author.id === member.id && m.content === captcha) return true;
+                  else {
+                      m.channel.send('You entered the captcha incorrectly.');
+                      return false;
+                  }
+              };
+              const response = await msg.channel.awaitMessages(filter, { max: 1, time: 1000000, errors: ['time']});
+              if(response) {
+                  await msg.channel.send('You have verified yourself!')
+                  await member.roles.add(role => role.name === 'Verified')
+                      .catch(err => console.log(err));
+              }
+          }
+          catch(err) {
+              console.log(err);
+              await msg.channel.send('You did not solve the captcha correctly on time.');
+              await member.kick()
+                      .catch(err => console.log(err));
+          }
+      }
+      catch(err) {
+          console.log(err);
+      }
+  });
+  client.on('message', async message => {
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
+         const args = message.content.slice(prefix.length).split(/ +/);
+         const command = args.shift().toLowerCase();
+    if (command === 'help') {
+      const embed = new Discord.MessageEmbed()
+      .setTitle('**Help is Here!**')
+      .setColor(0x14c9ed)
+      .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
+      .addField('Moderation Commands', 'dckick- kicks the mentioned person\n dcban- bans the mentioned person\n dcclear- deletes a mentioned amount of messages\n dcpoll- creates a poll to vote on\n dcwarn- gives the mentioned user a warning\n dcserverinfo- gives detailed information about the server\n dcmute- mutes the mentioned person for the given amount of time')
+      .addField('Music Commands', 'dcplay- plays music from provided link')
+      .addField('Giveaway', `dcgiveaway- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
+      .addField('Fun Commands', "dcgif- searches giphy for the mentioned word(s)\n dc8ball- ask a question and it will answer it\n dcgoogle- googles the mentioned word(s)\n dcyoutube- searches the word(s) on youtube\n dcurban- searches the urban dictionary for the mentioned word(s)\n dcavatar- shows your or mentioned user's profile picture\n dckill- sends a funny message of how the person/ mentioned person died/ was killed\n dctv- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n dcmeme- gives you a meme from reddit")
+      .addField('Captcha (inbuilt)', 'It makes all newly joined members solve a captcha within a specified time!\n Please make a role called `Verified` Which will be given to all new members.\n Absence of role called `Verified` will cause the bot to kick a member who solved captcha correctly too!')
+      .addField('Bot Information', "dcbotinfo- see information about the bot\n dcinvite- get the link to invite the bot!\n dcsupport- give you the link to the bot's support server\n dchelp- displays the current page containing all the bot's commands")
+      .setTimestamp()
+      message.channel.send(embed)
+      message.delete();
+    }
+  })
+  client.on('message', async message => {
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
+         const args = message.content.slice(prefix.length).split(/ +/);
+         const command = args.shift().toLowerCase();
+    if (command === 'invite') {
+      const embed = new Discord.MessageEmbed()
+      .setTitle('Invite the bot by clicking here!')
+      .setURL('https://discordapp.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
+      .setColor(0x1409)
+      message.channel.send(embed)
+    }
+  }) 
+  client.on('message', async message => {
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
+         const args = message.content.slice(prefix.length).split(/ +/);
+         const command = args.shift().toLowerCase();
+    if (command === 'kill') {
+      let replies = ["by slipping over a leaf", "by using a gun", "I don't know how he died", "by jumping in a well", " by hanging himself to death", "because he was bored", "by watching too much tv", "go ask him how", "by falling from his bed", "by crying too much", "I wonder why", ];
+      let repliesa = ["for laughing too much", "for not using the bot", "by drowning him in a swimming pool", "by stabbing him in the chest", "because he farted too much", "with his sniper", "by running him over by a car", "by feed him to his pet lion", "because he was not worthy of living"];
+      let result = Math.floor((Math.random() * replies.length));
+    let killed = message.mentions.members.first();
+    if(!killed) {
+    message.channel.send(`${message.author} decied to kill themself and died, ${replies[result]}!  😢 REST IN PEACE 💀`)
+    } else {
+    message.channel.send(`${killed} was killed by ${message.author} ${repliesa[result]}!  😢 REST IN PEACE 💀`)
+    }
+  }
+})
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'serverinfo') {
+  function checkDays(date) {
+      let now = new Date();
+      let diff = now.getTime() - date.getTime();
+      let days = Math.floor(diff / 86400000);
+      return days + (days == 1 ? " day" : " days") + " ago";
+  }
+  
+  let verifLevels = ["None", "Low", "Medium", "High", "Highest"];
+const embed = new Discord.MessageEmbed()
+.setTitle("**Server Information**")
+.addField("Name", `🛡 ${message.guild.name}`, true)
+.addField("ID", `🆔 ${message.guild.id}`, true)
+.addField("Owner", `👑 ${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
+.addField("Region", `🏘 ${message.guild.region}`, true)
+.addField("Total | Humans | Bots", `🤖👨‍💻👩‍💻 ${message.guild.members.cache.size} | 👨‍💻👩‍💻 ${message.guild.members.cache.filter(member => !member.user.bot).size} | 🤖 ${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
+.addField("Verification Level", `✅ ${message.guild.verifLevels}`, true)
+.addField("Channels", `🗂 ${message.guild.channels.cache.size}`, true)
+.addField("Roles", `📋 ${message.guild.roles.cache.size}`, true)
+.addField("Emoji Count", `😇 This server has ${message.guild.emojis.cache.size} emojis`)
+.addField("Creation Date", `🏗 ${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
+.addField("You Joined the server on", `⎆ ${message.member.joinedAt}`)
+.setColor("#00ff00")
+.setFooter(`Information about: ${message.guild.name} provided by Easy Use Bot\n Bot made by Champion2049#3714`)
+.setThumbnail(message.guild.iconURL)
+message.channel.send({embed});
+}
+})
+const imdb = require("imdb-api");
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'tv') {
+module.exports = {
+name: "imdb",
+  description: "Get the information about series and movie",
+  category: "info",
+  usage: "imdb <name>",
+  run: async (client, message, args, color) => {
+
+}
+    }
+    if(!args.length) {
+      return message.channel.send("Please give the name of the movie or anime/tv series")
+    }
+    const imob = new imdb.Client({apiKey: "5e36f0db"}) 
+    let movie = await imob.get({'name': args.join(" ")})
+    let embed = new Discord.MessageEmbed()
+    .setTitle(movie.title)
+    .setColor("#ff2050")
+    .setThumbnail(movie.poster)
+    .setDescription(movie.plot)
+    .setFooter(`Ratings: ${movie.rating}`)
+    .addField("Country", movie.country, true)
+    .addField("Languages", movie.languages, true)
+    .addField("Type", movie.type, true)
+    .setFooter("Powered by IMDb\n Bot made by Champion2049#3714");
+    message.channel.send(embed)
+  }
+})
+const got = require('got');
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'meme') {
+    const embed = new Discord.MessageEmbed();
+    got('https://www.reddit.com/r/memes/random/.json').then(response => {
+        let content = JSON.parse(response.body);
+        let permalink = content[0].data.children[0].data.permalink;
+        let memeUrl = `https://reddit.com${permalink}`;
+        let memeImage = content[0].data.children[0].data.url;
+        let memeTitle = content[0].data.children[0].data.title;
+        let memeUpvotes = content[0].data.children[0].data.ups;
+        let memeDownvotes = content[0].data.children[0].data.downs;
+        let memeNumComments = content[0].data.children[0].data.num_comments;
+        embed.addField(`${memeTitle}`, `[View thread](${memeUrl})`);
+        embed.setImage(memeImage);
+        embed.setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}`);
+        message.channel.send(embed)
+            .then(sent => console.log(`Sent a reply to ${sent.author.username}`))
+        console.log('Bot responded with: ' + memeImage);
+    }).catch(console.error);
+}
+})
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'support') {
+    const embed = new Discord.MessageEmbed()
+    .setTitle("Join our support server!")
+    .setURL('https://discord.gg/9jHXwta')
+    .setDescription('Join our support server if you need any more assistance')
+    message.channel.send(embed);
+  }
+})
+const ms = require("ms");
+const {timeStamp} = require('console');
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+       if (command === 'mute') {
+  let tomute = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
+  if(!tomute) return message.reply("Couldn't find user.");
+  let muterole = message.guild.roles.cache.find(muterole => muterole.name === "Muted");
+  let removerole = message.guild.roles.cache.find(removerole => removerole.name === "Member")
+  if(!muterole){
+    try{
+      muterole = message.guild.roles.create({
+        name: "Muted",
+        color: "#000000",
+        permissions:[]
+      })
+      message.guild.channels.cache.forEach(async (channel, id) => {
+        await channel.Permissions(muterole, {
+          SEND_MESSAGES: false,
+          ADD_REACTIONS: false
+        })
+      });
+    }catch(e){
+      console.log(e.stack);
+    }
+  }
+  let mutetime = args[1];
+  if(!mutetime) return message.reply("You didn't specify a time!");
+
+  await(tomute.roles.add(muterole.id)) 
+  message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
+
+  setTimeout(function(){
+    tomute.roles.remove(muterole.id);
+    message.channel.send(`<@${tomute.id}> has been unmuted!`);
+  }, ms(mutetime));
+}
+})
+module.exports = {
+  name: "giveaway",
+  description: "Create a simple giveaway",
+  usage: "<time> <channel> <prize>",
+  category: "fun"
+}
+  client.on('message', async message => {
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
+         const args = message.content.slice(prefix.length).split(/ +/);
+         const command = args.shift().toLowerCase();
+         if (command === 'giveaway') {
+    if (!args[0]) return message.channel.send(`You did not specify your time (please specify the time in d-days,h-hours,m-minutes)`);
+    if (
+      !args[0].endsWith("d") &&
+      !args[0].endsWith("h") &&
+      !args[0].endsWith("m")
+    )
+      return message.channel.send(
+        `You did not use the correct formatting for the time!(please specify the time in d-days,h-hours,m-minutes)`
+      );
+    if (isNaN(args[0][0])) return message.channel.send(`That is not a number!`);
+    let channel = message.mentions.channels.first();
+    if (!channel)
+      return message.channel.send(
+        `I could not find that channel in the guild!`
+      );
+    let prize = args.slice(3).join(" ");
+    if (!prize) return message.channel.send(`No prize specified!`);
+    let req = args.slice(2,3).join(" ");
+    if (!req) return message.channel.send("Are there any requirements for this Giveaway, if none type nothing")
+    message.delete();
+    message.channel.send(`*Giveaway created in ${channel}*`);
+    let Embed = new Discord.MessageEmbed()
+      .setTitle('**🎉New Giveaway🎉** `Please react to 🎉 to Participate!`')
+      .addField(`🎁 Prize:`, `${prize}`)
+      .addField(`📝 Giveaway Hosted by:`, ` ${message.author}`)
+      .addField(`⏱ Time:`, `${args[0]}`)
+      .addField(`📑 Requirements:`, `Must join: ${req}`)
+      .setTimestamp()
+      .setFooter("Bot made by Champion2049#3714")
+      .setColor(0xFFFF);
+    let m = await channel.send(Embed);
+    m.react("🎉");
+    setTimeout(() => {
+      if (m.reactions.cache.get("🎉").count <= 1) {
+        message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`);
+        return message.channel.send(
+          `**Sufficient** amount of people did not participate in the Giveaway, hence I was unable to determine a 🏅Winner!`
+        );
+      }
+
+      let winner = m.reactions.cache
+        .get("🎉")
+        .users.cache.filter((u) => !u.bot)
+        .random();
+      let wembed = new Discord.MessageEmbed()
+        .setDescription(`The 🏅Winner of the 🎉Giveaway🎉 for **${prize}** is ||${winner}||! \n 🎊Congrats on winning ${prize}🎊\n Dm ${message.author} to claim your prize 🎁!`)
+        .setTitle(`🏅Winner`)
+        .setFooter("Bot made by Champion2049#3714")
+        .setTimestamp()
+        .setColor(0xFFFF);
+        channel.send(wembed)
+    }, ms(args[0]));
+  }
+})
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+  if (command === 'rr') {
+  if (reaction.id === "<The ID of the Reaction>") {
+    let role = message.guild.roles.cache.find(role => role.name === args[1,2]);
+    if (message.channel.name === args[2,3]) {
+      message.reply(' You must go to the channel now');
+    } else {
+      message.member.addRole(role.id);
+    }
+  }
+}
+})
+
+client.login(process.env.token);  
