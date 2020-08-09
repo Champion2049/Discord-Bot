@@ -349,15 +349,6 @@ client.on('message', async message => {
           message.reply('\nhttps://google.com/search?q='+args)
       }
     })
-    client.on('message', async message => {
-      if(!message.content.startsWith(prefix) || message.author.bot) return;
-           const args = message.content.slice(prefix.length).split(/ +/);
-           const command = args.shift().toLowerCase();
-           if(command === 'youtube'){
-        if(args.length < 1) message.channel.send('I need to know what to search...');
-        message.reply('\nhttps://www.youtube.com/results?search_query='+args)
-    }
-  })
   const createCaptcha = require('./captcha.js');
   client.on('guildMemberAdd', async member => {
       const captcha = await createCaptcha();
@@ -664,6 +655,19 @@ client.on('message', async message => {
     }
   }
 }
+})
+const YouTube = require("discord-youtube-api");
+const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) retzurn;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+       if(command === 'youtube'){
+        if(args.length < 1) message.channel.send('I need to know what to search...');
+        const video = await youtube.searchVideos(args);
+        message.channel.send(`https://www.youtube.com/watch?v=${video.id}`);
+        console.log(video3);
+       }
 })
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');  
