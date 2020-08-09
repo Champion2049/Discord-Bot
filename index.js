@@ -162,8 +162,7 @@ client.on('message', async message => {
       }
       let validate = ytdl.validateURL(args[1]);
       if (!validate){
-         message.reply("Please provide a valid URL");
-         return;
+         return message.reply("Please provide a valid URL");  
       }
       if(!message.member.voice.channel){
         return message.reply('Please join a voice channel first');
