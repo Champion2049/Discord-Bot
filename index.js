@@ -659,7 +659,7 @@ client.on('message', async message => {
 const YouTube = require("discord-youtube-api");
 const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 client.on('message', async message => {
-  if(!message.content.startsWith(prefix) || message.author.bot) retzurn;
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
        if(command === 'youtube'){
