@@ -666,7 +666,7 @@ client.on('message', async message => {
         if(args.length < 1) message.channel.send('I need to know what to search...');
         const video = await youtube.searchVideos(args);
         message.channel.send(`https://www.youtube.com/watch?v=${video.id}`);
-        console.log(video3);
+        console.log(video);
        }
 })
 
