@@ -162,10 +162,10 @@ client.on('message', async message => {
       }
       let validate = ytdl.validateURL(args[1]);
       if (!validate){
-         return message.reply("Please provide a valid URL");  
+        return message.reply("Please provide a valid URL");  
       }
       if(!message.member.voice.channel){
-        return message.reply('Please join a voice channel first');
+       return message.reply('Please join a voice channel first');
       }
       if(!servers[message.guild.id]) servers[message.guild.id] = {
         queue: []
