@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client(); 
 const prefix = 'dc';
-var version = '2.3.7';
+var version = '2.3.8';
 var servers = {};
 const ytdl = require("ytdl-core");
 const fs = require('fs');
@@ -144,7 +144,7 @@ client.on('message', message => {
 		message.reply(`you can either ping me or use \`${prefix}\` as my prefix.`);
 	}
 });
-client.on('message', message => {
+client.on('message', async message => {
   let args = message.content.substring(prefix.length).split(" "); 
   switch (args[0]){
     case 'play':
@@ -166,8 +166,7 @@ client.on('message', message => {
          return;
       }
       if(!message.member.voice.channel){
-        message.reply('Please join a voice channel first');
-        return;
+        return message.reply('Please join a voice channel first');
       }
       if(!servers[message.guild.id]) servers[message.guild.id] = {
         queue: []
