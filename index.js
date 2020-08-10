@@ -668,7 +668,6 @@ client.on('message', async message => {
        }
 })
 require('dotenv').config()
-const client = new Client({disableEveryone: true})
 client.on('message', async message =>{
   if(message.author.bot) return
   if(!message.content.startsWith(prefix)) return
