@@ -366,7 +366,7 @@ client.on('message', async message => {
                       return false;
                   }
               };
-              const response = await msg.channel.awaitMessages(filter, { max: 1, time: 1000000, errors: ['time']});
+              const response = await msg.channel.awaitMessages(filter, { max: 1, time: 200000, errors: ['time']});
               if(response) {
                   await msg.channel.send('You have verified yourself!')
                   await member.roles.add(role => role.name === 'Verified')
@@ -376,7 +376,7 @@ client.on('message', async message => {
           catch(err) {
               console.log(err);
               await msg.channel.send('You did not solve the captcha correctly on time.');
-              await member.kick()
+              await member.warn()
                       .catch(err => console.log(err));
           }
       }
