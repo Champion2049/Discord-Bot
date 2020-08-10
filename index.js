@@ -671,7 +671,7 @@ require('dotenv').config()
 client.on('message', async message =>{
   if(message.author.bot) return
   if(!message.content.startsWith(prefix)) return
-  const args = message.content.substring(prefix.length).split('')
+  const args = message.content.substring(prefix.length).split(" ");
   if(message.content.startsWith(`${prefix}play`)){
     const voiceChannel = message.member.voice.channel
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
