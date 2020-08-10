@@ -147,7 +147,7 @@ client.on('message', message => {
 client.on('message', async message => {
   let args = message.content.substring(prefix.length).split(" "); 
   switch (args[0]){
-    case 'play':
+    case 'play2':
       function play(connection, message){
         var server = servers[message.guild.id];
         server.dispatcher = connection.play(ytdl(server.queue[0], {filter: "audioonly"}));
@@ -666,6 +666,38 @@ client.on('message', async message => {
         message.channel.send(`https://www.youtube.com/watch?v=${video.id}`);
         console.log(video);
        }
+})
+require('dotenv').config()
+const client = new Client({disableEveryone: true})
+client.on('message', async message =>{
+  if(message.author.bot) return
+  if(!message.content.startsWith(prefix)) return
+  const args = message.content.substring(prefix.length).split('')
+  if(message.content.startsWith(`${prefix}play`)){
+    const voiceChannel = message.member.voice.channel
+    if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
+    const permissions = voiceChannel.permissionsFor(message.client.user)
+    if(!permissions.has("CONNECT")) return message.reply('I dont have the required permissions to join a Voice Channel!')
+    if(!permissions.has("SPEAK")) return message.reply('I dont have the permission to speak in the Voice Channel!')
+    try{
+      var connection = await voiceChannel.join()
+    }catch(error){
+    console.log(`There was an error in connecting to the Voice Channel: ${error}`)
+    return message.reply('There was an error in connecting to the Voice Channel')
+    }
+    const dispatcher = connection.play(ytdl(args[1]))
+    .on('finish', () => {
+      voiceChannel.leave()
+    })
+    .on('error', error => {
+      console.log(error)
+    })
+    dispatcher.setVolumeLogarithmic(5 / 5)
+  }else if(message.content.startsWith(`${prefix}stop`)){
+    if(!message.member.voiceChannel) return message.reply("Please join a Voice Channel first!")
+    message.member.voiceChannel.leave()
+    return undefined
+  }
 })
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
