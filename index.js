@@ -504,7 +504,7 @@ client.on('message', async message => {
        const command = args.shift().toLowerCase();
   if (command === 'meme') {
     const embed = new Discord.MessageEmbed();
-    got('https://www.reddit.com/r/memes/comments/i8br82/random/.json').then(response => {
+    got('https://www.reddit.com/r/memes/comments/random/.json').then(response => {
         let content = JSON.parse(response.body);
         let permalink = content[0].data.children[0].data.permalink;
         let memeUrl = `https://reddit.com${permalink}`;
