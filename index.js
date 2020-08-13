@@ -402,7 +402,7 @@ client.on('message', async message => {
       .setTimestamp()
       let m = await message.channel.send(embed)
       m.react("👍")
-      if(message.author.bot.messageReaction.add){
+      if(message.author.bot.messageReaction.cache.get().count = 2){
         message.channel.send("hi");
       }
       message.delete();
