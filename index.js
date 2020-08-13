@@ -401,7 +401,6 @@ client.on('message', async message => {
       .addField('Bot Information', "dcbotinfo- see information about the bot\n dcinvite- get the link to invite the bot!\n dcsupport- give you the link to the bot's support server\n dchelp- displays the current page containing all the bot's commands")
       .setTimestamp()
       let m = message.channel.send(embed)
-      m.react("👍");
       message.delete();
     }
   })
