@@ -400,13 +400,12 @@ client.on('message', async message => {
       .addField('Captcha (inbuilt)', 'It makes all newly joined members solve a captcha within a specified time!\n Please make a role called `Verified` Which will be given to all new members.\n Absence of role called `Verified` will cause the bot to kick a member who solved captcha correctly too!')
       .addField('Bot Information', "dcbotinfo- see information about the bot\n dcinvite- get the link to invite the bot!\n dcsupport- give you the link to the bot's support server\n dchelp- displays the current page containing all the bot's commands")
       .setTimestamp()
-      message.delete();
       let m = await message.channel.send(embed)
       m.react("👍")
-        if (m.reactions.cache.get('👍').count >= 2) {
-          message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`);
-          return message.channel.send("hi")
-        }
+      if(message.author.bot.messageReaction.add){
+        message.channel.send("hi");
+      }
+      message.delete();
     }
   })
   client.on('message', async message => {
@@ -594,10 +593,11 @@ module.exports = {
     if (
       !args[0].endsWith("d") &&
       !args[0].endsWith("h") &&
-      !args[0].endsWith("m")
+      !args[0].endsWith("m") &&
+      !args[0].endsWith("s")
     )
       return message.channel.send(
-        `You did not use the correct format for the time!(please specify the time in d-days,h-hours,m-minutes)`
+        `You did not use the correct formatting for the time!(please specify the time in d-days,h-hours,m-minutes)`
       );
     if (isNaN(args[0][0])) return message.channel.send(`That is not a number!`);
     let channel = message.mentions.channels.first();
@@ -606,9 +606,9 @@ module.exports = {
         `I could not find that channel in the guild!`
       );
     let prize = args.slice(3).join(" ");
-    if (!prize) return message.channel.send("Are there any requirements for this Giveaway, if none type nothing");
+    if (!prize) return message.channel.send(`No prize specified!`);
     let req = args.slice(2,3).join(" ");
-    if (!req) return message.channel.send("No Prize Specified!")
+    if (!req) return message.channel.send("Are there any requirements for this Giveaway, if none type nothing")
     message.delete();
     message.channel.send(`*Giveaway created in ${channel}*`);
     let Embed = new Discord.MessageEmbed()
