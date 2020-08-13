@@ -400,11 +400,8 @@ client.on('message', async message => {
       .addField('Captcha (inbuilt)', 'It makes all newly joined members solve a captcha within a specified time!\n Please make a role called `Verified` Which will be given to all new members.\n Absence of role called `Verified` will cause the bot to kick a member who solved captcha correctly too!')
       .addField('Bot Information', "dcbotinfo- see information about the bot\n dcinvite- get the link to invite the bot!\n dcsupport- give you the link to the bot's support server\n dchelp- displays the current page containing all the bot's commands")
       .setTimestamp()
-      let m = await message.channel.send(embed)
-      m.react("👍")
-      if(message.author.bot.messageReaction.cache.get().count = 2){
-        message.channel.send("hi");
-      }
+      let m = message.channel.send(embed)
+      m.react("👍");
       message.delete();
     }
   })
