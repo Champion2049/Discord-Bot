@@ -36,7 +36,7 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'kick') {
-    if (message.author.bot.hasPermission("KICK_MEMBERS")) {
+    if (message.author.hasPermission("KICK_MEMBERS")) {
       if (args[0]) {
         return message.reply('You must tag 1 user.');
       } else {
