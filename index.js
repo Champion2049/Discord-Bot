@@ -49,7 +49,7 @@ client.on('message', async message => {
           await member.send(`You have been kicked from \`${message.guild.name}\`. Reason: \`${reason}\``)
          .catch(err => message.channel.send(`⚠ Unable to alert ${member} of reason.`));
          await member.kick(reason);
-         await message.channel.send(`👋 ${member} has been kicked!`);
+         await message.channel.send(`👋 ${member} has been kicked!\nhttps://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.tenor.com%2Fimages%2Fbad38f70530432509894a8eefbad9ead%2Ftenor.gif&imgrefurl=https%3A%2F%2Ftenor.com%2Fview%2Fnikal-lawdey-pehli-fursat-nikal-bhaag-gif-14595566&tbnid=c5tz0tAgU3KCGM&vet=12ahUKEwih7oD3_pnrAhUuDLcAHWujCKsQMygBegUIARDDAQ..i&docid=Aqx4A449PQPIkM&w=220&h=423&q=nikaal%20pehle%20fursat%20mein%20nikaal&hl=en&safe=active&client=safari&ved=2ahUKEwih7oD3_pnrAhUuDLcAHWujCKsQMygBegUIARDDAQ`);
 console.log(`${message.author.tag} kicked ${member.user.tag} from '${message.guild.name}'.`);
             }
           }
@@ -72,7 +72,7 @@ client.on('message', message => {
             reason: 'They were bad!',
           })
           .then(() => {
-            message.reply(`Successfully banned ${user.tag}`);
+            message.reply(`Successfully banned ${user.tag}\nhttps://tenor.com/view/trump-donaldtrump-interview-banned-cnn-gif-7677105`);
           })
           .catch(err => {
             message.reply('I was unable to ban the member');
