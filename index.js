@@ -397,12 +397,12 @@ client.on('message', async message => {
       .setTitle('**Help is Here!**')
       .setColor(0x14c9ed)
       .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
-      .addField('Moderation Commands', 'dckick- kicks the mentioned person\n dcban- bans the mentioned person\n dcclear- deletes a mentioned amount of messages\n dcpoll- creates a poll to vote on\n dcwarn- gives the mentioned user a warning\n dcserverinfo- gives detailed information about the server\n dcmute- mutes the mentioned person for the given amount of time\n dcaddrole- add the mentioned role to the mentioned user\n dcremoverole- removes a mentioned role from the mentioned user')
-      .addField('Music Commands', 'dcplay- plays music from provided link')
-      .addField('Giveaway', `dcgiveaway- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
-      .addField('Fun Commands', "dcgif- searches giphy for the mentioned word(s)\n dc8ball- ask a question and it will answer it\n dcgoogle- googles the mentioned word(s)\n dcyoutube- searches the word(s) on youtube\n dcurban- searches the urban dictionary for the mentioned word(s)\n dcavatar- shows your or mentioned user's profile picture\n dckill- sends a funny message of how the person/ mentioned person died/ was killed\n dctv- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n dcmeme- gives you a meme from reddit")
-      .addField('Captcha (inbuilt)', 'It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding enable and disable captcha command soon!')
-      .addField('Bot Information', "dcbotinfo- see information about the bot\n dcinvite- get the link to invite the bot!\n dcsupport- give you the link to the bot's support server\n dchelp- displays the current page containing all the bot's commands")
+      .addField('🛠__Moderation Commands__🛠', 'dckick- kicks the mentioned person\n dcban- bans the mentioned person\n dcclear- deletes a mentioned amount of messages\n dcpoll- creates a poll to vote on\n dcwarn- gives the mentioned user a warning\n dcserverinfo- gives detailed information about the server\n dcmute- mutes the mentioned person for the given amount of time\n dcaddrole- add the mentioned role to the mentioned user\n dcremoverole- removes a mentioned role from the mentioned user')
+      .addField('🎶__Music Commands__🎵', 'dcplay- plays music from provided link')
+      .addField('🎉__Giveaway Commands__🎊', `dcgiveaway- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
+      .addField('🤪__Fun Commands__😂', "dcgif- searches giphy for the mentioned word(s)\n dc8ball- ask a question and it will answer it\n dcgoogle- googles the mentioned word(s)\n dcyoutube- searches the word(s) on youtube\n dcurban- searches the urban dictionary for the mentioned word(s)\n dcavatar- shows your or mentioned user's profile picture\n dckill- sends a funny message of how the person/ mentioned person died/ was killed\n dctv- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n dcmeme- gives you a meme from reddit")
+      .addField('📝__Captcha (inbuilt)__🛡', 'It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding enable and disable captcha command soon!')
+      .addField('🤖__Bot Information__🤖', "dcbotinfo- see information about the bot\n dcinvite- get the link to invite the bot!\n dcsupport- give you the link to the bot's support server\n dchelp- displays the current page containing all the bot's commands")
       .setTimestamp()
       let m = message.channel.send(embed)
       message.delete();
@@ -426,7 +426,7 @@ client.on('message', async message => {
          const command = args.shift().toLowerCase();
     if (command === 'kill') {
       let replies = ["by slipping over a leaf", "by using a gun", "I don't know how he died", "by jumping in a well", " by hanging himself to death", "because he was bored", "by watching too much tv", "go ask him how", "by falling from his bed", "by crying too much", "I wonder why", ];
-      let repliesa = ["for laughing too much", "for not using the bot", "by drowning him in a swimming pool", "by stabbing him in the chest", "because he farted too much", "with his sniper", "by running him over by a car", "by feed him to his pet lion", "because he was not worthy of living"];
+      let repliesa = ["for laughing too much", "for not using the bot", "by drowning him in a swimming pool", "by stabbing him in the chest", "because he farted too much", "with his sniper", "by running him over by a car", "by feeding him to his pet lion", "because he was not worthy of living"];
       let result = Math.floor((Math.random() * replies.length));
     let killed = message.mentions.members.first();
     if(!killed) {
