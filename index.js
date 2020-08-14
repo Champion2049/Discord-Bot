@@ -404,7 +404,7 @@ client.on('message', async message => {
       .addField('📝__Captcha (inbuilt)__🛡', 'It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding ``enable and disable captcha command coming soon``!')
       .addField('🤖__Bot Information__🤖', "**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
       .setTimestamp()
-      let m = message.channel.send(embed)
+      let m = await message.channel.send(embed)
       m.react("🛠")
       m.react("🎵")
       m.react("🎉")
