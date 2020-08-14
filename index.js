@@ -349,6 +349,7 @@ client.on('message', async message => {
     })
   const createCaptcha = require('./captcha.js');
   client.on('guildMemberAdd', async member => {
+    let role = message.guild.cache.find(role => role.name === 'Verfied')
       const captcha = await createCaptcha();
       try {
           const msg = await member.send('You have to verify yourself soon, or else you will be kicked out', {
@@ -366,10 +367,13 @@ client.on('message', async message => {
                       return false;
                   }
               };
+              if(!role){
+                guild.roles.create({ data: { name: 'Verfied', permissions: ["SEND_MESSAGES", "READ_TEXT_CHANNELS_&_SEE_VOICE_CHANNELS"] } });
+              }
               const response = await msg.channel.awaitMessages(filter, { max: 1, time: 200000, errors: ['time']});
               if(response) {
                   await msg.channel.send('You have verified yourself!')
-                  await member.roles.add(role => role.name === 'Verified')
+                  await member.roles.add(role)
                       .catch(err => console.log(err));
               }
           }
@@ -752,7 +756,7 @@ client.on('message', async message=>{
   }
   useradd.roles.remove(role)
 
-await message.channel.send(`Removes ${role} from ${useradd}`)
+await message.channel.send(`Removed ${role} from ${useradd}`)
 
 })
 
