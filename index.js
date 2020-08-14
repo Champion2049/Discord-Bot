@@ -397,20 +397,81 @@ client.on('message', async message => {
       .setTitle('**Help is Here!**')
       .setColor(0x14c9ed)
       .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
-      .addField('🛠__Moderation Commands__🛠', '**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user')
-      .addField('🎶__Music Commands__🎵', '**dcplay**- plays music from provided link')
-      .addField('🎉__Giveaway Commands__🎊', `**dcgiveaway**- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
-      .addField('🤪__Fun Commands__😂', "**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit")
-      .addField('📝__Captcha (inbuilt)__🛡', 'It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding ``enable and disable captcha command coming soon``!')
-      .addField('🤖__Bot Information__🤖', "**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
+      .addField('🛠__Moderation Commands__🛠', 'Commands which require Admin Permission')
+      .addField('🎶__Music Commands__🎵', 'Commands that are related to Music')
+      .addField('🎉__Giveaway Commands__🎊', `Commands that are related to Giveaways`)
+      .addField('🤪__Fun Commands__😂', "Commands to solve your Boredom issues")
+      .addField('📝__Captcha (inbuilt)__🛡', 'Protection against Raiders')
+      .addField('🤖__Bot Information__🤖', "More Information")
       .setTimestamp()
-      let m = await message.channel.send(embed)
+      const m = await message.channel.send(embed).then(message => {
+        message.delete({ timeout: 20000 });
+    })
       m.react("🛠")
       m.react("🎵")
       m.react("🎉")
       m.react("🤪")
       m.react("📝")
       m.react("🤖")
+      m.react("❌")
+      m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '🛠' || reaction.emoji.name === '🎵' || reaction.emoji.name === '🎉' || reaction.emoji.name === '🤪' || reaction.emoji.name === '📝' || reaction.emoji.name === '❌'),
+                          { max: 1, time: 30000 }).then(collected => {
+                                  if (collected.first().emoji.name === '🛠') {
+                                          const membed = new Discord.MessageEmbed()
+                                          .setTitle("**🛠__Moderation Commands__🛠**")
+                                          .setFooter("Bot made by Champion2049#3714")
+                                          .setDescription('**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user')
+                                          message.channel.send(membed)
+                                          .setColor(0x14c9ed);
+                                  }
+                                  else if(collected.first().emoji.name === '🎵'){
+                                    const muembed = new Discord.MessageEmbed()
+                                    .setTitle('**🎶__Music Commands__🎵**')
+                                    .setFooter("Bot Made by Champion2049#3714")
+                                    .setDescription('**dcplay**- plays music from provided link')
+                                    message.channel.send(muembed)
+                                    .setColor(0x14c9ed);
+                                  }
+                                  else if(collected.first().emoji.name === '🎉'){
+                                    const gembed = new Discord.MessageEmbed()
+                                    .setTitle('**🎉__Giveaway Commands__🎊**')
+                                    .setFooter('Bot made by Champion2049#3714')
+                                    .setDescription(`**dcgiveaway**- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
+                                    message.channel.send(gembed)
+                                    .setColor(0x14c9ed);
+                                  }
+                                  else if(collected.first().emoji.name === '🤪'){
+                                    const fembed = new Discord.MessageEmbed()
+                                    .setTitle('**🤪__Fun Commands__😂**')
+                                    .setFooter("Bot made by Champion2049#3714")
+                                    .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit")
+                                    message.channel.send(fembed)
+                                    .setColor(0x14c9ed);
+                                  }
+                                  else if(collected.first().emoji.name === '📝'){
+                                    const cembed = new Discord.MessageEmbed()
+                                    .setTitle('**📝__Captcha (inbuilt)__🛡**')
+                                    .setFooter("Bot made by Champion2049#3714")
+                                    .setDescription('It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding ``enable and disable captcha command coming soon``!')
+                                    message.channel.send(cembed)
+                                    .setColor(0x14c9ed);
+                                  }
+                                  else if(collected.first().emoji.name === '🤖'){
+                                    const bembed = new Discord.MessageEmbed()
+                                    .setTitle('**🤖__Bot Information__🤖**')
+                                    .setFooter("Bot made by Champion2049#3714")
+                                    .setDescription("**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
+                                    message.channel.send(bembed)
+                                    .setColor(0x14c9ed);
+                                  }
+                                  else if(collected.first().emoji.name === '❌'){
+                                    message.delete(embed);
+                                  }
+                                  else
+                                          message.reply('Operation canceled.');
+                          }).catch(() => {
+                                  message.reply('No reaction after 30 seconds, operation canceled');
+                          });
       message.delete();
     }
   })
