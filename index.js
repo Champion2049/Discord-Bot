@@ -555,11 +555,11 @@ client.on('message', async message => {
   let mutetime = args[1];
   if(!mutetime) return message.reply("You didn't specify a time!");
 
-  await(tomute.roles.add(muterole.id)) 
+  await(tomute.roles.add(muterole)) 
   message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
 
   setTimeout(function(){
-    tomute.roles.remove(muterole.id);
+    tomute.roles.remove(muterole);
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, ms(mutetime));
 }
