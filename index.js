@@ -349,7 +349,6 @@ client.on('message', async message => {
     })
   const createCaptcha = require('./captcha.js');
   client.on('guildMemberAdd', async member => {
-    let role = message.guild.cache.find(role => role.name === 'Verfied')
       const captcha = await createCaptcha();
       try {
           const msg = await member.send('You have to verify yourself soon, or else you will be kicked out', {
@@ -358,6 +357,10 @@ client.on('message', async message => {
                   name: `${captcha}.png`
               }]
           });
+          const role = member.guild.roles.cache.find(role => role.name === 'Verfied')
+              if(!role){
+                member.guild.roles.create({ data: { name: 'Verfied', permissions: ["SEND_MESSAGES", "READ_MESSAGE_HISTORY"] } });
+              }
           try {
               const filter = m => {
                   if(m.author.bot) return;
@@ -367,9 +370,6 @@ client.on('message', async message => {
                       return false;
                   }
               };
-              if(!role){
-                guild.roles.create({ data: { name: 'Verfied', permissions: ["SEND_MESSAGES", "READ_TEXT_CHANNELS_&_SEE_VOICE_CHANNELS"] } });
-              }
               const response = await msg.channel.awaitMessages(filter, { max: 1, time: 200000, errors: ['time']});
               if(response) {
                   await msg.channel.send('You have verified yourself!')
@@ -380,7 +380,7 @@ client.on('message', async message => {
           catch(err) {
               console.log(err);
               await msg.channel.send('You did not solve the captcha correctly on time.');
-              await member.warn()
+              await member.roles.remove(role)
                       .catch(err => console.log(err));
           }
       }
@@ -397,11 +397,11 @@ client.on('message', async message => {
       .setTitle('**Help is Here!**')
       .setColor(0x14c9ed)
       .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
-      .addField('Moderation Commands', 'dckick- kicks the mentioned person\n dcban- bans the mentioned person\n dcclear- deletes a mentioned amount of messages\n dcpoll- creates a poll to vote on\n dcwarn- gives the mentioned user a warning\n dcserverinfo- gives detailed information about the server\n dcmute- mutes the mentioned person for the given amount of time')
+      .addField('Moderation Commands', 'dckick- kicks the mentioned person\n dcban- bans the mentioned person\n dcclear- deletes a mentioned amount of messages\n dcpoll- creates a poll to vote on\n dcwarn- gives the mentioned user a warning\n dcserverinfo- gives detailed information about the server\n dcmute- mutes the mentioned person for the given amount of time\n dcaddrole- add the mentioned role to the mentioned user\n dcremoverole- removes a mentioned role from the mentioned user')
       .addField('Music Commands', 'dcplay- plays music from provided link')
       .addField('Giveaway', `dcgiveaway- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
       .addField('Fun Commands', "dcgif- searches giphy for the mentioned word(s)\n dc8ball- ask a question and it will answer it\n dcgoogle- googles the mentioned word(s)\n dcyoutube- searches the word(s) on youtube\n dcurban- searches the urban dictionary for the mentioned word(s)\n dcavatar- shows your or mentioned user's profile picture\n dckill- sends a funny message of how the person/ mentioned person died/ was killed\n dctv- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n dcmeme- gives you a meme from reddit")
-      .addField('Captcha (inbuilt)', 'It makes all newly joined members solve a captcha within a specified time!\n Please make a role called `Verified` Which will be given to all new members.\n Absence of role called `Verified` will cause the bot to kick a member who solved captcha correctly too!')
+      .addField('Captcha (inbuilt)', 'It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding enable and disable captcha command soon!')
       .addField('Bot Information', "dcbotinfo- see information about the bot\n dcinvite- get the link to invite the bot!\n dcsupport- give you the link to the bot's support server\n dchelp- displays the current page containing all the bot's commands")
       .setTimestamp()
       let m = message.channel.send(embed)
