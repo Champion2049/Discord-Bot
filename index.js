@@ -426,7 +426,7 @@ client.on('message', async message => {
                                     const muembed = new Discord.MessageEmbed()
                                     .setTitle('**🎶__Music Commands__🎵**')
                                     .setFooter("Bot Made by Champion2049#3714")
-                                    .setDescription('**dcplay**- plays music from provided link')
+                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music')
                                     message.channel.send(muembed)
                                     .setColor(0x14c9ed)
                                     message.delet
