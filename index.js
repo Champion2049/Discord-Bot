@@ -545,27 +545,13 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
        if (command === 'mute') {
-  let tomute = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
+  const tomute = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
   if(!tomute) return message.reply("Couldn't find user.");
   let muterole = message.guild.roles.cache.find(muterole => muterole.name === "Muted");
   let removerole = message.guild.roles.cache.find(removerole => removerole.name === "Member")
   if(!muterole){
-    try{
-      muterole = message.guild.roles.create({
-        name: "Muted",
-        color: "#000000",
-        permissions:[]
-      })
-      message.guild.channels.cache.forEach(async (channel, id) => {
-        await channel.Permissions(muterole, {
-          SEND_MESSAGES: false,
-          ADD_REACTIONS: false
-        })
-      });
-    }catch(e){
-      console.log(e.stack);
+      message.guild.roles.create({ data: { name: 'Muted', permissions: 0,reason: 'Muted role not present in server!' } }); 
     }
-  }
   let mutetime = args[1];
   if(!mutetime) return message.reply("You didn't specify a time!");
 
