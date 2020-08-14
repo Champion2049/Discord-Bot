@@ -699,5 +699,61 @@ client.on('message', async message =>{
     return undefined
   }
 })
+client.on('message', async message=>{
+  if(!message.content.startsWith(prefix + 'addrole') || message.author.bot)return;
+  if(!message.member.hasPermission("MANAGE_ROLES")){
+    return message.channel.send("You do not have permission to add roles")
+  };
+ 
+   if(!message.guild.me.hasPermission("MANAGE_ROLES")){
+     return message.channel.send("I don't have permissions to add roles")
+   };
+   let useradd = message.mentions.members.first();
+
+   if(!useradd) {
+     return message.channel.send("Please mention the member to who you want to add roles")
+   }
+   let role = message.mentions.roles.first();
+   if(!role) {
+    return message.channel.send("Mention the role you want to add")
+  }
+
+
+ if(useradd.roles.cache.has(role)) {
+    return message.channel.send("Given User already has that role")
+  }
+  useradd.roles.add(role)
+
+await message.channel.send(`Added ${role} to ${useradd}`)
+
+})
+client.on('message', async message=>{
+  if(!message.content.startsWith(prefix + 'removerole') || message.author.bot)return;
+  if(!message.member.hasPermission("MANAGE_ROLES")){
+    return message.channel.send("You do not have permission to remove roles")
+  };
+ 
+   if(!message.guild.me.hasPermission("MANAGE_ROLES")){
+     return message.channel.send("I don't have permissions to remove roles")
+   };
+   let useradd = message.mentions.members.first();
+
+   if(!useradd) {
+     return message.channel.send("Please mention the member to who you want to remove roles")
+   }
+   let role = message.mentions.roles.first();
+   if(!role) {
+    return message.channel.send("Mention the role you want to remove")
+  }
+
+
+ if(useradd.roles.cache.has(role)) {
+    return message.channel.send("Mentioned user does not has that role")
+  }
+  useradd.roles.remove(role)
+
+await message.channel.send(`Removes ${role} from ${useradd}`)
+
+})
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
