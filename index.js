@@ -404,9 +404,7 @@ client.on('message', async message => {
       .addField('📝__Captcha (inbuilt)__🛡', 'Protection against Raiders')
       .addField('🤖__Bot Information__🤖', "More Information")
       .setTimestamp()
-      const m = await message.channel.send(embed).then(message => {
-        message.delete({ timeout: 20000 });
-    })
+      const m = await message.channel.send(embed).then(message.deleteable)
       m.react("🛠")
       m.react("🎵")
       m.react("🎉")
@@ -430,7 +428,8 @@ client.on('message', async message => {
                                     .setFooter("Bot Made by Champion2049#3714")
                                     .setDescription('**dcplay**- plays music from provided link')
                                     message.channel.send(muembed)
-                                    .setColor(0x14c9ed);
+                                    .setColor(0x14c9ed)
+                                    message.delet
                                   }
                                   else if(collected.first().emoji.name === '🎉'){
                                     const gembed = new Discord.MessageEmbed()
