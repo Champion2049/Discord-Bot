@@ -466,9 +466,9 @@ client.on('message', async message => {
                                   else if(collected.first().emoji.name === '❌'){
                                     message.delete(embed);
                                   }
-                          }).catch(() => {
-                                  message.reply('No reaction after 30 seconds, operation canceled');
-                          });
+                                  else
+                                          message.reply('Operation canceled.');
+                          })
       message.delete();
     }
   })
