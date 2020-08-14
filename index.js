@@ -745,5 +745,25 @@ client.on('message', async message=>{
 await message.channel.send(`Removed ${role} from ${useradd}`)
 
 })
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'test') {
+                  message.reply('The bot will now shut down.\n'
+                          + 'Confirm with `yes` or deny with `no`.');
+                  message.channel.awaitMessages(m => m.author.id == message.author.id,
+                          {max: 1, time: 30000}).then(collected => {
+                                  if (collected.first().content.toLowerCase() == 'yes') {
+                                          message.reply('Shutting down...');
+                                  }
+
+                                  else
+                                          message.reply('Operation canceled.');      
+                          }).catch(() => {
+                                  message.reply('No answer after 30 seconds, operation canceled.');
+                          });
+          }  
+});
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
