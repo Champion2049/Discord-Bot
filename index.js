@@ -752,9 +752,10 @@ client.on('message', async message => {
   if (command === 'test') {
                   message.reply('The bot will now shut down.\n'
                           + 'Confirm with `yes` or deny with `no`.');
+                          message.reactions.add("👍")
                   message.channel.awaitMessages(m => m.author.id == message.author.id,
                           {max: 1, time: 30000}).then(collected => {
-                                  if (collected.first().content.toLowerCase() == 'yes') {
+                                  if (collected.first().content.toLowerCase() == '👍') {
                                           message.reply('Shutting down...');
                                   }
 
