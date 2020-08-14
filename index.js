@@ -779,7 +779,6 @@ client.on('message', async message => {
                           { max: 1, time: 30000 }).then(collected => {
                                   if (collected.first().emoji.name === '👍') {
                                           message.reply('Shutting down...');
-                                          client.destroy();
                                   }
                                   else
                                           message.reply('Operation canceled.');
