@@ -42,7 +42,7 @@ client.on('message', async message => {
       } else {
         let member = message.mentions.members.first();
         let reason = message.content.split(" ").slice(5);
-        if (member.kickable == false) {
+        if (member.kickable === false) {
           message.channel.send("That user cannot be kicked!");
           return;
         } else {
