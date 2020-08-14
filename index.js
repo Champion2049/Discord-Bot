@@ -402,7 +402,7 @@ client.on('message', async message => {
       .addField('🎉__Giveaway Commands__🎊', `**dcgiveaway**- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
       .addField('🤪__Fun Commands__😂', "**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit")
       .addField('📝__Captcha (inbuilt)__🛡', 'It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding ``enable and disable captcha command coming soon``!')
-      .addField('🤖__Bot Information__🤖', "**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- give you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
+      .addField('🤖__Bot Information__🤖', "**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
       .setTimestamp()
       let m = message.channel.send(embed)
       message.delete();
