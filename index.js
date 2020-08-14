@@ -405,6 +405,12 @@ client.on('message', async message => {
       .addField('🤖__Bot Information__🤖', "**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
       .setTimestamp()
       let m = message.channel.send(embed)
+      m.react("🛠")
+      m.react("🎵")
+      m.react("🎉")
+      m.react("🤪")
+      m.react("📝")
+      m.react("🤖")
       message.delete();
     }
   })
@@ -770,7 +776,6 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'etest') {
-    message.delete();
                   message.reply('The bot will now shut down.\n'
                           + 'Confirm with a thumb up or deny with a thumb down.');
                   message.react('👍').then(r => {
