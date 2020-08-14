@@ -770,6 +770,7 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'etest') {
+    message.delete();
                   message.reply('The bot will now shut down.\n'
                           + 'Confirm with a thumb up or deny with a thumb down.');
                   message.react('👍').then(r => {
