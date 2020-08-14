@@ -749,7 +749,7 @@ client.on('message', async message =>{
     dispatcher.setVolumeLogarithmic(5 / 5)
   }else if(message.content.startsWith(`${prefix}stop`)){
     if(!message.member.voice.channel) return message.reply("Please join a Voice Channel first!")
-    message.member.voiceChannel.leave()
+    message.member.voice.channel.leave()
     return undefined
   }
 })
