@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client(); 
 const prefix = 'dc';
-var version = '2.3.8';
+var version = '2.4';
 var servers = {};
 const ytdl = require("ytdl-core");
 const fs = require('fs');
