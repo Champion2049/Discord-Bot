@@ -25,10 +25,15 @@ client.on('message', message =>{
        const command = args.shift().toLowerCase();
 
        if(command === 'ping'){
-         message.channel.send(`${client.ping}`);
+        message.channel.send("Pinging...").then(m =>{
+            var ping = m.createdTimestamp - message.createdTimestamp;
+            var embed = new Discord.MessageEmbed()
+            .setAuthor(`Your ping is ${ping}ms`)
+            .setColor("Your Color")
+            m.edit(embed)
+        });
+    }
        }
-       
-  }
 );
 
 client.on('message', async message => {
@@ -409,7 +414,7 @@ client.on('message', async message => {
       .addField('📝__Captcha (inbuilt)__🛡', 'Protection against Raiders')
       .addField('🤖__Bot Information__🤖', "More Information")
       .setTimestamp()
-      const m = await message.channel.send(embed).then(message.deleteable)
+      const m = await message.channel.send(embed)
       m.react("🛠")
       m.react("🎵")
       m.react("🎉")
@@ -424,7 +429,7 @@ client.on('message', async message => {
                                           .setTitle("**🛠__Moderation Commands__🛠**")
                                           .setFooter("Bot made by Champion2049#3714")
                                           .setDescription('**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user')
-                                          message.channel.send(membed)
+                                          m.edit(membed)
                                           .setColor(0x14c9ed);
                                   }
                                   else if(collected.first().emoji.name === '🎵'){
@@ -432,16 +437,15 @@ client.on('message', async message => {
                                     .setTitle('**🎶__Music Commands__🎵**')
                                     .setFooter("Bot Made by Champion2049#3714")
                                     .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music')
-                                    message.channel.send(muembed)
+                                    m.edit(muembed)
                                     .setColor(0x14c9ed)
-                                    message.delet
                                   }
                                   else if(collected.first().emoji.name === '🎉'){
                                     const gembed = new Discord.MessageEmbed()
                                     .setTitle('**🎉__Giveaway Commands__🎊**')
                                     .setFooter('Bot made by Champion2049#3714')
                                     .setDescription(`**dcgiveaway**- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
-                                    message.channel.send(gembed)
+                                    m.edit(gembed)
                                     .setColor(0x14c9ed);
                                   }
                                   else if(collected.first().emoji.name === '🤪'){
@@ -449,7 +453,7 @@ client.on('message', async message => {
                                     .setTitle('**🤪__Fun Commands__😂**')
                                     .setFooter("Bot made by Champion2049#3714")
                                     .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit")
-                                    message.channel.send(fembed)
+                                    m.edit(fembed)
                                     .setColor(0x14c9ed);
                                   }
                                   else if(collected.first().emoji.name === '📝'){
@@ -457,7 +461,7 @@ client.on('message', async message => {
                                     .setTitle('**📝__Captcha (inbuilt)__🛡**')
                                     .setFooter("Bot made by Champion2049#3714")
                                     .setDescription('It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding ``enable and disable captcha command coming soon``!')
-                                    message.channel.send(cembed)
+                                    m.edit(cembed)
                                     .setColor(0x14c9ed);
                                   }
                                   else if(collected.first().emoji.name === '🤖'){
@@ -465,11 +469,12 @@ client.on('message', async message => {
                                     .setTitle('**🤖__Bot Information__🤖**')
                                     .setFooter("Bot made by Champion2049#3714")
                                     .setDescription("**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
-                                    message.channel.send(bembed)
+                                    m.edit(bembed)
                                     .setColor(0x14c9ed);
                                   }
                                   else if(collected.first().emoji.name === '❌'){
-                                    message.delete(embed);
+                                    const c = new Discord.MessageEmbed()
+                                    m.edit(c);
                                   }
                                   else
                                           message.reply('Operation canceled.');
@@ -863,7 +868,7 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'animated') {
-   message.channel.send('<a:hyperGirl:610690643815301130> ');
+   message.channel.send('<:partner:743459461988876359>');
   }
 })
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
