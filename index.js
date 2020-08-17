@@ -673,8 +673,8 @@ module.exports = {
     message.delete();
     message.channel.send(`*Giveaway created in ${channel}*`);
     let Embed = new Discord.MessageEmbed()
-      .setTitle('**🎉New Giveaway🎉** `Please react to 🎉 to Participate!`')
-      .addField(`🎁 Prize:`, `${prize}`)
+      .setTitle('**<a:ff:744878566675841144>New Giveaway<a:ff:744878566675841144>** `Please react to 🎉 to Participate!`')
+      .addField(`<:pc_present:744878691838066758> Prize:`, `${prize}`)
       .addField(`📝 Giveaway Hosted by:`, ` ${message.author}`)
       .addField(`⏱ Time:`, `${args[0]}`)
       .addField(`📑 Requirements:`, `Must join: ${req}`)
@@ -687,7 +687,7 @@ module.exports = {
       if (m.reactions.cache.get("🎉").count <= 1) {
         message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`);
         return message.channel.send(
-          `**Sufficient** amount of people did not participate in the Giveaway, hence I was unable to determine a 🏅Winner!`
+          `**Sufficient** amount of people did not participate in the Giveaway, hence I was unable to determine a <a:medal:744879424628981790>Winner!`
         );
       }
 
@@ -696,8 +696,8 @@ module.exports = {
         .users.cache.filter((u) => !u.bot)
         .random();
       let wembed = new Discord.MessageEmbed()
-        .setDescription(`The 🏅Winner of the 🎉Giveaway🎉 for **${prize}** is ||${winner}||! \n 🎊Congrats on winning ${prize}🎊\n Dm ${message.author} to claim your prize 🎁!`)
-        .setTitle(`🏅Winner`)
+        .setDescription(`The <a:medal:744879424628981790>Winner of the <a:ff:744878566675841144>Giveaway<a:ff:744878566675841144> for **${prize}** is ||${winner}||! \n 🎊Congrats on winning ${prize}🎊\n Dm ${message.author} to claim your prize <:pc_present:744878691838066758>!`)
+        .setTitle(`<a:medal:744879424628981790>Winner`)
         .setFooter("Bot made by Champion2049#3714")
         .setTimestamp()
         .setColor(0xFFFF);
