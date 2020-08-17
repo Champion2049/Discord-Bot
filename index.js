@@ -878,6 +878,8 @@ client.on('message', async message => {
   if (command === 'animated') {
    message.channel.send('<a:hypGirl:737005994839769114>');
    message.channel.send('<a:s_dcstaff:727439000343674911> hi')
+   message.react('<a:Verified:625536796268429312>')
   }
 })
+
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
