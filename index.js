@@ -202,7 +202,7 @@ client.on('message', async message => {
     let botembed = new Discord.MessageEmbed()
     .setColor("#00ff00")
     .setThumbnail(bicon)
-    .addField("Bot Name", `🤖 ${client.user.username}`, inline)
+    .addField("Bot Name", `<a:nitroboost:744884824015110204>${client.user.username}<a:nitroboost:744884824015110204>`, inline)
     .addField("Bot Owner", "<a:crown:744885017511198791> Champion2049#3714" , inline )
     .addField("Bot ID", '🆔 730644349897015307')
     .addField("Servers", `🛡 ${servsize}`, inline)
