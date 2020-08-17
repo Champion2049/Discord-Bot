@@ -407,7 +407,7 @@ client.on('message', async message => {
       .setTitle('**Help is Here!**')
       .setColor(0x14c9ed)
       .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
-      .addField('🛠__Moderation Commands__🛠', 'Commands which require Admin Permission')
+      .addField('<a:s_dcstaff:727439000343674911>__Moderation Commands__<a:s_dcstaff:727439000343674911>', 'Commands which require Admin Permission')
       .addField('🎶__Music Commands__🎵', 'Commands that are related to Music')
       .addField('🎉__Giveaway Commands__🎊', `Commands that are related to Giveaways`)
       .addField('🤪__Fun Commands__😂', "Commands to solve your Boredom issues")
@@ -426,7 +426,7 @@ client.on('message', async message => {
                           { max: 1, time: 30000 }).then(collected => {
                                   if (collected.first().emoji.name === '🛠') {
                                           const membed = new Discord.MessageEmbed()
-                                          .setTitle("**🛠__Moderation Commands__🛠**")
+                                          .setTitle('<a:s_dcstaff:727439000343674911> **__Moderation Commands__** <a:s_dcstaff:727439000343674911>')
                                           .setFooter("Bot made by Champion2049#3714")
                                           .setDescription('**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user')
                                           .setColor(0x14c9ed)
@@ -870,6 +870,7 @@ client.on('message', async message => {
        const command = args.shift().toLowerCase();
   if (command === 'animated') {
    message.channel.send('<a:hypGirl:737005994839769114>');
+   message.channel.send('<a:s_dcstaff:727439000343674911> hi')
   }
 })
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
