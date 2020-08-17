@@ -205,7 +205,7 @@ client.on('message', async message => {
     .addField("Bot Name", `<a:nitroboost:744884824015110204>${client.user.username}<a:nitroboost:744884824015110204>`, inline)
     .addField("Bot Owner", "<a:crown:744885017511198791> Champion2049#3714" , inline )
     .addField("Bot ID", '🆔 730644349897015307')
-    .addField("Servers", `🛡 ${servsize}`, inline)
+    .addField("Servers", `<:Discord:744889665164804157> ${servsize}`, inline)
     .addField("Users", `<a:dc:744888395041341460>${usersize}`, inline)
     .addField("Bot Library", "<:Visual_Studio_Code:744887180849053696> Discord.js", inline)
     .addField("Created On",`<:Visual_Studio_Code:744887180849053696>${client.user.createdAt}`)
