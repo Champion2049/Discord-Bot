@@ -572,6 +572,13 @@ name: "imdb",
     .addField("Country", movie.country, true)
     .addField("Languages", movie.languages, true)
     .addField("Type", movie.type, true)
+    .addField("Main Actors", movie.actors, true)
+    .addField("Release Date", movie.released, true)
+    .addField("Ratings", `${movie.rating}/10`, true)
+    .addField("Director", movie.director, true)
+    .addField("Score", movie.metascore, true)
+    .addField("Awards Received", movie.awards, true)
+    .addField("Genres", movie.genres, true)
     .setFooter("Powered by IMDb\n Bot made by Champion2049#3714");
     message.channel.send(embed)
   }
