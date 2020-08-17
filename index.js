@@ -505,9 +505,9 @@ client.on('message', async message => {
       let result = Math.floor((Math.random() * replies.length));
     let killed = message.mentions.members.first();
     if(!killed) {
-    message.channel.send(`${message.author} decied to kill themself and died, ${replies[result]}!  😢 REST IN PEACE 💀`)
+    message.channel.send(`${message.author} decied to kill themself and died, ${replies[result]}!  <a:pinkfire:727438607329263647> REST IN PEACE 💀`)
     } else {
-    message.channel.send(`${killed} was killed by ${message.author} ${repliesa[result]}!  😢 REST IN PEACE 💀`)
+    message.channel.send(`${killed} was killed by ${message.author} ${repliesa[result]}!  <a:pinkfire:727438607329263647> REST IN PEACE 💀`)
     }
   }
 })
