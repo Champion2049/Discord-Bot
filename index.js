@@ -878,7 +878,6 @@ client.on('message', async message => {
   if (command === 'animated') {
    message.channel.send('<a:hypGirl:737005994839769114>');
    message.channel.send('<a:s_dcstaff:727439000343674911> hi')
-   message.react('<a:Verified:625536796268429312>')
   }
 })
 
