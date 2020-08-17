@@ -206,7 +206,7 @@ client.on('message', async message => {
     .addField("Bot Owner", "<a:crown:744885017511198791> Champion2049#3714" , inline )
     .addField("Bot ID", '🆔 730644349897015307')
     .addField("Servers", `🛡 ${servsize}`, inline)
-    .addField("Users", `👨‍💻👩‍💻${usersize}`, inline)
+    .addField("Users", `<a:dc:744888395041341460>${usersize}`, inline)
     .addField("Bot Library", "📜 Discord.js", inline)
     .addField("Created On",`<:Visual_Studio_Code:744887180849053696>${client.user.createdAt}`)
     .addField("Bot Version", `⏱ ${version}`)
