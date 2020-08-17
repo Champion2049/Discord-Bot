@@ -869,7 +869,7 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'animated') {
-   message.channel.send('<:partner:743459461988876359>');
+   message.channel.send('<a:hypGirl:737005994839769114>');
   }
 })
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
