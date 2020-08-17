@@ -858,8 +858,7 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'nitro') {
-    let channel = client.guilds.get('guild_id').channels.get('channel_id');
-    channel.send('<a:NitroBoost~1:717570986198827058>')
+   message.reply('here is a cool emoji -> <a:hyperGirl:610690643815301130>');
   }
 })
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
