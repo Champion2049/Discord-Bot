@@ -523,7 +523,7 @@ const embed = new Discord.MessageEmbed()
 .addField("Verification Level", `✅ ${message.guild.verifLevels}`, true)
 .addField("Channels", `🗂 ${message.guild.channels.cache.size}`, true)
 .addField("Roles", `📋 ${message.guild.roles.cache.size}`, true)
-.addField("Emoji Count", `<a:NitroBoost~1:717570986198827058> This server has ${message.guild.emojis.cache.size} emojis`)
+.addField("Emoji Count", `😇 This server has ${message.guild.emojis.cache.size} emojis`)
 .addField("Creation Date", `🏗 ${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
 .addField("You Joined the server on", `⎆ ${message.member.joinedAt}`)
 .setColor("#00ff00")
@@ -853,5 +853,13 @@ client.on('message', async message => {
 
           }  
 });
-
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'nitro') {
+    let channel = client.guilds.get('guild_id').channels.get('channel_id');
+    channel.send('<a:NitroBoost~1:717570986198827058>')
+  }
+})
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
