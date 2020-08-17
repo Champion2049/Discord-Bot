@@ -29,7 +29,7 @@ client.on('message', message =>{
             var ping = m.createdTimestamp - message.createdTimestamp;
             var embed = new Discord.MessageEmbed()
             .setAuthor(`The Bot's current ping is ${ping}ms`)
-            .setColor("Your Color")
+            .setColor("GREEN")
             m.edit(embed)
         });
     }
