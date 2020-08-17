@@ -208,7 +208,7 @@ client.on('message', async message => {
     .addField("Servers", `🛡 ${servsize}`, inline)
     .addField("Users", `👨‍💻👩‍💻${usersize}`, inline)
     .addField("Bot Library", "📜 Discord.js", inline)
-    .addField("Created On",`🏗 ${client.user.createdAt}`)
+    .addField("Created On",`<:Visual_Studio_Code:744887180849053696>${client.user.createdAt}<:Visual_Studio_Code:744887180849053696>`)
     .addField("Bot Version", `⏱ ${version}`)
     .addField("Uptime", `${days}d ${hours}h ${minutes}m ${seconds}s`)
     .setTitle(`Click here to Invite the bot!`)
