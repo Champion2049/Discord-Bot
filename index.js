@@ -203,7 +203,7 @@ client.on('message', async message => {
     .setColor("#00ff00")
     .setThumbnail(bicon)
     .addField("Bot Name", `🤖 ${client.user.username}`, inline)
-    .addField("Bot Owner", "👑 Champion2049#3714" , inline )
+    .addField("Bot Owner", "<a:crown:744885017511198791> Champion2049#3714" , inline )
     .addField("Bot ID", '🆔 730644349897015307')
     .addField("Servers", `🛡 ${servsize}`, inline)
     .addField("Users", `👨‍💻👩‍💻${usersize}`, inline)
