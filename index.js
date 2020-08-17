@@ -207,7 +207,7 @@ client.on('message', async message => {
     .addField("Bot ID", '🆔 730644349897015307')
     .addField("Servers", `🛡 ${servsize}`, inline)
     .addField("Users", `<a:dc:744888395041341460>${usersize}`, inline)
-    .addField("Bot Library", "📜 Discord.js", inline)
+    .addField("Bot Library", "<:Visual_Studio_Code:744887180849053696> Discord.js", inline)
     .addField("Created On",`<:Visual_Studio_Code:744887180849053696>${client.user.createdAt}`)
     .addField("Bot Version", `⏱ ${version}`)
     .addField("Uptime", `${days}d ${hours}h ${minutes}m ${seconds}s`)
