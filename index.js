@@ -25,7 +25,7 @@ client.on('message', message =>{
        const command = args.shift().toLowerCase();
 
        if(command === 'ping'){
-           client.commands.get('ping').execute(message, args);
+         message.channel.send(`${client.ping}`);
        }
        
   }
@@ -190,6 +190,10 @@ client.on('message', async message => {
     let chansize = client.channels
     let uptimxd = client.uptime 
     let servsize = client.guilds.cache.size
+    let days = Math.floor(client.uptime / 86400000);
+    let hours = Math.floor(client.uptime / 3600000) % 24;
+    let minutes = Math.floor(client.uptime / 60000) % 60;
+    let seconds = Math.floor(client.uptime / 1000) % 60;
     let botembed = new Discord.MessageEmbed()
     .setColor("#00ff00")
     .setThumbnail(bicon)
@@ -201,6 +205,7 @@ client.on('message', async message => {
     .addField("Bot Library", "📜 Discord.js", inline)
     .addField("Created On",`🏗 ${client.user.createdAt}`)
     .addField("Bot Version", `⏱ ${version}`)
+    .addField("Uptime", `${days}d ${hours}h ${minutes}m ${seconds}s`)
     .setTitle(`Click here to Invite the bot!`)
     .setURL('https://discordapp.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
     .setFooter(`Information about: ${client.user.username}. Developed by: Champion2049`)
@@ -857,8 +862,8 @@ client.on('message', async message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
-  if (command === 'nitro') {
-   message.reply('here is a cool emoji -> <a:hyperGirl:610690643815301130>');
+  if (command === 'animated') {
+   message.channel.send('<a:hyperGirl:610690643815301130> ');
   }
 })
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
