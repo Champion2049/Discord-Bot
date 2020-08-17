@@ -429,8 +429,8 @@ client.on('message', async message => {
                                           .setTitle("**🛠__Moderation Commands__🛠**")
                                           .setFooter("Bot made by Champion2049#3714")
                                           .setDescription('**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user')
+                                          .setColor(0x14c9ed)
                                           m.edit(membed)
-                                          .setColor(0x14c9ed);
                                   }
                                   else if(collected.first().emoji.name === '🎵'){
                                     const muembed = new Discord.MessageEmbed()
