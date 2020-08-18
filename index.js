@@ -876,7 +876,7 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'laugh') {
-    message.channel.send(':HAHAHA:745129345999175730>')
+    message.channel.send('<:HAHAHA:745129345999175730>')
   }
 })
 
