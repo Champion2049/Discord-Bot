@@ -409,7 +409,7 @@ client.on('message', async message => {
       .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
       .addField('<a:s_dcstaff:727439000343674911>__Moderation Commands__<a:s_dcstaff:727439000343674911>', 'Commands which require Admin Permission')
       .addField('<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>', 'Commands that are related to Music')
-      .addField('<a:ff:744878566675841144> __Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
+      .addField('<a:ff:744878566675841144>__Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
       .addField('🤪__Fun Commands__<a:BearLaugh:745125674360111145>', "Commands to solve your Boredom issues")
       .addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
       .addField('<:botverificado:745124688048554054>__Bot Information__<:botverificado:745124688048554054>', "More Information")
@@ -434,7 +434,7 @@ client.on('message', async message => {
                                   }
                                   else if(collected.first().emoji.name === '🎵'){
                                     const muembed = new Discord.MessageEmbed()
-                                    .setTitle('**🎶__Music Commands__🎵**')
+                                    .setTitle('**<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>**')
                                     .setFooter("Bot Made by Champion2049#3714")
                                     .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music')
                                     .setColor(0x14c9ed)
@@ -442,7 +442,7 @@ client.on('message', async message => {
                                   }
                                   else if(collected.first().emoji.name === '🎉'){
                                     const gembed = new Discord.MessageEmbed()
-                                    .setTitle('**🎉__Giveaway Commands__🎊**')
+                                    .setTitle('**<a:ff:744878566675841144>__Giveaway Commands__<a:ck_partypack:745123439664169102>**')
                                     .setFooter('Bot made by Champion2049#3714')
                                     .setDescription(`**dcgiveaway**- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
                                     .setColor(0x14c9ed)
@@ -450,7 +450,7 @@ client.on('message', async message => {
                                   }
                                   else if(collected.first().emoji.name === '🤪'){
                                     const fembed = new Discord.MessageEmbed()
-                                    .setTitle('**🤪__Fun Commands__😂**')
+                                    .setTitle('**<a:BearLaugh:745125674360111145>__Fun Commands__<:HAHAHA:745129345999175730>**')
                                     .setFooter("Bot made by Champion2049#3714")
                                     .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit\n **dcping**- shows you the bot's ping")
                                     .setColor(0x14c9ed)
@@ -458,7 +458,7 @@ client.on('message', async message => {
                                   }
                                   else if(collected.first().emoji.name === '📝'){
                                     const cembed = new Discord.MessageEmbed()
-                                    .setTitle('**📝__Captcha (inbuilt)__🛡**')
+                                    .setTitle('**📝__Captcha (inbuilt)__<:Protection:745124390601228358>**')
                                     .setFooter("Bot made by Champion2049#3714")
                                     .setDescription('It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding ``enable and disable captcha command coming soon``!')
                                     .setColor(0x14c9ed)
@@ -466,7 +466,7 @@ client.on('message', async message => {
                                   }
                                   else if(collected.first().emoji.name === '🤖'){
                                     const bembed = new Discord.MessageEmbed()
-                                    .setTitle('**🤖__Bot Information__🤖**')
+                                    .setTitle('**<:botverificado:745124688048554054>__Bot Information__<:botverificado:745124688048554054>**')
                                     .setFooter("Bot made by Champion2049#3714")
                                     .setDescription("**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
                                     .setColor(0x14c9ed)
