@@ -685,19 +685,20 @@ module.exports = {
     if (!req) return message.channel.send("Are there any requirements for this Giveaway, if none type nothing")
     message.delete();
     message.channel.send(`*Giveaway created in ${channel}*`);
-    let Embed = new Discord.MessageEmbed()
+    const Embed = new Discord.MessageEmbed()
       .setTitle('**<a:ff:744878566675841144>New Giveaway<a:ff:744878566675841144>** `Please react to 🎉 to Participate!`')
-      .addField(`<:pc_present:744878691838066758> Prize:`, `${prize}`)
+      .addField(`<:pc_present:745145491716833303> Prize:`, `${prize}`)
       .addField(`📝 Giveaway Hosted by:`, ` ${message.author}`)
       .addField(`⏱ Time:`, `${args[0]}`)
       .addField(`📑 Requirements:`, `Must join: ${req}`)
       .setTimestamp()
       .setFooter("Bot made by Champion2049#3714")
       .setColor(0xFFFF);
-    let m = await channel.send(Embed);
+    const m = await channel.send(Embed);
     m.react("🎉");
     setTimeout(() => {
       if (m.reactions.cache.get("🎉").count <= 1) {
+        message.delete(m)
         message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`);
         return message.channel.send(
           `**Sufficient** amount of people did not participate in the Giveaway, hence I was unable to determine a <a:medal:744879424628981790>Winner!`
@@ -714,7 +715,7 @@ module.exports = {
         .setFooter("Bot made by Champion2049#3714")
         .setTimestamp()
         .setColor(0xFFFF);
-        channel.send(wembed)
+        m.edit(wembed)
     }, ms(args[0]));
   }
 })
