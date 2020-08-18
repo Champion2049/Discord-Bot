@@ -710,7 +710,7 @@ module.exports = {
         .users.cache.filter((u) => !u.bot)
         .random();
       let wembed = new Discord.MessageEmbed()
-        .setDescription(`The <a:medal:744879424628981790>Winner of the <a:ff:744878566675841144>Giveaway<a:ff:744878566675841144> for **${prize}** is ||${winner}||! \n 🎊Congrats on winning ${prize}🎊\n Dm ${message.author} to claim your prize <:pc_present:744878691838066758>!`)
+        .setDescription(`The <a:medal:744879424628981790>Winner of the <a:ff:744878566675841144>Giveaway<a:ff:744878566675841144> for **${prize}** is ||${winner}||! \n 🎊Congrats on winning ${prize}🎊\n Dm ${message.author} to claim your prize <:pc_present:745145491716833303>!`)
         .setTitle(`<a:medal:744879424628981790>Winner`)
         .setFooter("Bot made by Champion2049#3714")
         .setTimestamp()
