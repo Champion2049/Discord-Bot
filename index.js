@@ -717,7 +717,7 @@ module.exports = {
         m.edit(wembed)
     }, ms(args[0]));
   }
-})
+
 const YouTube = require("discord-youtube-api");
 const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 client.on('message', async message => {
@@ -869,6 +869,14 @@ client.on('message', async message => {
   if (command === 'animated') {
    message.channel.send('<a:hypGirl:737005994839769114>');
    message.channel.send('<a:s_dcstaff:727439000343674911> hi')
+  }
+})
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'laugh') {
+    message.channel.send(':HAHAHA:745129345999175730>')
   }
 })
 
