@@ -718,21 +718,6 @@ module.exports = {
     }, ms(args[0]));
   }
 })
-client.on('message', async message => {
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const command = args.shift().toLowerCase();
-  if (command === 'rr') {
-  if (reaction.id === "<The ID of the Reaction>") {
-    let role = message.guild.roles.cache.find(role => role.name === args[1,2]);
-    if (message.channel.name === args[2,3]) {
-      message.reply(' You must go to the channel now');
-    } else {
-      message.member.addRole(role.id);
-    }
-  }
-}
-})
 const YouTube = require("discord-youtube-api");
 const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 client.on('message', async message => {
