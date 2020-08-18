@@ -410,7 +410,7 @@ client.on('message', async message => {
       .addField('<a:s_dcstaff:727439000343674911>__Moderation Commands__<a:s_dcstaff:727439000343674911>', 'Commands which require Admin Permission')
       .addField('<a:Jamming:591083410978766848> __Music Commands__<a:BearMusic:745122983751843910>', 'Commands that are related to Music')
       .addField('<a:ff:744878566675841144> __Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
-      .addField('🤪__Fun Commands__<a:Rofl:579536071147388938>', "Commands to solve your Boredom issues")
+      .addField('🤪__Fun Commands__<a:BearLaugh:745125674360111145>', "Commands to solve your Boredom issues")
       .addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
       .addField('🤖__Bot Information__<:botverificado:745124688048554054>', "More Information")
       .setTimestamp()
