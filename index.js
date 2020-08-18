@@ -412,7 +412,7 @@ client.on('message', async message => {
       .addField('<a:ff:744878566675841144> __Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
       .addField('🤪__Fun Commands__<a:BearLaugh:745125674360111145>', "Commands to solve your Boredom issues")
       .addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
-      .addField('🤖__Bot Information__<:botverificado:745124688048554054>', "More Information")
+      .addField('<:botverificado:745124688048554054>__Bot Information__<:botverificado:745124688048554054>', "More Information")
       .setTimestamp()
       const m = await message.channel.send(embed)
       m.react("🛠")
