@@ -431,6 +431,7 @@ client.on('message', async message => {
                                           .setDescription('**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user')
                                           .setColor(0x14c9ed)
                                           m.edit(membed)
+                                          m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '🎵'){
                                     const muembed = new Discord.MessageEmbed()
@@ -438,7 +439,8 @@ client.on('message', async message => {
                                     .setFooter("Bot Made by Champion2049#3714")
                                     .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music')
                                     .setColor(0x14c9ed)
-                                    m.edit(muembed)                                 
+                                    m.edit(muembed)
+                                    m.reactions.removeAll()                                 
                                   }
                                   else if(collected.first().emoji.name === '🎉'){
                                     const gembed = new Discord.MessageEmbed()
@@ -447,6 +449,7 @@ client.on('message', async message => {
                                     .setDescription(`**dcgiveaway**- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
                                     .setColor(0x14c9ed)
                                     m.edit(gembed)
+                                    m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '🤪'){
                                     const fembed = new Discord.MessageEmbed()
@@ -455,6 +458,7 @@ client.on('message', async message => {
                                     .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit\n **dcping**- shows you the bot's ping")
                                     .setColor(0x14c9ed)
                                     m.edit(fembed)
+                                    m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '📝'){
                                     const cembed = new Discord.MessageEmbed()
@@ -463,6 +467,7 @@ client.on('message', async message => {
                                     .setDescription('It makes all newly joined members solve a captcha within a specified time!\n This feature prevents your server from raids!\n Will be adding ``enable and disable captcha command coming soon``!')
                                     .setColor(0x14c9ed)
                                     m.edit(cembed)
+                                    m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '🤖'){
                                     const bembed = new Discord.MessageEmbed()
@@ -471,6 +476,7 @@ client.on('message', async message => {
                                     .setDescription("**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
                                     .setColor(0x14c9ed)
                                     m.edit(bembed)
+                                    m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '❌'){
                                     const c = new Discord.MessageEmbed()
