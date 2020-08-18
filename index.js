@@ -698,7 +698,6 @@ module.exports = {
     m.react("🎉");
     setTimeout(() => {
       if (m.reactions.cache.get("🎉").count <= 1) {
-        message.delete(m)
         message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`);
         return message.channel.send(
           `**Sufficient** amount of people did not participate in the Giveaway, hence I was unable to determine a <a:medal:744879424628981790>Winner!`
