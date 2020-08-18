@@ -717,7 +717,7 @@ module.exports = {
         m.edit(wembed)
     }, ms(args[0]));
   }
-
+})
 const YouTube = require("discord-youtube-api");
 const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 client.on('message', async message => {
