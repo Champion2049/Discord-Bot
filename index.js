@@ -469,7 +469,7 @@ client.on('message', async message => {
     if (command === 'invite') {
       const embed = new Discord.MessageEmbed()
       .setTitle('Invite the bot by clicking here!')
-      .setURL('https://discordapp.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=8')
+      .setURL('https://ayblisting.com/bots/730644349897015307')
       .setColor(0x1409)
       message.channel.send(embed)
     }
