@@ -884,26 +884,28 @@ client.on('message', async message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
+       const channel = message.mentions.channels.first();
   if (command === 'welcome_set') {
     if(!args[0]){
-      message.channel.send("Please type a channel name")
-    }
-    const channel = message.mentions.channels.first();
+      message.reply("Please type a channel name")
+    
     if(!channel){
-      message.channel.send("Please Enter a valid channel name!")
+      message.reply("Please Enter a valid channel name!")
     }
+  }
     if(channel){
       message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
     }
+    const n = channel
      client.on('guildMemberAdd', member => {
-      if (!channel) return;
+      if (!n) return;
       const embed = new Discord.MessageEmbed()
       .setTitle(`Welcome to ${message.guild.name}`)
       .setDescription(`Thanks for joining the server ${member}`)
       .setTimestamp()
       .setColor("GREEN")
       .setThumbnail()
-      channel.send(embed)
+      n.send(embed)
     })
   }
 })
