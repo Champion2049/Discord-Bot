@@ -858,7 +858,7 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
        const channel = message.mentions.channels.first();
-  if (command === 'welcome_set') {
+  if (command === 'set_welcome_channel') {
     if(!args[0]){
       message.reply("Please type a channel name")
     if(!channel){
