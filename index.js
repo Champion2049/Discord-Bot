@@ -880,5 +880,29 @@ client.on('message', async message => {
     message.delete()
   }
 })
-
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+       const args = message.content.slice(prefix.length).split(/ +/);
+       const command = args.shift().toLowerCase();
+  if (command === 'welcome_set') {
+    if(!args[0]){
+      message.channel.send("Please type a channel name")
+    }
+    const channel = message.mentions.channels.first();
+    if(!channel){
+      message.channel.send("Please Enter a valid channel name!")
+    }
+    message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
+     client.on('guildMemberAdd', member => {
+      if (!channel) return;
+      const embed = new Discord.MessageEmbed()
+      .setTitle(`Welcome to ${message.guild.name}`)
+      .setDescription(`Thanks for joining the server ${member}`)
+      .setTimestamp()
+      .setColor("GREEN")
+      .setThumbnail(avatar)
+      channel.send(embed)
+    })
+  }
+})
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
