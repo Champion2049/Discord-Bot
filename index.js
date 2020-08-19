@@ -861,7 +861,7 @@ client.on('message', async message => {
   if (command === 'set_welcome_channel') {
     if(!args[0]){
       message.reply("Please type a channel name")
-    if(!channel){
+    if(!args[1] === channel){
       message.reply("Please Enter a valid channel name!")
     }
   }if(message.member.hasPermission("ADMINISTRATOR")){
