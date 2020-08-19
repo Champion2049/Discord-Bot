@@ -888,7 +888,9 @@ client.on('message', async message => {
   if (command === 'welcome_set') {
     if(!args[0]){
       message.reply("Please type a channel name")
-    
+    if(!message.author.hasPermission("ADMINISTRATOR")){
+      message.reply("Sorry but you dont have the required permission to advocate this command!")
+    }
     if(!channel){
       message.reply("Please Enter a valid channel name!")
     }
