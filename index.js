@@ -721,6 +721,10 @@ client.on('message', async message =>{
     console.log(`There was an error in connecting to the Voice Channel: ${error}`)
     return message.reply('There was an error in connecting to the Voice Channel')
     }
+    let validate = ytdl.validateURL(args[1]);
+      if (!validate){
+        return message.reply("Please provide a valid URL");  
+      }
     const dispatcher = connection.play(ytdl(args[1]))
     .on('finish', () => {
       voiceChannel.leave()
