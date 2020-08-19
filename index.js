@@ -874,7 +874,7 @@ client.on('message', async message => {
       if (!n) return;
       const embed = new Discord.MessageEmbed()
       .setTitle(`Welcome to ${message.guild.name}`)
-      .setDescription(`Thanks for joining the server ${member}`)
+      .setDescription(`<a:YAY:745576439222370375> Thanks for joining the server ${member} <a:YAY:745576439222370375>`)
       .setTimestamp()
       .setColor("GREEN")
       .setThumbnail()
