@@ -902,7 +902,7 @@ client.on('message', async message => {
       .setDescription(`Thanks for joining the server ${member}`)
       .setTimestamp()
       .setColor("GREEN")
-      .setThumbnail(avatar)
+      .setThumbnail()
       channel.send(embed)
     })
   }
