@@ -873,7 +873,7 @@ client.on('message', async message => {
      client.on('guildMemberAdd', member => {
       if (!n) return;
       const embed = new Discord.MessageEmbed()
-      .setTitle(`<a:cc_welcome:745581154417246230> Welcome to ${message.guild.name} <a:lala:625307559359676416>`)
+      .setTitle(`<a:cc_welcome:745581154417246230> Welcome to ${message.guild.name} <a:lala:745584123011137577>`)
       .setDescription(`<a:YAY:745576439222370375> Thanks for joining the server ${member} <a:YAY:745576439222370375>`)
       .setTimestamp()
       .setColor("GREEN")
