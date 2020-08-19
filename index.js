@@ -35,33 +35,6 @@ client.on('message', message =>{
     }
        }
 );
-
-client.on('message', async message => {
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-  if (command === 'kick') {
-    if (message.author.hasPermission("KICK_MEMBERS")) {
-      if (args[0]) {
-        return message.reply('You must tag 1 user.');
-      } else {
-        let member = message.mentions.members.first();
-        let reason = message.content.split(" ").slice(5);
-        if (member.kickable === false) {
-          message.channel.send("That user cannot be kicked!");
-          return;
-        } else {
-          await member.send(`You have been kicked from \`${message.guild.name}\`. Reason: \`${reason}\``)
-         .catch(err => message.channel.send(`⚠ Unable to alert ${member} of reason.`));
-         await member.kick(reason);
-         await message.channel.send(`👋 ${member} has been kicked!\nhttps://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.tenor.com%2Fimages%2Fbad38f70530432509894a8eefbad9ead%2Ftenor.gif&imgrefurl=https%3A%2F%2Ftenor.com%2Fview%2Fnikal-lawdey-pehli-fursat-nikal-bhaag-gif-14595566&tbnid=c5tz0tAgU3KCGM&vet=12ahUKEwih7oD3_pnrAhUuDLcAHWujCKsQMygBegUIARDDAQ..i&docid=Aqx4A449PQPIkM&w=220&h=423&q=nikaal%20pehle%20fursat%20mein%20nikaal&hl=en&safe=active&client=safari&ved=2ahUKEwih7oD3_pnrAhUuDLcAHWujCKsQMygBegUIARDDAQ`);
-console.log(`${message.author.tag} kicked ${member.user.tag} from '${message.guild.name}'.`);
-            }
-          }
-        }
-      }
-    })
-
 client.on('message', message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
@@ -888,16 +861,14 @@ client.on('message', async message => {
   if (command === 'welcome_set') {
     if(!args[0]){
       message.reply("Please type a channel name")
-    if(!message.author.hasPermission("ADMINISTRATOR")){
-      message.reply("Sorry but you dont have the required permission to advocate this command!")
-    }
     if(!channel){
       message.reply("Please Enter a valid channel name!")
     }
-  }
+  }if(message.member.hasPermission("ADMINISTRATOR")){
     if(channel){
       message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
     }
+  }else(message.reply("Sorry you dont have the permission to advocate this command!"))
     const n = channel
      client.on('guildMemberAdd', member => {
       if (!n) return;
@@ -910,5 +881,51 @@ client.on('message', async message => {
       n.send(embed)
     })
   }
+})
+client.on('message', message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'invites') {
+      let user = message.author;
+
+      message.guild.fetchInvites()
+      .then
+
+      (invites =>
+          {
+              const userInvites = invites.array().filter(o => o.inviter.id === user.id);
+              var userInviteCount = 0;
+              for(var i=0; i < userInvites.length; i++)
+              {
+                  var invite = userInvites[i];
+                  userInviteCount += invite['uses'];
+              }
+                   message.reply(`You have ${userInviteCount} invite(s)`);
+          }
+      )
+  }
+});
+client.on('message', message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'kick') {
+  const member = message.mentions.members.first();
+  if(!args[0]){
+    message.reply("Please Mention someone to kick!")
+  }
+  if (!args[1]){
+    message.reply("Please Specify the reason")
+  }
+  if(message.member.hasPermission("KICK_MEMBERS")){
+    member.kick();
+    message.channel.send(`${message.author} I have kicked ${member} for ${args[1]} <a:nikalbe:737128407241982044>`)
+    member.send(`You have been kicked from ${message.guild.name} by ${message.author} for ${args[1]}`)
+  }
+  if(!message.member.hasPermission("KICK_MEMBERS")){
+    message.reply("Sorry, but you dont have the permission to advocate this command!")
+  }
+}
 })
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
