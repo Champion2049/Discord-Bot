@@ -892,7 +892,9 @@ client.on('message', async message => {
     if(!channel){
       message.channel.send("Please Enter a valid channel name!")
     }
-    message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
+    if(channel){
+      message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
+    }
      client.on('guildMemberAdd', member => {
       if (!channel) return;
       const embed = new Discord.MessageEmbed()
