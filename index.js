@@ -471,7 +471,7 @@ client.on('message', async message => {
       .setTitle('Invite the bot by clicking here!')
       .setURL('https://discord.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
       .addField(`Invite the bot from AYB`, `https://ayblisting.com/bots/730644349897015307`)
-      .addField(`Invite the bot from Discord Bot List`, `https://discordbotlist.com/bots/easy-use-bot`)
+      .addField(`Invite the bot from Discord Bot List`, `https://discord.ly/easy-use-bot`)
       .setColor("GOLD")
       message.channel.send(embed)
     }
