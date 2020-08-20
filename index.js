@@ -469,8 +469,10 @@ client.on('message', async message => {
     if (command === 'invite') {
       const embed = new Discord.MessageEmbed()
       .setTitle('Invite the bot by clicking here!')
-      .setURL('https://ayblisting.com/bots/730644349897015307')
-      .setColor(0x1409)
+      .setURL('https://discord.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
+      .addField(`Invite the bot from AYB`, `https://ayblisting.com/bots/730644349897015307`)
+      .addField(`Invite the bot from Discord Bot List`, `https://discordbotlist.com/bots/easy-use-bot`)
+      .setColor("GOLD")
       message.channel.send(embed)
     }
   }) 
@@ -955,5 +957,6 @@ if (command === 'userinfo') {
   }
 }
 })
+
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
