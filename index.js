@@ -502,7 +502,7 @@ client.on('message', async message => {
       return days + (days == 1 ? " day" : " days") + " ago";
   }
   
-  let verifLevels = ["None", "Low", "Medium", "High", "Highest"];
+  const verifLevels = ["None", "Low", "Medium", "High", "Highest"];
 const embed = new Discord.MessageEmbed()
 .setTitle("**Server Information**")
 .addField("Name", `<:Discord:744889665164804157> ${message.guild.name}`, true)
@@ -510,7 +510,7 @@ const embed = new Discord.MessageEmbed()
 .addField("Owner", `<a:crown:744885017511198791> ${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
 .addField("Region", `🏘 ${message.guild.region}`, true)
 .addField("Total | Humans | Bots", `<a:dc:744888395041341460> ${message.guild.members.cache.size} | ${message.guild.members.cache.filter(member => !member.user.bot).size} | ${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
-.addField("Verification Level", `<a:Verified:625536796268429312> ${message.guild.verifLevels}`, true)
+.addField("Verification Level", `<a:lcgreen:745884544309133352> ${message.guild.verificationLevel}`, true)
 .addField("Channels", `<:version:744891034152075345> ${message.guild.channels.cache.size}`, true)
 .addField("Roles", `📋 ${message.guild.roles.cache.size}`, true)
 .addField("Emoji Count", `<a:nitroboost:744884824015110204> This server has ${message.guild.emojis.cache.size} emojis <a:nitroboost:744884824015110204>`)
