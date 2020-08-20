@@ -644,7 +644,7 @@ module.exports = {
       !args[0].endsWith("s")
     )
       return message.channel.send(
-        `You did not use the correct formatting for the time!(please specify the time in d-days,h-hours,m-minutes)`
+        `You did not use the correct formatting for the time!(please specify the time in d-days,h-hours,m-minutes,s-seconds)`
       );
     if (isNaN(args[0][0])) return message.channel.send(`That is not a number!`);
     const channel = message.mentions.channels.first();
