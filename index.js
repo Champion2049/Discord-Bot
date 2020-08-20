@@ -505,16 +505,16 @@ client.on('message', async message => {
   let verifLevels = ["None", "Low", "Medium", "High", "Highest"];
 const embed = new Discord.MessageEmbed()
 .setTitle("**Server Information**")
-.addField("Name", `🛡 ${message.guild.name}`, true)
-.addField("ID", `🆔 ${message.guild.id}`, true)
-.addField("Owner", `👑 ${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
+.addField("Name", `<:Discord:744889665164804157> ${message.guild.name}`, true)
+.addField("ID", `<:005idcard:744890183782236201> ${message.guild.id}`, true)
+.addField("Owner", `<a:crown:744885017511198791> ${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
 .addField("Region", `🏘 ${message.guild.region}`, true)
-.addField("Total | Humans | Bots", `🤖👨‍💻👩‍💻 ${message.guild.members.cache.size} | 👨‍💻👩‍💻 ${message.guild.members.cache.filter(member => !member.user.bot).size} | 🤖 ${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
-.addField("Verification Level", `✅ ${message.guild.verifLevels}`, true)
-.addField("Channels", `🗂 ${message.guild.channels.cache.size}`, true)
+.addField("Total | Humans | Bots", `<a:dc:744888395041341460> ${message.guild.members.cache.size} | ${message.guild.members.cache.filter(member => !member.user.bot).size} | ${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
+.addField("Verification Level", `<a:Verified:625536796268429312> ${message.guild.verifLevels}`, true)
+.addField("Channels", `<:version:744891034152075345> ${message.guild.channels.cache.size}`, true)
 .addField("Roles", `📋 ${message.guild.roles.cache.size}`, true)
-.addField("Emoji Count", `😇 This server has ${message.guild.emojis.cache.size} emojis`)
-.addField("Creation Date", `🏗 ${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
+.addField("Emoji Count", `<a:nitroboost:744884824015110204> This server has ${message.guild.emojis.cache.size} emojis <a:nitroboost:744884824015110204>`)
+.addField("Creation Date", `<a:Timer:744890944557678722> ${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
 .addField("You Joined the server on", `⎆ ${message.member.joinedAt}`)
 .setColor("#00ff00")
 .setFooter(`Information about: ${message.guild.name} provided by Easy Use Bot\n Bot made by Champion2049#3714`)
@@ -647,7 +647,7 @@ module.exports = {
         `You did not use the correct formatting for the time!(please specify the time in d-days,h-hours,m-minutes)`
       );
     if (isNaN(args[0][0])) return message.channel.send(`That is not a number!`);
-    let channel = message.mentions.channels.first();
+    const channel = message.mentions.channels.first();
     if (!channel)
       return message.channel.send(
         `I could not find that channel in the guild!`
@@ -662,7 +662,7 @@ module.exports = {
       .setTitle('**<a:ff:744878566675841144>New Giveaway<a:ff:744878566675841144>** `Please react to 🎉 to Participate!`')
       .addField(`<:pc_present:745145491716833303> Prize:`, `${prize}`)
       .addField(`📝 Giveaway Hosted by:`, ` ${message.author}`)
-      .addField(`⏱ Time:`, `${args[0]}`)
+      .addField(`<a:Timer:744890944557678722> Time:`, `${args[0]}`)
       .addField(`📑 Requirements:`, `Must join: ${req}`)
       .setTimestamp()
       .setFooter("Bot made by Champion2049#3714")
@@ -677,7 +677,7 @@ module.exports = {
         );
       }
 
-      let winner = m.reactions.cache
+      const winner = m.reactions.cache
         .get("🎉")
         .users.cache.filter((u) => !u.bot)
         .random();
@@ -688,6 +688,7 @@ module.exports = {
         .setTimestamp()
         .setColor(0xFFFF);
         m.edit(wembed)
+        winner.send(`<a:ff:744878566675841144> You won **${prize}** in ${message.guild.name} <a:ff:744878566675841144>\n Dm ${message.author} to claim your prize before the giveaway is rerolled!`)
     }, ms(args[0]));
   }
 })
