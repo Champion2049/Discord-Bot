@@ -933,4 +933,27 @@ if (command === 'kick') {
   }
 }
 })
+client.on('message', message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'userinfo') {
+  const user = message.mentions.members.first();
+  if (args[0]){
+    let sembed = new Discord.MessageEmbed()
+    .setTitle(`Information about ${message.author.tag}`)
+    .addField(`Username:`, `${message.author.username}`)
+    .addField(`ID:`, `${message.author.id}`)
+    .addField(`Last Message:`, `${message.author.lastMessage}`)
+    .setThumbnail(message.author.avatarURL())
+    .addField(`Bot:`, `${message.author.bot}`)
+    .addField(`Presence:`, `${message.author.presence.status}`)
+    .addField(`Created At:`, `${message.author.createdAt}`)
+    .setColor("CYAN")
+    .setTimestamp()
+    message.channel.send(sembed)
+  }
+}
+})
+
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
