@@ -636,7 +636,7 @@ module.exports = {
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
          if (command === 'giveaway') {
-    if (!args[0]) return message.channel.send(`You did not specify your time (please specify the time in d-days,h-hours,m-minutes)`);
+    if (!args[0]) return message.channel.send(`You did not specify your time (please specify the time in d-days,h-hours,m-minutes,s-seconds)`);
     if (
       !args[0].endsWith("d") &&
       !args[0].endsWith("h") &&
