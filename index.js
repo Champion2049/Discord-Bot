@@ -334,7 +334,7 @@ client.on('message', async message => {
   client.on('guildMemberAdd', async member => {
       const captcha = await createCaptcha();
       try {
-          const msg = await member.send('You have to verify yourself soon, or else you will be kicked out', {
+          const msg = await member.send('You have to verify yourself to get the Verified Role', {
               files: [{
                   attachment: `${__dirname}/captchas/${captcha}.png`,
                   name: `${captcha}.png`
