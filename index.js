@@ -738,7 +738,7 @@ client.on('message', async message =>{
       queue.set(message.guild.id, queueConstruct)
       queueConstruct.songs.push(song)
     try{
-      var connection = await voiceChannel.join()
+      const connection = await voiceChannel.join()
     }catch(error){
     console.log(`There was an error in connecting to the Voice Channel: ${error}`)
     return message.reply('There was an error in connecting to the Voice Channel')
