@@ -713,12 +713,29 @@ client.on('message', async message =>{
   if(message.author.bot) return
   if(!message.content.startsWith(prefix)) return
   const args = message.content.substring(prefix.length).split(" ");
+  const serverQueue = queue.get(message.guild.id)
   if(message.content.startsWith(`${prefix}play`)){
     const voiceChannel = message.member.voice.channel
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
     const permissions = voiceChannel.permissionsFor(message.client.user)
     if(!permissions.has("CONNECT")) return message.reply('I dont have the required permissions to join a Voice Channel!')
     if(!permissions.has("SPEAK")) return message.reply('I dont have the permission to speak in the Voice Channel!')
+    const songInfo = await ytdl.getInfo(args[1])
+    const song = {
+      title: Discord.Util.escapeMarkdown(songInfo.title),
+      url: songInfo.video_url
+    }
+    if(!serverQueue){
+      const queueConstruct = {
+        textChannel: message.channel,
+        voiceChannel: voiceChannel,
+        connection: null, 
+        songs: [],
+        volume: 5, 
+        playing: true
+      }
+      queue.set(message.guild.id, queueConstruct)
+      queueConstruct.songs.push(song)
     try{
       var connection = await voiceChannel.join()
     }catch(error){
@@ -729,6 +746,64 @@ client.on('message', async message =>{
       if (!validate){
         return message.reply("Please provide a valid URL");  
       }
+    }else{
+        serverQueue.songs.push(song)
+        return message.channel.send(`**${song.title}** has been added to the queue! `)
+      }
+      return undefined
+  }else if(message.content.startsWith(`${prefix}stop`)){
+    if(!message.member.voice.channel) return message.reply("You need to be in a Voice Channel to stop the music!")
+    if(!serverQueue) return message.channel.send("There is nothing playing right now to stop!")
+    serverQueue.songs = []
+    serverQueue.connection.dispatcher.end()
+    message.reply("The Music has been stopped!")
+    return undefined
+  }else if(message.content.startsWith(`${prefix}skip`)){
+    if(!message.member.voice.channel) return message.reply("You need to be in a Voice Channel to stop the music!")
+    if(!serverQueue) return message.channel.send("There is nothing playing right now to skip!")
+    serverQueue.connection.dispatcher.end()
+    message.channel.send("The Song has been skipped!")
+  }else if(message.content.startsWith(`${prefix}volume`)){
+    if(message.member.voice.channel) return message.channel.send("You need to be in a Voice Channel to use this command!")
+    if(!serverQueue) return message.channel.send("There is nothing playing right now!")
+    if(!args[1]) return message.channel.send(`Current Volume is: **${serverQueue.volume}**`)
+    if(isNaN(args[1])) return message.channel.send("Please enter a valid amount to change the volume!") 
+    serverQueue.volume = args[1]
+    serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 5)
+    message.channel.send(`I have changed the volume to: **${args[1]}`)
+    return undefined
+  }else if(message.content.startsWith(`${prefix}np`)){
+    if(!serverQueue) return message.channel.send("There is nothing playing right now!")
+    message.channel.send(`Now Playing: **${serverQueue.songs[0].title}`)
+  }else if(message.content.startsWith(`${prefix}queue`)){
+    if(!serverQueue) return message.channel.send("There is nothing playing right now!")
+    message.channel.send(`__**Song Queue**__\n ${serverQueue.songs.map(song => `**-**${song.title}`).join('\n')} **Now Playing:** ${serverQueue.songs[0].title}`, {split: true})
+    return undefined
+  }else if(message.content.startsWith(`${prefix}pause`)){
+    if(!message.member.voice.channel) return message.reply("You need to be in a Voice Channel to pause the music!")
+    if(!serverQueue) return message.channel.send("There is nothing playing right now to pause!")
+    if(!serverQueue.playing) return message.channel.send("Music is already paused!")
+    serverQueue.playing = false
+    serverQueue.connection.dispatcher.pause()
+    message.channel.send("Music has been paused!")
+    return undefined
+  }else if(message.content.startsWith(`${prefix}resume`)){
+    if(!message.member.voice.channel) return message.reply("You need to be in a Voice Channel to pause the music!")
+    if(!serverQueue) return message.channel.send("There is nothing playing right now to pause!")
+    if(serverQueue.playing) return message.channel.send("Music is already playing!")
+    serverQueue.playing = true
+    serverQueue.connection.dispatcher.resume()
+    message.channel.send("Music has be resumed!")
+    return undefined
+  }
+})
+  function play(guild, song){
+    const serverQueue = queue.get(guild.id)
+    if(!song){
+      serverQueue.voiceChannel.leave()
+      queue.delete(guild.id)
+      return
+  } 
     const dispatcher = connection.play(ytdl(args[1]))
     .on('finish', () => {
       voiceChannel.leave()
@@ -737,12 +812,8 @@ client.on('message', async message =>{
       console.log(error)
     })
     dispatcher.setVolumeLogarithmic(5 / 5)
-  }else if(message.content.startsWith(`${prefix}stop`)){
-    if(!message.member.voice.channel) return message.reply("Please join a Voice Channel first!")
-    message.member.voice.channel.leave();
-    return undefined
+    serverQueue.textChannel.send(`Started Playing: **${song.title}**`)
   }
-})
 client.on('message', async message=>{
   if(!message.content.startsWith(prefix + 'addrole') || message.author.bot)return;
   if(!message.member.hasPermission("MANAGE_ROLES")){
