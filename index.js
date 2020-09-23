@@ -662,8 +662,8 @@ module.exports = {
     message.delete();
     message.channel.send(`*Giveaway created in ${channel}*`);
     const Embed = new Discord.MessageEmbed()
-      .setTitle('**<a:ff:744878566675841144>New Giveaway<a:ff:744878566675841144>** `Please react to 🎉 to Participate!`')
-      .addField(`<:pc_present:745145491716833303> Prize:`, `${prize}`)
+      .setTitle('**<a:kjsc:758210180755750922>New Giveaway<a:kjsc:758210180755750922>** `Please react to 🎉 to Participate!`')
+      .addField(`<:pc_present:758212896295092265> Prize:`, `${prize}`)
       .addField(`📝 Giveaway Hosted by:`, ` ${message.author}`)
       .addField(`<a:Timer:744890944557678722> Time:`, `${args[0]}`)
       .addField(`📑 Requirements:`, `Must join: ${req}`)
