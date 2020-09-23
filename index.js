@@ -17,7 +17,7 @@ for(const file of commandFiles){
 
 client.once('ready', () => {
     console.log('Easy Use Bot is online!' + version);
-    client.user.setActivity(`\ndchelp | https://discord.gg/9jHXwta | Version: ${version}`, {type: "WATCHING"}).catch(console.error);
+    client.user.setActivity(`\ndchelp | Stay Safe Stay Healthy! | Version: ${version}`, {type: "WATCHING"}).catch(console.error);
 });
 client.on('message', message =>{
        if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -472,6 +472,8 @@ client.on('message', async message => {
       .setURL('https://discord.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
       .addField(`Invite the bot from AYB`, `https://ayblisting.com/bots/730644349897015307`)
       .addField(`Invite the bot from Discord Bot List`, `https://discord.ly/easy-use-bot`)
+      .addField(`Invite the bot from Bots for Discord`)
+      .setFieldUrl(`https://botsfordiscord.com/bot/730644349897015307`)
       .setColor("GOLD")
       message.channel.send(embed)
     }
