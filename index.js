@@ -327,7 +327,7 @@ client.on('message', async message => {
              const command = args.shift().toLowerCase();
              if(command === 'google'){
           if(args.length < 1) message.channel.send('I need to know what to search...');
-          message.reply('\nhttps://google.com/search?q='+args)
+          message.channel.send('\nhttps://google.com/search?q='+args)
       }
     })
   const createCaptcha = require('./captcha.js');
