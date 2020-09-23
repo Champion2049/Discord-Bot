@@ -380,9 +380,9 @@ client.on('message', async message => {
       .setTitle('**Help is Here!**')
       .setColor(0x14c9ed)
       .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
-      .addField('<a:s_dcstaff:727439000343674911>__Moderation Commands__<a:s_dcstaff:727439000343674911>', 'Commands which require Admin Permission')
+      .addField('<a:modo:758209576029257738>__Moderation Commands__<a:modo:758209576029257738>', 'Commands which require Admin Permission')
       .addField('<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>', 'Commands that are related to Music')
-      .addField('<a:ff:744878566675841144>__Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
+      .addField('<a:kjsc:758210180755750922>__Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
       .addField('🤪__Fun Commands__<a:BearLaugh:745125674360111145>', "Commands to solve your Boredom issues")
       .addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
       .addField('<:botverificado:745124688048554054>__Bot Information__<:botverificado:745124688048554054>', "More Information")
@@ -399,7 +399,7 @@ client.on('message', async message => {
                           { max: 1, time: 30000 }).then(collected => {
                                   if (collected.first().emoji.name === '🛠') {
                                           const membed = new Discord.MessageEmbed()
-                                          .setTitle('<a:s_dcstaff:727439000343674911> **__Moderation Commands__** <a:s_dcstaff:727439000343674911>')
+                                          .setTitle('<a:modo:758209576029257738> **__Moderation Commands__** <a:modo:758209576029257738>')
                                           .setFooter("Bot made by Champion2049#3714")
                                           .setDescription('**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user\n **dcset_welcome_channel**- sets a channel where a Welcome message will be sent whenever a new member joins')
                                           .setColor(0x14c9ed)
@@ -417,7 +417,7 @@ client.on('message', async message => {
                                   }
                                   else if(collected.first().emoji.name === '🎉'){
                                     const gembed = new Discord.MessageEmbed()
-                                    .setTitle('**<a:ff:744878566675841144>__Giveaway Commands__<a:ck_partypack:745123439664169102>**')
+                                    .setTitle('**<a:kjsc:758210180755750922>__Giveaway Commands__<a:ck_partypack:745123439664169102>**')
                                     .setFooter('Bot made by Champion2049#3714')
                                     .setDescription(`**dcgiveaway**- holds a giveaway, usage: dcgiveaway <time> <channel name> <requirements(if any)> <prize>\n More coming soon`)
                                     .setColor(0x14c9ed)
@@ -518,7 +518,7 @@ const embed = new Discord.MessageEmbed()
 .addField("Roles", `📋 ${message.guild.roles.cache.size}`, true)
 .addField("Emoji Count", `<a:nitroboost:744884824015110204> This server has ${message.guild.emojis.cache.size} emojis <a:nitroboost:744884824015110204>`)
 .addField("Creation Date", `<a:Timer:744890944557678722> ${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
-.addField("You Joined the server on", `⎆ ${message.member.joinedAt}`)
+.addField("You Joined the server on", `<a:chahal_welcome:758211451046723585> ${message.member.joinedAt}`)
 .setColor("#00ff00")
 .setFooter(`Information about: ${message.guild.name} provided by Easy Use Bot\n Bot made by Champion2049#3714`)
 .setThumbnail(message.guild.iconURL)
