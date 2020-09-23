@@ -738,10 +738,13 @@ client.on('message', async message =>{
       queue.set(message.guild.id, queueConstruct)
       queueConstruct.songs.push(song)
     try{
-      const connection = await voiceChannel.join()
+      var connection = await voiceChannel.join()
+      queueConstruct.connection = connection
+      play(message.guild, queueConstruct.songs[0])
     }catch(error){
     console.log(`There was an error in connecting to the Voice Channel: ${error}`)
-    return message.reply('There was an error in connecting to the Voice Channel')
+    queue.delete(message.guild.id)
+    return message.reply(`There was an error in connecting to the Voice Channel: ${error}`)
     }
     let validate = ytdl.validateURL(args[1]);
       if (!validate){
