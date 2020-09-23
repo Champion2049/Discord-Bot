@@ -723,8 +723,8 @@ client.on('message', async message =>{
     if(!permissions.has("SPEAK")) return message.reply('I dont have the permission to speak in the Voice Channel!')
     const songInfo = await ytdl.getInfo(args[1])
     const song = {
-      title: Discord.Util.escapeMarkdown(songInfo.title),
-      url: songInfo.video_url
+      title: Discord.Util.escapeMarkdown(songInfo.videoDetails.title),
+      url: songInfo.videoDetails.video_url
     }
     if(!serverQueue){
       const queueConstruct = {
