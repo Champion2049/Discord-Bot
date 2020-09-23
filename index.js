@@ -713,6 +713,7 @@ client.on('message', async message =>{
   if(message.author.bot) return
   if(!message.content.startsWith(prefix)) return
   const args = message.content.substring(prefix.length).split(" ");
+  const queue = new Map()
   const serverQueue = queue.get(message.guild.id)
   if(message.content.startsWith(`${prefix}play`)){
     const voiceChannel = message.member.voice.channel
