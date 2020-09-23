@@ -472,8 +472,7 @@ client.on('message', async message => {
       .setURL('https://discord.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
       .addField(`Invite the bot from AYB`, `https://ayblisting.com/bots/730644349897015307`)
       .addField(`Invite the bot from Discord Bot List`, `https://discord.ly/easy-use-bot`)
-      .addField(`Invite the bot from Bots for Discord`)
-      .setFieldUrl(`https://botsfordiscord.com/bot/730644349897015307`)
+      .addField(`Invite the bot from Bots for Discord`, fileURLToPath(`https://botsfordiscord.com/bot/730644349897015307`))
       .setColor("GOLD")
       message.channel.send(embed)
     }
