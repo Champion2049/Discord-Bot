@@ -948,7 +948,25 @@ client.on('message', async message => {
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
   if (command === 'laugh') {
-    message.channel.send('<:HAHAHA:745129345999175730>')
+    let gif = ["https://media.giphy.com/media/dC9DTdqPmRnlS/giphy.gif", "https://media.giphy.com/media/ZqlvCTNHpqrio/giphy.gif", "https://media.giphy.com/media/Z9OGuQyrfHAE8/giphy.gif", "https://media.giphy.com/media/10JhviFuU2gWD6/giphy.gif", "https://media.giphy.com/media/gE6IUBRWZd744/giphy.gif", "https://media.giphy.com/media/B0vFTrb0ZGDf2/giphy.gif", "https://media.giphy.com/media/MaDPRbg28hwMITPEq2/giphy.gif", "https://media.giphy.com/media/T5S0EmJb2BFv2/giphy.gif"]
+    let result = Math.floor((Math.random() * gif.length));
+    var gifa = gif[result]
+    const embed = {
+    "color": 3066993,
+    "timestamp": new Date(),
+    "footer": "Bot made by Champion2049#3714",
+    "image": {
+      "url": gifa
+    },
+    "fields": [
+      {
+        "name": `${message.author.username} had a nice laugh`,
+        "value": "Hehehe",
+        "inline": true
+      }
+    ]
+  };
+  message.channel.send({ embed });
     message.delete()
   }
 })
