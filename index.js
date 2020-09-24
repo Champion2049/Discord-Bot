@@ -17,7 +17,14 @@ for(const file of commandFiles){
 
 client.once('ready', () => {
     console.log('Easy Use Bot is online!' + version);
-    client.user.setActivity(`\ndchelp | Stay Safe Stay Healthy! | Version: ${version}`, {type: "WATCHING"}).catch(console.error);
+    const botuptime = client.uptime
+    function randomStatus() {
+        let status = [`${client.guilds.cache.size} servers!`, `${client.channels.cache.size} channels!`, `${client.users.cache.size} users!`, `Type ${prefix}help to see all the commands || Version: ${version}`]
+        let rstatus = Math.floor(Math.random() * status.length);
+        let types = ["WATCHING"]
+        let rtypes = Math.floor(Math.random() * types.length);
+        client.user.setActivity(status[rstatus], {type: types[rtypes], url: "https://facebook.com/lapizherda"});
+        }; setInterval(randomStatus, 10000) 
 });
 client.on('message', message =>{
        if(!message.content.startsWith(prefix) || message.author.bot) return;
