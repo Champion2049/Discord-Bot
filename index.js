@@ -19,7 +19,7 @@ client.once('ready', () => {
     console.log('Easy Use Bot is online!' + version);
     const botuptime = client.uptime
     function randomStatus() {
-        let status = [`${client.guilds.cache.size} servers!`, `${client.channels.cache.size} channels!`, `${client.users.cache.size} users!`, ` ${prefix}help || Version: ${version}`]
+        let status = [`${client.guilds.cache.size} servers!`, `${client.channels.cache.size} channels!`, `${client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} users!`, ` ${prefix}help || Version: ${version}`]
         let rstatus = Math.floor(Math.random() * status.length);
         let types = ["WATCHING"]
         let rtypes = Math.floor(Math.random() * types.length);
