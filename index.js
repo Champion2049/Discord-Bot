@@ -810,10 +810,10 @@ client.on('message', async message =>{
     return undefined
   }else if(message.content.startsWith(`${prefix}np`)){
     if(!serverQueue) return message.channel.send("There is nothing playing right now!")
-    message.channel.send(`Now Playing: **${serverQueue.songs[0].title}`)
+    message.channel.send(`Now Playing: **${serverQueue.songs[0].title}**`)
   }else if(message.content.startsWith(`${prefix}queue`)){
     if(!serverQueue) return message.channel.send("There is nothing playing right now!")
-    message.channel.send(`__**Song Queue**__\n ${serverQueue.songs.map(song => `**-**${song.title}`).join('\n')} **Now Playing:** ${serverQueue.songs[0].title}`, {split: true})
+    message.channel.send(`__**Song Queue**__\n ${serverQueue.songs.map(song => `**-**${song.title}`).join('\n')}\n **Now Playing:** ${serverQueue.songs[0].title}`, {split: true})
     return undefined
   }else if(message.content.startsWith(`${prefix}pause`)){
     if(!message.member.voice.channel) return message.channel.send("You need to be in a Voice Channel to pause the music!")
