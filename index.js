@@ -758,7 +758,8 @@ client.on('message', async message =>{
       if (!validate){
         return message.reply("Please provide a valid URL");  
       }
-    }else{
+    }
+    if(serverQueue.playing){
         serverQueue.songs.push(song)
         return message.channel.send(`**${song.title}** has been added to the queue! `)
       }
@@ -818,7 +819,7 @@ client.on('message', async message =>{
     return undefined
   }else if(message.content.startsWith(`${prefix}resume`)){
     if(!message.member.voice.channel) return message.reply("You need to be in a Voice Channel to pause the music!")
-    if(!serverQueue) return message.channel.send("There is nothing playing right now to pause!")
+    if(!serverQueue) return message.channel.send("There is nothing playing right now!")
     if(serverQueue.playing) return message.channel.send("Music is already playing!")
     serverQueue.playing = true
     serverQueue.connection.dispatcher.resume()
