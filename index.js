@@ -484,12 +484,13 @@ client.on('message', async message => {
     if (command === 'kill') {
       let replies = ["by slipping over a leaf", "by using a gun", "I don't know how he died", "by jumping in a well", " by hanging himself to death", "because he was bored", "by watching too much tv", "go ask him how", "by falling from his bed", "by crying too much", "I wonder why", ];
       let repliesa = ["for laughing too much", "for not using the bot", "by drowning him in a swimming pool", "by stabbing him in the chest", "because he farted too much", "with his sniper", "by running him over by a car", "by feeding him to his pet lion", "because he was not worthy of living"];
+      let gif = 
       let result = Math.floor((Math.random() * replies.length));
     let killed = message.mentions.members.first();
     if(!killed) {
-    message.channel.send(`${message.author} decied to kill themself and died, ${replies[result]}!  <a:fireduck:758214180918132776> REST IN PEACE 💀`)
+    message.channel.send(`${message.author} decied to kill themself and died, ${replies[result]}!  <a:fireduck:758214180918132776> REST IN PEACE 💀${gif[result]}`)
     } else {
-    message.channel.send(`${killed} was killed by ${message.author} ${repliesa[result]}!  <a:fireduck:758214180918132776> REST IN PEACE 💀`)
+    message.channel.send(`${killed} was killed by ${message.author} ${repliesa[result]}!  <a:fireduck:758214180918132776> REST IN PEACE 💀${gifa[result]}`)
     }
   }
 })
