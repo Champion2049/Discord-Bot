@@ -410,7 +410,7 @@ client.on('message', async message => {
                                     const muembed = new Discord.MessageEmbed()
                                     .setTitle('**<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>**')
                                     .setFooter("Bot Made by Champion2049#3714")
-                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music')
+                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music and leaves the voice channel\n**dcpause**- pauses the music that is playing')
                                     .setColor(0x14c9ed)
                                     m.edit(muembed)
                                     m.reactions.removeAll()                                 
@@ -1017,22 +1017,26 @@ client.on('message', message => {
   const command = args.shift().toLowerCase();
 if (command === 'userinfo') {
   const user = message.mentions.members.first();
-  if (args[0]){
+  if (args[0]){}
+    else{
+    const act = message.author.presence.activities
+    if(message.author.presence.activities.values(0)) {var activities = 'He is not doing anything right now!'}
+    else {var activities = act}
     let sembed = new Discord.MessageEmbed()
     .setTitle(`Information about ${message.author.tag}`)
     .addField(`Username:`, `${message.author.username}`)
     .addField(`ID:`, `${message.author.id}`)
     .addField(`Last Message:`, `${message.author.lastMessage}`)
+    .addField(`Activity`, `${activities}`)
     .setThumbnail(message.author.avatarURL())
     .addField(`Bot:`, `${message.author.bot}`)
     .addField(`Presence:`, `${message.author.presence.status}`)
     .addField(`Created At:`, `${message.author.createdAt}`)
-    .setColor("CYAN")
+    .setColor("BLUE")
     .setTimestamp()
     message.channel.send(sembed)
   }
 }
 })
-
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
