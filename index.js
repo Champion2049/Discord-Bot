@@ -24,7 +24,7 @@ client.once('ready', () => {
         let types = ["WATCHING"]
         let rtypes = Math.floor(Math.random() * types.length);
         client.user.setActivity(status[rstatus], {type: types[rtypes], url: "https://facebook.com/lapizherda"});
-        }; setInterval(randomStatus, 10000) 
+        }; setInterval(randomStatus, 5000) 
 });
 client.on('message', message =>{
        if(!message.content.startsWith(prefix) || message.author.bot) return;
