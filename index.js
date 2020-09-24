@@ -418,7 +418,7 @@ client.on('message', async message => {
                                     const muembed = new Discord.MessageEmbed()
                                     .setTitle('**<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>**')
                                     .setFooter("Bot Made by Champion2049#3714")
-                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music and leaves the voice channel\n**dcpause**- pauses the music that is playing')
+                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music and leaves the voice channel\n**dcpause**- pauses the music that is playing\n**dcresume**- resumes the paused music\n**dcqueue**- shows the currents song queue\n**dcskip**- skips the song\n**dcvolume**- shows the current volume and if volume value is awritten after it changes volume to that\n**dcnp**- shows the song that is currently playing')
                                     .setColor(0x14c9ed)
                                     m.edit(muembed)
                                     m.reactions.removeAll()                                 
