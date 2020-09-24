@@ -482,16 +482,22 @@ client.on('message', async message => {
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
     if (command === 'kill') {
-      let replies = ["by slipping over a leaf", "by using a gun", "I don't know how he died", "by jumping in a well", " by hanging himself to death", "because he was bored", "by watching too much tv", "go ask him how", "by falling from his bed", "by crying too much", "I wonder why", ];
+      let replies = ["by slipping over a leaf", "by using a gun", "I don't know how he died", "by jumping in a well", " by hanging himself to death", "because he was bored", "by watching too much tv", "go ask him how", "by falling from his bed", "by crying too much", "I wonder why" ];
       let repliesa = ["for laughing too much", "for not using the bot", "by drowning him in a swimming pool", "by stabbing him in the chest", "because he farted too much", "with his sniper", "by running him over by a car", "by feeding him to his pet lion", "because he was not worthy of living"];
-      let gif = []
-      let gifa = []
+      let gif = ["https://tenor.com/view/anime-sleeping-im-dead-gif-15157935", "https://tenor.com/view/lol-sherlock-death-dead-dying-gif-5196637", "https://tenor.com/view/dead-anime-death-soulless-gif-11385161", "https://tenor.com/view/mati-bodoh-bangang-keranda-menari-gif-16794417", "https://tenor.com/view/imout-bye-gif-4989183", "https://tenor.com/view/finger-gun-barney-himym-nph-neil-patrick-harris-gif-4524247", "https://giphy.com/gifs/season-13-the-simpsons-13x14-l2JeiuwmhZlkrVOkU", "https://giphy.com/gifs/gta-wasted-gta5-AHMHuF12pW4b6"]
+      let gifa = ["https://giphy.com/gifs/zenitsu-fTn01fiFdTd5pL60ln", "https://giphy.com/gifs/zenitsu-Z9JtPniLKdNzPjsEn6", "https://giphy.com/gifs/wasted-RLi2oeVZiVkE8"]
       let result = Math.floor((Math.random() * replies.length));
+      let result1 = Math.floor((Math.random() * repliesa.length));
+      let result2 = Math.floor((Math.random() * gif.length));
+      let result3 = Math.floor((Math.random() * gifa.length));
     let killed = message.mentions.members.first();
     if(!killed) {
-    message.channel.send(`${message.author} decied to kill themself and died, ${replies[result]}!  <a:fireduck:758214180918132776> REST IN PEACE 💀${gif[result]}`)
+      let sembed = new Discord.MessageEmbed()
+      message.channel.send(`${message.author.username} decied to kill themself and died, ${replies[result]}! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
+    message.channel.send(`${gif[result2]}`)
     } else {
-    message.channel.send(`${killed} was killed by ${message.author} ${repliesa[result]}!  <a:fireduck:758214180918132776> REST IN PEACE 💀${gifa[result]}`)
+    message.channel.send(`${killed.username} was killed by ${message.author.username}! Ouch....  <a:fireduck:758214180918132776> REST IN PEACE 💀`)
+    message.channel.send(`${gifa[result3]}`)
     }
   }
 })
