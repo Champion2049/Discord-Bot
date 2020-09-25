@@ -1067,13 +1067,13 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
 if (command === 'userinfo') {
-  const user = message.mentions.members.first();
+  const user = message.mentions.users.first();
   if(message.mentions.users.first()){
     if(args[0]){
       const act = user.presence.activities
       if(user.presence.activities.values(0)) {var activities = 'He is not doing anything right now!'}
       else {var activities = act}
-      const avatar = message.author.displayAvatarURL({dynamic: true})
+      const avatar = user.displayAvatarURL({dynamic: true})
       let embed = new Discord.MessageEmbed()
       .setTitle(`Information about ${user.tag}`)
       .addField(`Username:`, `${user.username}`)
