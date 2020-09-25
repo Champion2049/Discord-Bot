@@ -1071,7 +1071,6 @@ if (message.content.startsWith(`${prefix}kick`)) {
       **Action:** Kick
       **Advocated By:** ${message.author.username}
       **Reason:** ${reason || `Undefined`}
-      **Time:** ${moment().format('1111')}
     `)
     message.channel.send(embed)
     mentionedMember.createDM(embed)
