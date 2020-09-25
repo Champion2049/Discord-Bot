@@ -393,7 +393,7 @@ client.on('message', async message => {
       .addField('<a:kjsc:758210180755750922>__Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
       .addField('🤪__Fun Commands__<a:BearLaugh:745125674360111145>', "Commands to solve your Boredom issues")
       .addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
-      .addField('<:botverificado:745124688048554054>__Bot Information__<:botverificado:745124688048554054>', "More Information")
+      .addField('<:botverificado:745124688048554054>__Extra Commands__<:botverificado:745124688048554054>', "More Information")
       .setTimestamp()
       const m = await message.channel.send(embed)
       m.react("🛠")
@@ -452,9 +452,9 @@ client.on('message', async message => {
                                   }
                                   else if(collected.first().emoji.name === '🤖'){
                                     const bembed = new Discord.MessageEmbed()
-                                    .setTitle('**<:botverificado:745124688048554054>__Bot Information__<:botverificado:745124688048554054>**')
+                                    .setTitle('**<:botverificado:745124688048554054>__Extra Commands__<:botverificado:745124688048554054>**')
                                     .setFooter("Bot made by Champion2049#3714")
-                                    .setDescription("**dcbotinfo**- see information about the bot\n **dcinvite**- get the link to invite the bot!\n **dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands")
+                                    .setDescription("**dcbotinfo**- see information about the bot\n**dcinvite**- get the link to invite the bot!\n**dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands\n**dcuserinfo**- gives information about yourself or mentioned user")
                                     .setColor(0x14c9ed)
                                     m.edit(bembed)
                                     m.reactions.removeAll()
