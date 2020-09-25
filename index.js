@@ -621,7 +621,7 @@ client.on('message', async message => {
   if (command === 'support') {
     const embed = new Discord.MessageEmbed()
     .setTitle("Join our support server!")
-    .setURL('https://discord.gg/9jHXwta')
+    .setURL('https://discord.gg/yeuS2WH')
     .setDescription('Join our support server if you need any more assistance')
     .setColor("BLUE")
     message.channel.send(embed);
@@ -1136,7 +1136,24 @@ if (command === 'rr') {
     const m = await message.channel.send(`React to ${args[1]} to get ${args[0]} & React to ${args[3]} to get ${args[2]}`)
     m.react(`${args[1]}`)
     m.react(`${args[3]}`)
+client.on('messageReactionAdd', async(reaction,user)=>{
+  if(reaction.message.partial) await reaction.message.fetch
+  if(reaction.partial) await reaction.fetch()
+  if(user.bot) return
+  if(reaction.message.id = m.id){
+    if(reaction.emoji.name = args[1]) await reaction.message.guild.members.cache.get(user.id).roles.add(x => x.name === args[0])
+    if(reaction.emoji.name = args[3]) await reaction.message.guild.members.cache.get(user.id).roles.add(x => x.name === args[2])
   }
+  })
+  client.on('messageReactionRemove', async(reaction,user)=>{
+    if(reaction.message.partial) await reaction.message.fetch
+    if(reaction.partial) await reaction.fetch()
+    if(user.bot) return
+    if(reaction.message.id = m.id){
+      if(reaction.emoji.name = args[1]) await reaction.message.guild.members.cache.get(user.id).roles.remove(x => x.name === args[0])
+      if(reaction.emoji.name = args[3]) await reaction.message.guild.members.cache.get(user.id).roles.remove(x => x.name === args[2])
+    }
+    })
+}
 })
-
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
