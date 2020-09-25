@@ -9,6 +9,7 @@ const { ALL } = require('dns');
 const { title } = require('process');
 const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
 const queue = new Map()
+const moment = require('moment')
 const db = require('mongoose')
 const dbOptions = {
   useNewUrlParser: true,
@@ -1049,29 +1050,38 @@ if (command === 'invites') {
       )
   }
 });
-client.on('message', message => {
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const command = args.shift().toLowerCase();
-if (command === 'kick') {
-  const member = message.mentions.members.first();
-  if(!args[0]){
-    message.reply("Please Mention someone to kick!")
-  }
-  if (!args[1]){
-    message.reply("Please Specify the reason")
-  }
-  if(message.member.hasPermission("KICK_MEMBERS")){
-    member.kick();
-    message.channel.send(`${message.author} I have kicked ${member} for ${args[1]} <a:nikalbe:737128407241982044>`)
-    member.send(`You have been kicked from ${message.guild.name} by ${message.author} for ${args[1]}`)
-  }
-  if(!message.member.hasPermission("KICK_MEMBERS")){
-    message.reply("Sorry, but you dont have the permission to advocate this command!")
-  }
+client.on('message', async message => {
+  const args = message.content.substring(prefix.length).split(" ")
+  const mentionedMember = message.mentions.members.first()
+if (message.content.startsWith(`${prefix}kick`)) {
+  const reason = args.slice(2).join(" ") 
+  if(!message.member.hasPermission('KICK_MEMBERS')) return message.channel.send("You don't have the permission to advocate this command")
+  if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send("I don't have the permission to advocate this command")
+  if(!args[1]) return message.channel.send("You need to specify someone to kick")
+  if(!mentionedMember) return message.channel.send("Please mention a valid user")
+  if(mentionedMember.roles.highest.position >= message.member.roles.highest.position || message.author.id !== message.guild.owner.id) return message.channel.send("You cant kick this member due to the role heirarchy") 
+  if(mentionedMember.id === message.author.id) return message.channel.send("Why do you want to kick yourself? :rofl:")
+  if(mentionedMember.kickable){
+    var embed = new Discord.MessageEmbed()
+    .setAuthor(`${message.author.username} - (${message.author.id})`, message.author.displayAvatarURL())
+    .setThumbnail(mentionedMember.user.displayAvatarURL())
+    .setColor("BLUE")
+    .setDescription(`
+      **Member:** ${mentionedMember.user.username} - (${mentionedMember.user.id})
+      **Action:** Kick
+      **Advocated By:** ${message.author.username}
+      **Reason:** ${reason || `Undefined`}
+      **Time:** ${moment().format('1111')}
+    `)
+    message.channel.send(embed)
+    mentionedMember.createDM(embed)
+    mentionedMember.kick();
+  }else{
+    return message.channel.send("I cant kick this user make sure I have been given the required Permissions ")
+  }return undefined
 }
 })
-client.on('message', message => {
+client.on('message', async message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
