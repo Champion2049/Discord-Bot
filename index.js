@@ -1072,6 +1072,7 @@ if (message.content.startsWith(`${prefix}kick`)) {
       **Advocated By:** ${message.author.username}
       **Reason:** ${reason || `Undefined`}
     `)
+    .setFooter(`Bot made by Champion2049#3714`, 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
     message.channel.send(embed)
     mentionedMember.createDM(embed)
     mentionedMember.kick();
