@@ -9,6 +9,12 @@ const { ALL } = require('dns');
 const { title } = require('process');
 const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
 const queue = new Map()
+const db = require('mongoose')
+const dbOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: true
+}
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
@@ -16,7 +22,7 @@ for(const file of commandFiles){
     client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
+client.once('ready', async () => {
     console.log('Easy Use Bot is online!' + version);
     const botuptime = client.uptime
     function randomStatus() {
@@ -26,6 +32,8 @@ client.once('ready', () => {
         let rtypes = Math.floor(Math.random() * types.length);
         client.user.setActivity(status[rstatus], {type: types[rtypes], url: "https://facebook.com/lapizherda"});
         }; setInterval(randomStatus, 5000) 
+        await db.connect('mongodb+srv://Champion2049:anaconda6@cluster0.lp7ib.mongodb.net/Champion2049?retryWrites=true&w=majority', dbOptions)
+        .then(console.log("Mongodb"))
 });
 client.on('message', message =>{
        if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -615,6 +623,7 @@ client.on('message', async message => {
     .setTitle("Join our support server!")
     .setURL('https://discord.gg/9jHXwta')
     .setDescription('Join our support server if you need any more assistance')
+    .setColor("BLUE")
     message.channel.send(embed);
   }
 })
@@ -1111,6 +1120,23 @@ if (command === 'userinfo') {
     message.channel.send(sembed)
   }
 }
+})
+client.on('message', async message => {
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'rr') {
+    message.delete()
+    if(!args[0]) return message.channel.send(`Please specify the role and the reaction(dcrr <role name> <reaction> <role name> <reaction> )!`);
+    if(!args[1]) return message.channel.send("Please specify the reaction to be added!")
+    const role = message.mentions.roles.first()
+    if(!role) return message.channel.send(`Enter a valid role name`)
+    if(!args[2]) return message.channel.send("Please enter one more role!")
+    if(!args[3]) return message.channel.send("Please specify the reaction for the second role!")
+    const m = await message.channel.send(`React to ${args[1]} to get ${args[0]} & React to ${args[3]} to get ${args[2]}`)
+    m.react(`${args[1]}`)
+    m.react(`${args[3]}`)
+  }
 })
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
