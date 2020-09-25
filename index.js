@@ -182,7 +182,7 @@ client.on('message', async message => {
     let seconds = Math.floor(client.uptime / 1000) % 60;
     let botembed = new Discord.MessageEmbed()
     .setColor("#00ff00")
-    .setThumbnail(bicon)
+    .setThumbnail("https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif")
     .addField("Bot Name", `<a:nitroboost:744884824015110204>${client.user.username}<a:nitroboost:744884824015110204>`, inline)
     .addField("Bot Owner", "<a:crown:744885017511198791> Champion2049#3714" , inline )
     .addField("Bot ID", '<:005idcard:744890183782236201>  730644349897015307')
@@ -194,7 +194,7 @@ client.on('message', async message => {
     .addField("Uptime", `<a:Timer:744890944557678722>${days}d ${hours}h ${minutes}m ${seconds}s`)
     .setTitle(`Click here to Invite the bot!`)
     .setURL('https://discordapp.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
-    .setFooter(`Information about: ${client.user.username}. Developed by: Champion2049`)
+    .setFooter(`Information about: ${client.user.username}. Developed by: Champion2049`, 'https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif')
     .setTimestamp()
     
     message.channel.send(botembed);
@@ -712,6 +712,7 @@ module.exports = {
   }
 })
 const YouTube = require("discord-youtube-api");
+const { userInfo } = require('os');
 const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 client.on('message', async message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -1067,23 +1068,46 @@ client.on('message', message => {
   const command = args.shift().toLowerCase();
 if (command === 'userinfo') {
   const user = message.mentions.members.first();
-  if (args[0]){}
+  if(message.mentions.users.first()){
+    if(args[0]){
+      const act = user.presence.activities
+      if(user.presence.activities.values(0)) {var activities = 'He is not doing anything right now!'}
+      else {var activities = act}
+      const avatar = message.author.displayAvatarURL({dynamic: true})
+      let embed = new Discord.MessageEmbed()
+      .setTitle(`Information about ${user.tag}`)
+      .addField(`Username:`, `${user.username}`)
+    .addField(`ID:`, `${user.id}`)
+    .addField(`Last Message:`, `${user.lastMessage}`)
+    .addField(`Activity`, `${activities}`)
+    .setThumbnail(avatar)
+    .addField(`Bot:`, `${user.bot}`)
+    .addField(`Presence:`, `${user.presence.status}`)
+    .addField(`Created At:`, `${user.createdAt}`)
+    .setColor("BLUE")
+    .setTimestamp()
+    .setFooter(`Bot made by Champeion2049#3714`, `https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif`)
+      message.channel.send(embed)
+    }
+  }
     else{
     const act = message.author.presence.activities
     if(message.author.presence.activities.values(0)) {var activities = 'He is not doing anything right now!'}
     else {var activities = act}
+    const avatar1 = message.author.displayAvatarURL({dynamic: true})
     let sembed = new Discord.MessageEmbed()
     .setTitle(`Information about ${message.author.tag}`)
     .addField(`Username:`, `${message.author.username}`)
     .addField(`ID:`, `${message.author.id}`)
     .addField(`Last Message:`, `${message.author.lastMessage}`)
-    .addField(`Activity`, `${activities}`)
-    .setThumbnail(message.author.avatarURL())
+    .addField(`Activity:`, `${activities}`)
+    .setThumbnail(avatar1)
     .addField(`Bot:`, `${message.author.bot}`)
     .addField(`Presence:`, `${message.author.presence.status}`)
     .addField(`Created At:`, `${message.author.createdAt}`)
     .setColor("BLUE")
     .setTimestamp()
+    .setFooter(`Bot made by Champeion2049#3714`, `https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif`)
     message.channel.send(sembed)
   }
 }
