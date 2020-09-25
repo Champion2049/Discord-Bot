@@ -346,7 +346,7 @@ client.on('message', async message => {
           message.channel.send('\nhttps://google.com/search?q='+args)
       }
     })
-  const createCaptcha = require('./captcha.js');
+  /*const createCaptcha = require('./captcha.js');
   client.on('guildMemberAdd', async member => {
       const captcha = await createCaptcha();
       try {
@@ -386,7 +386,7 @@ client.on('message', async message => {
       catch(err) {
           console.log(err);
       }
-  });
+  });*/
   client.on('message', async message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
          const args = message.content.slice(prefix.length).split(/ +/);
@@ -400,7 +400,7 @@ client.on('message', async message => {
       .addField('<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>', 'Commands that are related to Music')
       .addField('<a:kjsc:758210180755750922>__Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
       .addField('🤪__Fun Commands__<a:BearLaugh:745125674360111145>', "Commands to solve your Boredom issues")
-      .addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
+      //.addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
       .addField('<:botverificado:745124688048554054>__Extra Commands__<:botverificado:745124688048554054>', "More Information")
       .setTimestamp()
       const m = await message.channel.send(embed)
@@ -411,7 +411,7 @@ client.on('message', async message => {
       m.react("📝")
       m.react("🤖")
       m.react("❌")
-      m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '🛠' || reaction.emoji.name === '🎵' || reaction.emoji.name === '🎉' || reaction.emoji.name === '🤪' || reaction.emoji.name === '📝' || reaction.emoji.name === '🤖' || reaction.emoji.name === '❌'),
+      m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '🛠' || reaction.emoji.name === '🎵' || reaction.emoji.name === '🎉' || reaction.emoji.name === '🤪' /*|| reaction.emoji.name === '📝' */|| reaction.emoji.name === '🤖' || reaction.emoji.name === '❌'),
                           { max: 1, time: 30000 }).then(collected => {
                                   if (collected.first().emoji.name === '🛠') {
                                           const membed = new Discord.MessageEmbed()
@@ -449,7 +449,7 @@ client.on('message', async message => {
                                     m.edit(fembed)
                                     m.reactions.removeAll()
                                   }
-                                  else if(collected.first().emoji.name === '📝'){
+                                  /*else if(collected.first().emoji.name === '📝'){
                                     const cembed = new Discord.MessageEmbed()
                                     .setTitle('**📝__Captcha (inbuilt)__<:Protection:745124390601228358>**')
                                     .setFooter("Bot made by Champion2049#3714")
@@ -457,7 +457,7 @@ client.on('message', async message => {
                                     .setColor(0x14c9ed)
                                     m.edit(cembed)
                                     m.reactions.removeAll()
-                                  }
+                                  }*/
                                   else if(collected.first().emoji.name === '🤖'){
                                     const bembed = new Discord.MessageEmbed()
                                     .setTitle('**<:botverificado:745124688048554054>__Extra Commands__<:botverificado:745124688048554054>**')
