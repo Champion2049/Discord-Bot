@@ -182,7 +182,7 @@ client.on('message', async message => {
     let seconds = Math.floor(client.uptime / 1000) % 60;
     let botembed = new Discord.MessageEmbed()
     .setColor("#00ff00")
-    .setThumbnail("https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif")
+    .setThumbnail(`https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
     .addField("Bot Name", `<a:nitroboost:744884824015110204>${client.user.username}<a:nitroboost:744884824015110204>`, inline)
     .addField("Bot Owner", "<a:crown:744885017511198791> Champion2049#3714" , inline )
     .addField("Bot ID", '<:005idcard:744890183782236201>  730644349897015307')
@@ -194,7 +194,7 @@ client.on('message', async message => {
     .addField("Uptime", `<a:Timer:744890944557678722>${days}d ${hours}h ${minutes}m ${seconds}s`)
     .setTitle(`Click here to Invite the bot!`)
     .setURL('https://discordapp.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
-    .setFooter(`Information about: ${client.user.username}. Developed by: Champion2049`, 'https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif')
+    .setFooter(`Information about: ${client.user.username}. Developed by: Champion2049`, 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
     .setTimestamp()
     
     message.channel.send(botembed);
@@ -1086,7 +1086,7 @@ if (command === 'userinfo') {
     .addField(`Created At:`, `${user.createdAt}`)
     .setColor("BLUE")
     .setTimestamp()
-    .setFooter(`Bot made by Champeion2049#3714`, `https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif`)
+    .setFooter(`Bot made by Champeion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
       message.channel.send(embed)
     }
   }
@@ -1107,7 +1107,7 @@ if (command === 'userinfo') {
     .addField(`Created At:`, `${message.author.createdAt}`)
     .setColor("BLUE")
     .setTimestamp()
-    .setFooter(`Bot made by Champeion2049#3714`, `https://media.giphy.com/media/kJwu6A8WodCMrKEERE/giphy.gif`)
+    .setFooter(`Bot made by Champeion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
     message.channel.send(sembed)
   }
 }
