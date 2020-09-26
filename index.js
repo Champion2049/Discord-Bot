@@ -781,6 +781,24 @@ client.on('message', async message =>{
         serverQueue.songs.push(song)
         return message.channel.send(`**${song.title}** has been added to the queue! `)
       }
+      function play(guild, song){
+        const serverQueue = queue.get(guild.id)
+        if(!song){
+          serverQueue.voiceChannel.leave()
+          queue.delete(guild.id)
+          return
+      } 
+        const dispatcher = connection.play(ytdl(args[1]))
+        .on('finish', () => {
+          serverQueue.songs.shift()
+          play(guild, serverQueue.songs[0])
+        })
+        .on('error', error => {
+          console.log(error)
+        })
+        dispatcher.setVolumeLogarithmic(5 / 5)
+        serverQueue.textChannel.send(`Started Playing: **${song.title}**`)
+      }
       return undefined
   }else if(message.content.startsWith(`${prefix}stop`)){
     if(!message.member.voice.channel) return message.channel.send("You need to be in a Voice Channel to stop the music!")
@@ -827,23 +845,6 @@ client.on('message', async message =>{
     message.channel.send("Music has be resumed!")
     return undefined
   }
-function play(guild, song){
-  const serverQueue = queue.get(guild.id)
-  if(!song){
-    serverQueue.voiceChannel.leave()
-    queue.delete(guild.id)
-    return
-} 
-  const dispatcher = connection.play(ytdl(args[1]))
-  .on('finish', () => {
-    voiceChannel.leave()
-  })
-  .on('error', error => {
-    console.log(error)
-  })
-  dispatcher.setVolumeLogarithmic(5 / 5)
-  serverQueue.textChannel.send(`Started Playing: **${song.title}**`)
-}
 })
 client.on('message', async message=>{
   if(!message.content.startsWith(prefix + 'addrole') || message.author.bot)return;
