@@ -827,7 +827,6 @@ client.on('message', async message =>{
     message.channel.send("Music has be resumed!")
     return undefined
   }
-})
 function play(guild, song){
   const serverQueue = queue.get(guild.id)
   if(!song){
@@ -845,6 +844,7 @@ function play(guild, song){
   dispatcher.setVolumeLogarithmic(5 / 5)
   serverQueue.textChannel.send(`Started Playing: **${song.title}**`)
 }
+})
 client.on('message', async message=>{
   if(!message.content.startsWith(prefix + 'addrole') || message.author.bot)return;
   if(!message.member.hasPermission("MANAGE_ROLES")){
