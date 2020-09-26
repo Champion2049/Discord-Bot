@@ -396,7 +396,7 @@ client.on('message', async message => {
       const embed = new Discord.MessageEmbed()
       .setTitle('**Help is Here!**')
       .setColor(0x14c9ed)
-      .setFooter('Bot made by Champion2049#3714', 'https://imgur.com/a/H2wrrI6')
+      .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
       .addField('<a:modo:758209576029257738>__Moderation Commands__<a:modo:758209576029257738>', 'Commands which require Admin Permission')
       .addField('<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>', 'Commands that are related to Music')
       .addField('<a:kjsc:758210180755750922>__Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
@@ -490,6 +490,7 @@ client.on('message', async message => {
       .addField(`Invite the bot from AYB`, `https://ayblisting.com/bots/730644349897015307`)
       .addField(`Invite the bot from Discord Bot List`, `https://discord.ly/easy-use-bot`)
       .addField(`Invite the bot from Bots for Discord`, `https://botsfordiscord.com/bot/730644349897015307`)
+      .addField(`Invite the bot from Aspect Bot List`, `https://sudden-tidal-phalange.glitch.me/bots/730644349897015307`)
       .setColor("GOLD")
       message.channel.send(embed)
     }
