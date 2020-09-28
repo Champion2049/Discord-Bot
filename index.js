@@ -610,6 +610,7 @@ client.on('message', async message => {
         let memeNumComments = content[0].data.children[0].data.num_comments;
         embed.addField(`${memeTitle}`, `[View thread](${memeUrl})`);
         embed.setImage(memeImage);
+        embed.setColor("BLUE")
         embed.setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}`);
         message.channel.send(embed)
             .then(sent => console.log(`Sent a reply to ${sent.author.username}`))
