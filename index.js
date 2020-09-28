@@ -470,9 +470,7 @@ client.on('message', async message => {
                                     m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '❌'){
-                                    const c = new Discord.MessageEmbed()
-                                    m.edit(c);
-                                    m.reactions.removeAll()
+                                    m.delete();
                                   }
                                   else
                                           message.reply('Operation canceled.');
