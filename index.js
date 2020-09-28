@@ -414,7 +414,7 @@ client.on('message', async message => {
       m.react("🤖")
       m.react("❌")
       m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '🛠' || reaction.emoji.name === '🎵' || reaction.emoji.name === '🎉' || reaction.emoji.name === '🤪' /*|| reaction.emoji.name === '📝' */|| reaction.emoji.name === '🤖' || reaction.emoji.name === '❌'),
-                          { max: 1, time: 30000 }).then(collected => {
+                          {time: 60000 }).then(collected => {
                                   if (collected.first().emoji.name === '🛠') {
                                           const membed = new Discord.MessageEmbed()
                                           .setTitle('<a:modo:758209576029257738> **__Moderation Commands__** <a:modo:758209576029257738>')
@@ -422,7 +422,7 @@ client.on('message', async message => {
                                           .setDescription('**dckick**- kicks the mentioned person\n **dcban**- bans the mentioned person\n **dcclear**- deletes a mentioned amount of messages\n **dcpoll**- creates a poll to vote on\n **dcwarn**- gives the mentioned user a warning\n **dcserverinfo**- gives detailed information about the server\n **dcmute**- mutes the mentioned person for the given amount of time\n **dcaddrole**- adds the mentioned role to the mentioned user\n **dcremoverole**- removes a mentioned role from the mentioned user\n **dcset_welcome_channel**- sets a channel where a Welcome message will be sent whenever a new member joins')
                                           .setColor(0x14c9ed)
                                           m.edit(membed)
-                                          m.reactions.removeAll()
+                                          //m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '🎵'){
                                     const muembed = new Discord.MessageEmbed()
