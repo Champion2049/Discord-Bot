@@ -791,7 +791,7 @@ client.on('message', async message =>{
       } 
         const dispatcher = connection.play(ytdl(args[1]))
         .on('finish', () => {
-          if(!serverQueue.loop)serverQueue.songs.shift()
+          if(!serverQueue.loop) {serverQueue.songs.shift()}
           play(guild, serverQueue.songs[0])
         })
         .on('error', error => {
