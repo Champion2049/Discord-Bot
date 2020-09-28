@@ -760,7 +760,8 @@ client.on('message', async message =>{
         connection: null, 
         songs: [],
         volume: 5, 
-        playing: true
+        playing: true,
+        loop: false
       }
       queue.set(message.guild.id, queueConstruct)
       queueConstruct.songs.push(song)
@@ -790,7 +791,7 @@ client.on('message', async message =>{
       } 
         const dispatcher = connection.play(ytdl(args[1]))
         .on('finish', () => {
-          serverQueue.songs.shift()
+          if(!serverQueue.loop)serverQueue.songs.shift()
           play(guild, serverQueue.songs[0])
         })
         .on('error', error => {
@@ -844,6 +845,11 @@ client.on('message', async message =>{
     serverQueue.connection.dispatcher.resume()
     message.channel.send("Music has be resumed!")
     return undefined
+  }else if(message.content.startsWith(`${prefix}loop`)){
+    if(!message.member.voice.channel) return message.channel.send("You need to be in a Voice Channel to pause the music!")
+    if(!serverQueue) return message.channel.send("There is nothing playing right now!")
+    serverQueue.loop = !serverQueue.loop
+    return message.channel.send(`I have now ${serverQueue.loop ? `**Enabled**`: `**Disabled**`}the loop!`)
   }
 })
 client.on('message', async message=>{
@@ -1151,4 +1157,6 @@ client.on('messageReactionAdd', async(reaction,user)=>{
     })
 }
 })
+
+
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
