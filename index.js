@@ -410,11 +410,11 @@ client.on('message', async message => {
       m.react("🎵")
       m.react("🎉")
       m.react("🤪")
-      //m.react("📝")
+      m.react("📝")
       m.react("🤖")
       m.react("❌")
       m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '🛠' || reaction.emoji.name === '🎵' || reaction.emoji.name === '🎉' || reaction.emoji.name === '🤪' /*|| reaction.emoji.name === '📝' */|| reaction.emoji.name === '🤖' || reaction.emoji.name === '❌'),
-                          {max: 1, time: 3000 }).then(collected => {
+                          {max: 100, time: 3000 }).then(collected => {
                                   if (collected.first().emoji.name === '🛠') {
                                           const membed = new Discord.MessageEmbed()
                                           .setTitle('<a:modo:758209576029257738> **__Moderation Commands__** <a:modo:758209576029257738>')
