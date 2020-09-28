@@ -1164,7 +1164,7 @@ client.on('message', async message => {
     const embed = new Discord.MessageEmbed()
     .setTitle("**COVID19 Stats**")
     .setColor("BLUE")
-    .setThumbnail('https://imgur.com/TR5lCsA')
+    .setImage('https://images-ext-2.discordapp.net/external/sDq8ardBtIlvciU5MDlnIRd9XkLev2Pn9UTKy3I6dAo/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/695465125230018562/a75db4b231deb1f54149afaa48779fe5.webp')
     .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
     .addFields(
       {name: `Total Cases`, value: covidStats.cases.toLocaleString(), inline: true},
