@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const prefix = 'dc';
 var version = '2.4';
 var servers = {};
+const covid = require('novelcovid')
 const ytdl = require("ytdl-core");
 const fs = require('fs');
 const { ALL } = require('dns');
@@ -427,7 +428,7 @@ client.on('message', async message => {
                                     const muembed = new Discord.MessageEmbed()
                                     .setTitle('**<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>**')
                                     .setFooter("Bot Made by Champion2049#3714")
-                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music and leaves the voice channel\n**dcpause**- pauses the music that is playing\n**dcresume**- resumes the paused music\n**dcqueue**- shows the currents song queue\n**dcskip**- skips the song\n**dcvolume**- shows the current volume and if volume value is written after it changes volume to that\n**dcnp**- shows the song that is currently playing')
+                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music and leaves the voice channel\n**dcpause**- pauses the music that is playing\n**dcresume**- resumes the paused music\n**dcqueue**- shows the currents song queue\n**dcskip**- skips the song\n**dcvolume**- shows the current volume and if volume value is written after it changes volume to that\n**dcnp**- shows the song that is currently playing\n**dcloop**- loops the queued music(if already looped enter again to exit from loop)')
                                     .setColor(0x14c9ed)
                                     m.edit(muembed)
                                     m.reactions.removeAll()                                 
@@ -463,7 +464,7 @@ client.on('message', async message => {
                                     const bembed = new Discord.MessageEmbed()
                                     .setTitle('**<:botverificado:745124688048554054>__Extra Commands__<:botverificado:745124688048554054>**')
                                     .setFooter("Bot made by Champion2049#3714")
-                                    .setDescription("**dcbotinfo**- see information about the bot\n**dcinvite**- get the link to invite the bot!\n**dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands\n**dcuserinfo**- gives information about yourself or mentioned user")
+                                    .setDescription("**dcbotinfo**- see information about the bot\n**dcinvite**- get the link to invite the bot!\n**dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands\n**dcuserinfo**- gives information about yourself or mentioned user\n**dccovid**- gives COVID19 stats")
                                     .setColor(0x14c9ed)
                                     m.edit(bembed)
                                     m.reactions.removeAll()
@@ -1157,6 +1158,27 @@ client.on('messageReactionAdd', async(reaction,user)=>{
     })
 }
 })
-
+client.on('message', async message => {
+  if(message.content.startsWith(`${prefix}covid`)){
+    const covidStats = await covid.all()
+    const embed = new Discord.MessageEmbed()
+    .setTitle("**COVID19 Stats**")
+    .setColor("BLUE")
+    .setThumbnail('https://imgur.com/TR5lCsA')
+    .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
+    .addFields(
+      {name: `Total Cases`, value: covidStats.cases.toLocaleString(), inline: true},
+      {name: `Today's Cases`, value: covidStats.todayCases.toLocaleString(), inline: true},
+      {name: `Total Deaths`, value: covidStats.deaths.toLocaleString(), inline: true},
+      {name: `Deaths Today`, value: covidStats.todayDeaths.toLocaleString(), inline: true},
+      {name: `Total Recoveries`, value: covidStats.recovered.toLocaleString(), inline: true},
+      {name: `Today's Recoveries`, value: covidStats.todayRecovered.toLocaleString(), inline: true},
+      {name: `Active Infections`, value: covidStats.active.toLocaleString(), inline: true},
+      {name: `Critical Condition`, value: covidStats.critical.toLocaleString(), inline: true},
+      {name: `Total Tested(negative+positive)`, value: covidStats.tests.toLocaleString(), inline: true}
+    )
+    return message.channel.send(embed)
+  }
+})
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
