@@ -23,6 +23,7 @@
     "discord.js-musicbot-v2": "^13.9.3",
     "dotenv": "^8.2.0",
     "eris": "^0.13.3",
+    "fetch-blob": "^2.1.1",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
