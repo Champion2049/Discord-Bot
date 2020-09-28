@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client(); 
 const prefix = 'dc';
-var version = '2.4';
+var version = '3.1';
 var servers = {};
 const covid = require('novelcovid')
 const ytdl = require("ytdl-core");
