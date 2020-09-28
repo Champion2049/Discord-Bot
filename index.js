@@ -611,7 +611,7 @@ client.on('message', async message => {
         embed.addField(`${memeTitle}`, `[View thread](${memeUrl})`);
         embed.setImage(memeImage);
         embed.setColor("BLUE")
-        embed.setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}`);
+        embed.setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}\n Bot made by Champion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`);
         message.channel.send(embed)
             .then(sent => console.log(`Sent a reply to ${sent.author.username}`))
         console.log('Bot responded with: ' + memeImage);
