@@ -846,7 +846,7 @@ client.on('message', async message =>{
     message.channel.send("Music has be resumed!")
     return undefined
   }else if(message.content.startsWith(`${prefix}loop`)){
-    if(!message.member.voice.channel) return message.channel.send("You need to be in a Voice Channel to pause the music!")
+    if(!message.member.voice.channel) return message.channel.send("You need to be in a Voice Channel to loop the music!")
     if(!serverQueue) return message.channel.send("There is nothing playing right now!")
     serverQueue.loop = !serverQueue.loop
     return message.channel.send(`I have now ${serverQueue.loop ? `**Enabled**`: `**Disabled**`}the loop!`)
