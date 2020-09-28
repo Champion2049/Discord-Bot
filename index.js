@@ -470,7 +470,7 @@ client.on('message', async message => {
                                     m.reactions.removeAll()
                                   }
                                   else if(collected.first().emoji.name === '❌'){
-                                    m.edit('Closed').then(msg => msg.delete({timeout: 5000}));
+                                    m.edit('Closing....').then(msg => msg.delete({timeout: 5000}));
                                   }
                                   else
                                           message.reply('Operation canceled.');
