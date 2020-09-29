@@ -44,7 +44,7 @@ client.on('message', message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix)) return
   const args = message.content.substring(prefix.length).split(" ")
-  if(message.content.startsWith(`${prefix}set_prefix`)){
+  if(message.content.startsWith(`${prefix}setprefix`)){
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
     if(!args[1]) return message.channel.send("Please specify a prefix!")
     if(args[1].length>4) return message.channel.send("A prefix can only have 3 or less than 3 characters!")
