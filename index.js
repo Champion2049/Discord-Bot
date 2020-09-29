@@ -7,6 +7,7 @@ const ytdl = require("ytdl-core");
 const fs = require('fs');
 const { ALL } = require('dns');
 const { title } = require('process');
+const Canvas = require("discord-canvas")
 const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
 const queue = new Map()
 const moment = require('moment')
@@ -1009,6 +1010,7 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
+  var welcome = db1.get(`guild_${message.guild.id}_welcome`)
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
@@ -1021,13 +1023,14 @@ client.on('message', async message => {
     if(!args[1] === channel){
       message.reply("Please Enter a valid channel name!")
     }
+    if(args[1] === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send("This is already set as the welcome channel!")
   }if(message.member.hasPermission("MANAGE_GUILD")){
     if(channel){
+      db1.set(`guild_${message.guild.id}_welcome`, channel)
       message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
     }
   }else(message.reply("Sorry you dont have the permission to advocate this command!"))
     const n = channel
-    db1.set(`guild_${message.guild.id}_welcome`, channel)
      client.on('guildMemberAdd', member => {
       if (!n) return;
       const embed = new Discord.MessageEmbed()
@@ -1037,7 +1040,7 @@ client.on('message', async message => {
       .setColor("GREEN")
       .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
       .setThumbnail()
-      n.send(embed)
+      welcome.send(embed)
     })
   }
 })
@@ -1091,7 +1094,7 @@ if (message.content.startsWith(`${prefix}kick`)) {
     `)
     .setFooter(`Bot made by Champion2049#3714`, 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
     message.channel.send(embed)
-    mentionedMember.createDM(embed)
+    mentionedMember.send(embed)
     mentionedMember.kick();
   }else{
     return message.channel.send("I cant kick this user make sure I have been given the required Permissions ")
@@ -1300,6 +1303,20 @@ if (command === 'delete') {
   return message.channel.send(attachment);
   }
 }
+})
+client.on('message', message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(!message.content.startsWith(prefix)) return
+  const args = message.content.substring(prefix.length).split(" ")
+  if(message.content.startsWith(`${prefix}setprefix`)){
+    if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
+    if(!args[1]) return message.channel.send("Please specify a prefix!")
+    if(args[1].length>4) return message.channel.send("A prefix can only have 3 or less than 3 characters!")
+    if(args[1] === db1.get(`guild_${message.guild.id}_prefix`)) return message.channel.send("That is already set as the prefix!")
+    if(args[1] === "dc") db1.delete(`guild_${message.guild.id}_prefix`)
+    db1.set(`guild_${message.guild.id}_prefix`, args[1])
+    return message.channel.send(`I have now set your prefix to ${args[1]}`)
+  }
 })
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
