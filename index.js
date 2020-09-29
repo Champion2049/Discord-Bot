@@ -168,42 +168,6 @@ client.on('message', message => {
 });
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  let args = message.content.substring(prefix.length).split(" "); 
-  switch (args[0]){
-    case 'play2':
-      function play(connection, message){
-        var server = servers[message.guild.id];
-        server.dispatcher = connection.play(ytdl(server.queue[0], {filter: "audioonly"}));
-        server.queue.shift();
-        server.dispatcher.on("finish", () =>{
-          if(server.queue[0]){
-              play(connection, message);
-          }else{
-              connection.disconnect();
-          }
-          });
-      }
-      let validate = ytdl.validateURL(args[1]);
-      if (!validate){
-        return message.reply("Please provide a valid URL");  
-      }
-      if(!message.member.voice.channel){
-       return message.reply('Please join a voice channel first');
-      }
-      if(!servers[message.guild.id]) servers[message.guild.id] = {
-        queue: []
-      }
-      var server = servers[message.guild.id];
-      server.queue.push(args[1]);
-      if(!message.member.voice.connection) message.member.voice.channel.join().then(function(connection){
-        play(connection, message);
-        return;
-      })
-      break;
-  }
-})
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
