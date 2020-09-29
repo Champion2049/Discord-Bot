@@ -1106,7 +1106,7 @@ if (command === 'userinfo') {
   if(message.mentions.users.first()){
     if(args[0]){
       const act = user.presence.activities
-      if(user.presence.activities.values(0)) {var activities = 'He is not doing anything right now!'}
+      if(user.presence.activities.values(0)) {var activities = 'Nothing'}
       else {var activities = act}
       const avatar = user.displayAvatarURL({dynamic: true})
       let embed = new Discord.MessageEmbed()
@@ -1122,13 +1122,13 @@ if (command === 'userinfo') {
     .addField(`Created At:`, `${user.createdAt}`)
     .setColor("BLUE")
     .setTimestamp()
-    .setFooter(`Bot made by Champeion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
+    .setFooter(`Bot made by Champion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
       message.channel.send(embed)
     }
   }
     else{
     const act = message.author.presence.activities
-    if(message.author.presence.activities.values(0)) {var activities = 'He is not doing anything right now!'}
+    if(message.author.presence.activities.values(0)) {var activities = 'Nothing'}
     else {var activities = act}
     const avatar1 = message.author.displayAvatarURL({dynamic: true})
     let sembed = new Discord.MessageEmbed()
@@ -1144,7 +1144,7 @@ if (command === 'userinfo') {
     .addField(`Created At:`, `${message.author.createdAt}`)
     .setColor("BLUE")
     .setTimestamp()
-    .setFooter(`Bot made by Champeion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
+    .setFooter(`Bot made by Champion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
     message.channel.send(sembed)
   }
 }
@@ -1211,12 +1211,27 @@ client.on('message', async message => {
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(message.author.bot) return
+  function xp(message){
+    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+    if(message.content.startsWith(prefix))return
+    const randomNumber = Math.floor(Math.random() * 10) + 15
+    db1.add(`guild_${message.guild.id}_xp_${message.author.id}`, randomNumber)
+    db1.add(`guild_${message.guild.id}_xptotal_${message.author.id}`, randomNumber)
+    var level = db1.get(`guild_${message.guild.id}_level_${message.author.id}`) || 1
+    var xp = db1.get(`guild_${message.guild.id}_xp_${message.author.id}`)
+    var xpNeeded = level * 500
+    if(xpNeeded < xp){
+      var newLevel = db1.add(`guild_${message.guild.id}_level_${message.author.id}`, 1)
+      db1.subtract(`guild_${message.guild.id}_xp_${message.author.id}`, xpNeeded)
+      message.channel.send(`${message.author}, You have Leveled up to Level ${newLevel}!`)
+    }
+  }
   xp(message)
   if(message.content.startsWith(`${prefix}rank`)){
     const user = message.mentions.users.first();
-    var level = db1.get(`guild_${message.guild.id}_level_${user.id}`) || 0
+    var level = db1.get(`guild_${message.guild.id}_level_${user.id}`)
     level = level.toString()
-    let xp = db1.get(`guild_${message.guild.id}_xp_${user.id}`) || 0
+    let xp = db1.get(`guild_${message.guild.id}_xp_${user.id}`)
     xp = xp.toString()
     var xpNeeded = level * 500 + 500
     let every = db1
@@ -1240,20 +1255,26 @@ client.on('message', async message => {
     return message.channel.send(new Discord.MessageAttachment(img, "rank.png"))
   }
 })
-function xp(message){
+client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(message.content.startsWith(prefix))return
-  const randomNumber = Math.floor(Math.random() * 10) + 15
-  db1.add(`guild_${message.guild.id}_xp_${message.author.id}`, randomNumber)
-  db1.add(`guild_${message.guild.id}_xptotal_${message.author.id}`, randomNumber)
-  var level = db1.get(`guild_${message.guild.id}_level_${message.author.id}`) || 1
-  var xp = db1.get(`guild_${message.guild.id}_xp_${message.author.id}`)
-  var xpNeeded = level * 500
-  if(xpNeeded < xp){
-    var newLevel = db1.add(`guild_${message.guild.id}_level_${message.author.id}`, 1)
-    db1.subtract(`guild_${message.guild.id}_xp_${message.author.id}`, xpNeeded)
-    message.channel.send(`${message.author}, You have Leveled up to Level ${newLevel}!`)
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'trigger') {
+  const user = message.mentions.users.first();
+      if(message.mentions.users.first()){
+        let avatar = user.displayAvatarURL({ dynamic: false, format: 'png' });
+        let image = await Canvacord.trigger(avatar);
+        let attachment = new Discord.MessageAttachment(image, "triggered.gif");
+      return message.channel.send(attachment);
+      }
+      else{
+      let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
+      let image = await Canvacord.trigger(avatar);
+      let attachment = new Discord.MessageAttachment(image, "triggered.gif");
+      return message.channel.send(attachment);
   }
 }
+})
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
