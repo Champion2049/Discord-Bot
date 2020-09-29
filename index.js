@@ -162,7 +162,7 @@ client.on('message', message => {
        message.reply(`A custom prefix is not yet set for the server, but you can use \`dc\` as the default prefix`)
      }
      else{
-		message.reply(`The prefix set for this server is \`${prefix}\` but you can also use \`dc\``);
+		message.reply(`The prefix set for this server is \`${prefix}\``);
   }
 }
 });
