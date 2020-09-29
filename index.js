@@ -158,8 +158,13 @@ client.on('message', message => {
 	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
    if (command === 'prefix') {
+     if(prefix === "dc"){
+       message.reply(`A custom prefix is not yet set for the server, but you can use \`dc\` as the default prefix`)
+     }
+     else{
 		message.reply(`The prefix set for this server is \`${prefix}\` but you can also use \`dc\``);
-	}
+  }
+}
 });
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
