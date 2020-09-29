@@ -465,7 +465,7 @@ client.on('message', async message => {
                                     const bembed = new Discord.MessageEmbed()
                                     .setTitle('**<:botverificado:745124688048554054>__Extra Commands__<:botverificado:745124688048554054>**')
                                     .setFooter("Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-                                    .setDescription("**dcbotinfo**- see information about the bot\n**dcinvite**- get the link to invite the bot!\n**dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands\n**dcuserinfo**- gives information about yourself or mentioned user\n**dccovid**- gives COVID19 stats\n**@Easy Use Bot prefix**- shows the bot's prefix\n**dcset_prefix**- set a custom prefix for your guild\n**dcset_welcome_channel**- sets a channel where a Welcome message will be sent whenever a new member joins")
+                                    .setDescription("**dcbotinfo**- see information about the bot\n**dcinvite**- get the link to invite the bot!\n**dcsupport**- gives you the link to the bot's support server\n **dchelp**- displays the current page containing all the bot's commands\n**dcuserinfo**- gives information about yourself or mentioned user\n**dccovid**- gives COVID19 stats\n**@Easy Use Bot prefix**- shows the bot's prefix\n**dcsetprefix**- set a custom prefix for your guild\n**dcset_welcome_channel**- sets a channel where a Welcome message will be sent whenever a new member joins")
                                     .setColor(0x14c9ed)
                                     m.edit(bembed)
                                     m.reactions.removeAll()
@@ -487,13 +487,13 @@ client.on('message', async message => {
     if (command === 'invite') {
       const embed = new Discord.MessageEmbed()
       .setTitle('Invite the bot by clicking here!')
-      .setURL('https://discord.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
+      .setURL('https://discord.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=8')
       .addField(`Invite the bot from AYB`, `https://ayblisting.com/bots/730644349897015307`)
       .addField(`Invite the bot from Discord Bot List`, `https://discord.ly/easy-use-bot`)
       .addField(`Invite the bot from Bots for Discord`, `https://botsfordiscord.com/bot/730644349897015307`)
       .addField(`Invite the bot from Aspect Bot List`, `https://sudden-tidal-phalange.glitch.me/bots/730644349897015307`)
       .setColor("BLUE")
-      .setFooter("Bot made by Cha,pion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
+      .setFooter("Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
       message.channel.send(embed)
     }
   }) 
@@ -734,6 +734,7 @@ module.exports = {
 })
 const YouTube = require("discord-youtube-api");
 const { userInfo } = require('os');
+const { url } = require('inspector');
 const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
