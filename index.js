@@ -756,6 +756,7 @@ client.on('message', async message =>{
   const serverQueue = queue.get(message.guild.id)
   if(message.content.startsWith(`${prefix}play`)){
     const voiceChannel = message.member.voice.channel
+    if(!args[1]) return message.channel.send("Please give a url to play Music from!")
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
     const permissions = voiceChannel.permissionsFor(message.client.user)
     if(!permissions.has("CONNECT")) return message.reply('I dont have the required permissions to join a Voice Channel!')
@@ -1019,7 +1020,7 @@ client.on('message', async message => {
     if(!args[1] === channel){
       message.reply("Please Enter a valid channel name!")
     }
-  }if(message.member.hasPermission("ADMINISTRATOR")){
+  }if(message.member.hasPermission("MANAGE_GUILD")){
     if(channel){
       message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
     }
