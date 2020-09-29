@@ -13,7 +13,7 @@ const moment = require('moment')
 const db = require('mongoose')
 const Canvacord = require("canvacord")
 const db1 = require('quick.db')
-const prefix = 'dc'
+//const prefix = 'dc'
 const dbOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -31,7 +31,7 @@ client.once('ready', async () => {
     console.log('Easy Use Bot is online!' + version);
     const botuptime = client.uptime
     function randomStatus() {
-        let status = [`${client.guilds.cache.size} servers!`, `${client.channels.cache.size} channels!`, `${client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} users!`, ` ${prefix}help || Version: ${version}`]
+        let status = [`${client.guilds.cache.size} servers!`, `${client.channels.cache.size} channels!`, `${client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} users!`, ` dchelp || Version: ${version}`]
         let rstatus = Math.floor(Math.random() * status.length);
         let types = ["WATCHING"]
         let rtypes = Math.floor(Math.random() * types.length);
@@ -40,7 +40,22 @@ client.once('ready', async () => {
         await db.connect('mongodb+srv://Champion2049:anaconda6@cluster0.lp7ib.mongodb.net/Champion2049?retryWrites=true&w=majority', dbOptions)
         .then(console.log("Mongodb"))
 });
+client.on('message', message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(!message.content.startsWith(prefix)) return
+  const args = message.content.substring(prefix.length).split(" ")
+  if(message.content.startsWith(`${prefix}set_prefix`)){
+    if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
+    if(!args[1]) return message.channel.send("Please specify a prefix!")
+    if(args[1].length>4) return message.channel.send("A prefix can only have 3 or less than 3 characters!")
+    if(args[1] === db1.get(`guild_${message.guild.id}_prefix`)) return message.channel.send("That is already set as the prefix!")
+    if(args[1] === "dc") db1.delete(`guild_${message.guild.id}_prefix`)
+    db1.set(`guild_${message.guild.id}_prefix`, args[1])
+    return message.channel.send(`I have now set your prefix to ${args[1]}`)
+  }
+})
 client.on('message', message =>{
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
        if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -56,6 +71,7 @@ client.on('message', message =>{
        }
 );
 client.on('message', message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -86,6 +102,7 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -110,6 +127,7 @@ client.on('message', message => {
   }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -132,6 +150,7 @@ client.on('message', async message => {
 })
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 client.on('message', message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
 	const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`);
 	if (!prefixRegex.test(message.content)) return;
 
@@ -139,10 +158,11 @@ client.on('message', message => {
 	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
    if (command === 'prefix') {
-		message.reply(`The prefix set for this server is \`${prefix}\``);
+		message.reply(`The prefix set for this server is \`${prefix}\` but you can also use \`dc\``);
 	}
 });
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   let args = message.content.substring(prefix.length).split(" "); 
   switch (args[0]){
     case 'play2':
@@ -178,6 +198,7 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -214,6 +235,7 @@ client.on('message', async message => {
 })
 const urban = require("urban");
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -237,6 +259,7 @@ client.on('message', async message => {
   }
 })
   client.on('message', async message => {
+    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix) || message.author.bot) return;
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
@@ -256,6 +279,7 @@ client.on('message', async message => {
          }
   })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -276,6 +300,7 @@ message.channel.send(`**__Cleared ${args[0]} messages.__**`).then(msg => msg.del
        }
 });
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -299,6 +324,7 @@ client.on('message', async message => {
 })
 const giphy = require('giphy-api')("W8g6R14C0hpH6ZMon9HV9FTqKs4o4rCk");
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -344,6 +370,7 @@ client.on('message', async message => {
     }
   })
       client.on('message', async message => {
+        const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
         if(!message.content.startsWith(prefix) || message.author.bot) return;
              const args = message.content.slice(prefix.length).split(/ +/);
              const command = args.shift().toLowerCase();
@@ -394,6 +421,7 @@ client.on('message', async message => {
       }
   });*/
   client.on('message', async message => {
+    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix) || message.author.bot) return;
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
@@ -483,6 +511,7 @@ client.on('message', async message => {
     }
   })
   client.on('message', async message => {
+    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix) || message.author.bot) return;
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
@@ -500,6 +529,7 @@ client.on('message', async message => {
     }
   }) 
   client.on('message', async message => {
+    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix) || message.author.bot) return;
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
@@ -524,6 +554,7 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -557,6 +588,7 @@ message.channel.send({embed});
 })
 const imdb = require("imdb-api");
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -597,6 +629,7 @@ name: "imdb",
 })
 const got = require('got');
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -622,6 +655,7 @@ client.on('message', async message => {
 }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -637,6 +671,7 @@ client.on('message', async message => {
 const ms = require("ms");
 const {timeStamp} = require('console');
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -667,6 +702,7 @@ module.exports = {
   category: "fun"
 }
   client.on('message', async message => {
+    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix) || message.author.bot) return;
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
@@ -731,6 +767,7 @@ const YouTube = require("discord-youtube-api");
 const { userInfo } = require('os');
 const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -743,6 +780,7 @@ client.on('message', async message => {
 })
 require('dotenv').config()
 client.on('message', async message =>{
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(message.author.bot) return
   if(!message.content.startsWith(prefix)) return
   const args = message.content.substring(prefix.length).split(" ");
@@ -858,6 +896,7 @@ client.on('message', async message =>{
   }
 })
 client.on('message', async message=>{
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix + 'addrole') || message.author.bot)return;
   if(!message.member.hasPermission("MANAGE_ROLES")){
     return message.channel.send("You do not have permission to add roles")
@@ -886,6 +925,7 @@ await message.channel.send(`Added ${role} to ${useradd}`)
 
 })
 client.on('message', async message=>{
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix + 'removerole') || message.author.bot)return;
   if(!message.member.hasPermission("MANAGE_ROLES")){
     return message.channel.send("You do not have permission to remove roles")
@@ -914,6 +954,7 @@ await message.channel.send(`Removed ${role} from ${useradd}`)
 
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -934,6 +975,7 @@ client.on('message', async message => {
           }  
 });
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -958,6 +1000,7 @@ client.on('message', async message => {
           }  
 });
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -967,6 +1010,7 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -994,6 +1038,7 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
@@ -1024,6 +1069,7 @@ client.on('message', async message => {
   }
 })
 client.on('message', message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
@@ -1048,6 +1094,7 @@ if (command === 'invites') {
   }
 });
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   const args = message.content.substring(prefix.length).split(" ")
   const mentionedMember = message.mentions.members.first()
 if (message.content.startsWith(`${prefix}kick`)) {
@@ -1079,6 +1126,7 @@ if (message.content.startsWith(`${prefix}kick`)) {
 }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
@@ -1131,6 +1179,7 @@ if (command === 'userinfo') {
 }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
@@ -1166,6 +1215,7 @@ client.on('messageReactionAdd', async(reaction,user)=>{
 }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(message.content.startsWith(`${prefix}covid`)){
     const covidStats = await covid.all()
     const embed = new Discord.MessageEmbed()
@@ -1188,6 +1238,7 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(message.author.bot) return
   xp(message)
   if(message.content.startsWith(`${prefix}rank`)){
@@ -1219,6 +1270,7 @@ client.on('message', async message => {
   }
 })
 function xp(message){
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(message.content.startsWith(prefix))return
   const randomNumber = Math.floor(Math.random() * 10) + 15
   db1.add(`guild_${message.guild.id}_xp_${message.author.id}`, randomNumber)
