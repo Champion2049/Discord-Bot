@@ -1208,28 +1208,14 @@ client.on('message', async message => {
     return message.channel.send(embed)
   }
 })
-client.on('message', async message => {
+/*client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(message.author.bot) return
-  function xp(message){
-    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-    if(message.content.startsWith(prefix))return
-    const randomNumber = Math.floor(Math.random() * 10) + 15
-    db1.add(`guild_${message.guild.id}_xp_${message.author.id}`, randomNumber)
-    db1.add(`guild_${message.guild.id}_xptotal_${message.author.id}`, randomNumber)
-    var level = db1.get(`guild_${message.guild.id}_level_${message.author.id}`) || 1
-    var xp = db1.get(`guild_${message.guild.id}_xp_${message.author.id}`)
-    var xpNeeded = level * 500
-    if(xpNeeded < xp){
-      var newLevel = db1.add(`guild_${message.guild.id}_level_${message.author.id}`, 1)
-      db1.subtract(`guild_${message.guild.id}_xp_${message.author.id}`, xpNeeded)
-      message.channel.send(`${message.author}, You have Leveled up to Level ${newLevel}!`)
-    }
-  }
   xp(message)
   if(message.content.startsWith(`${prefix}rank`)){
     const user = message.mentions.users.first();
-    var level = db1.get(`guild_${message.guild.id}_level_${user.id}`)
+    var gui = message.guild.id
+    var level = db1.get(`guild_${gui}_level_${user.id}`)
     level = level.toString()
     let xp = db1.get(`guild_${message.guild.id}_xp_${user.id}`)
     xp = xp.toString()
@@ -1250,11 +1236,27 @@ client.on('message', async message => {
       neededXP: xpNeeded.toString(),
       rank,
       avatarURL: avatar,
-      color: "white"
+      color: "white",
+      background: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fak.picdn.net%2Fshutterstock%2Fvideos%2F1045325380%2Fthumb%2F1.jpg&imgrefurl=https%3A%2F%2Fcoverr.co%2Ftags%2Fzoom-virtual-backgrounds&tbnid=FWKsS6H1bp13QM&vet=12ahUKEwiynqHE-I3sAhXQCCsKHafJB-cQMygTegUIARD6AQ..i&docid=6Fgvh1JKXYPJFM&w=853&h=480&q=background&client=firefox-b-d&ved=2ahUKEwiynqHE-I3sAhXQCCsKHafJB-cQMygTegUIARD6AQ'
     })
     return message.channel.send(new Discord.MessageAttachment(img, "rank.png"))
   }
 })
+function xp(message){
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(message.content.startsWith(prefix))return
+  const randomNumber = Math.floor(Math.random() * 10) + 15
+  db1.add(`guild_${message.guild.id}_xp_${message.author.id}`, randomNumber)
+  db1.add(`guild_${message.guild.id}_xptotal_${message.author.id}`, randomNumber)
+  var level = db1.get(`guild_${message.guild.id}_level_${message.author.id}`) || 1
+  var xp = db1.get(`guild_${message.guild.id}_xp_${message.author.id}`)
+  var xpNeeded = level * 500
+  if(xpNeeded < xp){
+    var newLevel = db1.add(`guild_${message.guild.id}_level_${message.author.id}`, 1)
+    db1.subtract(`guild_${message.guild.id}_xp_${message.author.id}`, xpNeeded)
+    message.channel.send(`${message.author}, You have Leveled up to Level ${newLevel}!`)
+  }
+}*/
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
