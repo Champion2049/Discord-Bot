@@ -1280,5 +1280,26 @@ if (command === 'trigger') {
   }
 }
 })
+client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'delete') {
+  const user = message.mentions.users.first();
+  if(message.mentions.users.first()){
+    let avatar = user.displayAvatarURL({ dynamic: false, format: 'png' });
+  let image = await Canvacord.delete(avatar);
+  let attachment = new Discord.MessageAttachment(image, "deleted.png");
+  return message.channel.send(attachment);
+  }
+  else{
+  let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
+  let image = await Canvacord.delete(avatar);
+  let attachment = new Discord.MessageAttachment(image, "deleted.png");
+  return message.channel.send(attachment);
+  }
+}
+})
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
