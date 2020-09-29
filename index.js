@@ -11,6 +11,8 @@ const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
 const queue = new Map()
 const moment = require('moment')
 const db = require('mongoose')
+const Canvacord = require("canvacord")
+const db1 = require('quick.db')
 const prefix = 'dc'
 const dbOptions = {
   useNewUrlParser: true,
@@ -18,6 +20,7 @@ const dbOptions = {
   useFindAndModify: true
 }
 client.commands = new Discord.Collection();
+client.cooldowns = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
     const command = require(`./commands/${file}`)
@@ -588,7 +591,7 @@ name: "imdb",
     .addField("Score", movie.metascore, true)
     .addField("Awards Received", movie.awards, true)
     .addField("Genres", movie.genres, true)
-    .setFooter("Powered by IMDb\n Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256');
+    .setFooter("Powered by IMDb || Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256');
     message.channel.send(embed)
   }
 })
@@ -611,7 +614,7 @@ client.on('message', async message => {
         embed.addField(`${memeTitle}`, `[View thread](${memeUrl})`);
         embed.setImage(memeImage);
         embed.setColor("BLUE")
-        embed.setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}\n Bot made by Champion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`);
+        embed.setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments} || Bot made by Champion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`);
         message.channel.send(embed)
             .then(sent => console.log(`Sent a reply to ${sent.author.username}`))
         console.log('Bot responded with: ' + memeImage);
@@ -1010,7 +1013,7 @@ client.on('message', async message => {
      client.on('guildMemberAdd', member => {
       if (!n) return;
       const embed = new Discord.MessageEmbed()
-      .setTitle(`<a:cc_welcome:745581154417246230> Welcome to ${message.guild.name} <a:lala:745584123011137577>`)
+      .setTitle(`<a:chahal_welcome:758211451046723585> Welcome to ${message.guild.name} <a:lala:745584123011137577>`)
       .setDescription(`<a:YAY:745576439222370375> Thanks for joining the server ${member} <a:YAY:745576439222370375>`)
       .setTimestamp()
       .setColor("GREEN")
@@ -1090,6 +1093,7 @@ if (command === 'userinfo') {
       let embed = new Discord.MessageEmbed()
       .setTitle(`Information about ${user.tag}`)
       .addField(`Username:`, `${user.username}`)
+      .addField(`Discriminator:`, `${user.discriminator}`)
     .addField(`ID:`, `${user.id}`)
     .addField(`Last Message:`, `${user.lastMessage}`)
     .addField(`Activity`, `${activities}`)
@@ -1111,6 +1115,7 @@ if (command === 'userinfo') {
     let sembed = new Discord.MessageEmbed()
     .setTitle(`Information about ${message.author.tag}`)
     .addField(`Username:`, `${message.author.username}`)
+    .addField(`Discriminator:`, `${message.author.discriminator}`)
     .addField(`ID:`, `${message.author.id}`)
     .addField(`Last Message:`, `${message.author.lastMessage}`)
     .addField(`Activity:`, `${activities}`)
@@ -1182,5 +1187,50 @@ client.on('message', async message => {
     return message.channel.send(embed)
   }
 })
+client.on('message', async message => {
+  if(message.author.bot) return
+  xp(message)
+  if(message.content.startsWith(`${prefix}rank`)){
+    const user = message.mentions.users.first();
+    var level = db1.get(`guild_${message.guild.id}_level_${user.id}`) || 0
+    level = level.toString()
+    let xp = db1.get(`guild_${message.guild.id}_xp_${user.id}`) || 0
+    xp = xp.toString()
+    var xpNeeded = level * 500 + 500
+    let every = db1
+    .all()
+    .filter(i => i.ID.startsWith(`guild_${message.guild.id}_xptotal_`))
+    .sort((a, b) => b.data - a.data)
+    var rank = every.map(x => x.ID).indexOf(`guild_${message.guild.id}_xptotal_${user.id}`) + 1
+    rank = rank.toString()
+    const avatar = user.displayAvatarURL({dynamic: true})
+    let img = await Canvacord.rank({
+      username: user.username,
+      discrim: user.discriminator,
+      status: user.presence.status,
+      currentXP: xp,
+      level: level,
+      neededXP: xpNeeded.toString(),
+      rank,
+      avatarURL: avatar,
+      color: "white"
+    })
+    return message.channel.send(new Discord.MessageAttachment(img, "rank.png"))
+  }
+})
+function xp(message){
+  if(message.content.startsWith(prefix))return
+  const randomNumber = Math.floor(Math.random() * 10) + 15
+  db1.add(`guild_${message.guild.id}_xp_${message.author.id}`, randomNumber)
+  db1.add(`guild_${message.guild.id}_xptotal_${message.author.id}`, randomNumber)
+  var level = db1.get(`guild_${message.guild.id}_level_${message.author.id}`) || 1
+  var xp = db1.get(`guild_${message.guild.id}_xp_${message.author.id}`)
+  var xpNeeded = level * 500
+  if(xpNeeded < xp){
+    var newLevel = db1.add(`guild_${message.guild.id}_level_${message.author.id}`, 1)
+    db1.subtract(`guild_${message.guild.id}_xp_${message.author.id}`, xpNeeded)
+    message.channel.send(`${message.author}, You have Leveled up to Level ${newLevel}!`)
+  }
+}
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
