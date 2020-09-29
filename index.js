@@ -1013,6 +1013,7 @@ client.on('message', async message => {
        const command = args.shift().toLowerCase();
        const channel = message.mentions.channels.first();
   if (command === 'set_welcome_channel') {
+    db1.get(`guild_${message.guild.id}_welcome`)
     if(!args[0]){
       message.reply("Please type a channel name")
     if(!args[1] === channel){
@@ -1024,6 +1025,7 @@ client.on('message', async message => {
     }
   }else(message.reply("Sorry you dont have the permission to advocate this command!"))
     const n = channel
+    db1.set(`guild_${message.guild.id}_welcome`, channel)
      client.on('guildMemberAdd', member => {
       if (!n) return;
       const embed = new Discord.MessageEmbed()
