@@ -449,7 +449,7 @@ client.on('message', async message => {
                                     const fembed = new Discord.MessageEmbed()
                                     .setTitle('**<a:BearLaugh:745125674360111145>__Fun Commands__<:HAHAHA:745129345999175730>**')
                                     .setFooter("Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-                                    .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit\n **dcping**- shows you the bot's ping\n **dcinvites**- check how many invites you have in the current server")
+                                    .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit\n **dcping**- shows you the bot's ping\n **dcinvites**- check how many invites you have in the current server\n**dcdadjoke**- sends a funny dad joke\n**dccnjoke**- sends a funny Chuck Norris joke")
                                     .setColor(0x14c9ed)
                                     m.edit(fembed)
                                     m.reactions.removeAll()
@@ -1361,7 +1361,7 @@ client.on('message', message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix)) return
   const args = message.content.substring(prefix.length).split(" ")
-  if(message.content.startsWith(`${prefix}dadjoke`)){
+  if(message.content.startsWith(`${prefix}cnjoke`)){
     giveMeAJoke.getRandomCNJoke (function(joke) {
       message.channel.send(joke)
   })
