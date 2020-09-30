@@ -504,19 +504,15 @@ client.on('message', async message => {
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
     if (command === 'kill') {
-      let replies = ["by slipping over a leaf", "by using a gun", "I don't know how he died", "by jumping in a well", " by hanging himself to death", "because he was bored", "by watching too much tv", "go ask him how", "by falling from his bed", "by crying too much", "I wonder why" ];
-      let repliesa = ["for laughing too much", "for not using the bot", "by drowning him in a swimming pool", "by stabbing him in the chest", "because he farted too much", "with his sniper", "by running him over by a car", "by feeding him to his pet lion", "because he was not worthy of living"];
-      let gif = ["https://tenor.com/view/anime-sleeping-im-dead-gif-15157935", "https://tenor.com/view/lol-sherlock-death-dead-dying-gif-5196637", "https://tenor.com/view/dead-anime-death-soulless-gif-11385161", "https://tenor.com/view/mati-bodoh-bangang-keranda-menari-gif-16794417", "https://tenor.com/view/imout-bye-gif-4989183", "https://tenor.com/view/finger-gun-barney-himym-nph-neil-patrick-harris-gif-4524247", "https://giphy.com/gifs/season-13-the-simpsons-13x14-l2JeiuwmhZlkrVOkU", "https://giphy.com/gifs/gta-wasted-gta5-AHMHuF12pW4b6"]
-      let gifa = ["https://media.giphy.com/media/Z9JtPniLKdNzPjsEn6/giphy.gif", "https://media.giphy.com/media/fTn01fiFdTd5pL60ln/giphy.gif", "https://media.giphy.com/media/RLi2oeVZiVkE8/giphy.gif", "https://media.giphy.com/media/uAH7abSiUAlPO/giphy.gif", "https://media.giphy.com/media/Z8kck6EIMQGXK/giphy.gif"]
-      let result = Math.floor((Math.random() * replies.length));
-      let result1 = Math.floor((Math.random() * repliesa.length));
+      let gif = ["https://media.giphy.com/media/qgbWNOvZOtwWs/giphy.gif", "https://media.giphy.com/media/AHMHuF12pW4b6/giphy.gif", "https://media.giphy.com/media/x88yuKqdpWbC0/giphy.gif", "https://media.giphy.com/media/w29hHnsoaqsy4/giphy.gif", "https://media.giphy.com/media/A4GmUuQoZrLKE/giphy.gif", "https://media.giphy.com/media/12fFFvFOaffWww/giphy.gif", "https://media.giphy.com/media/xguJD5mJfbeo0/giphy.gif", "https://media.giphy.com/media/hOYwqqDOvWtVu/giphy.gif"]
+      let gifa = ["https://media.giphy.com/media/Z9JtPniLKdNzPjsEn6/giphy.gif", "https://media.giphy.com/media/fTn01fiFdTd5pL60ln/giphy.gif", "https://media.giphy.com/media/RLi2oeVZiVkE8/giphy.gif", "https://media.giphy.com/media/uAH7abSiUAlPO/giphy.gif", "https://media.giphy.com/media/Z8kck6EIMQGXK/giphy.gif", "https://media.giphy.com/media/ZT7NnaezicELu/giphy.gif", "https://media.giphy.com/media/O3qU4OEp8RUe4/giphy.gif"]
       let result2 = Math.floor((Math.random() * gif.length));
       let result3 = Math.floor((Math.random() * gifa.length));
       var gifra = gifa[result3]
     let killed = message.mentions.members.first();
     if(!killed) {
       let sembed = new Discord.MessageEmbed()
-      message.channel.send(`${message.author.username} decied to kill themself and died, ${replies[result]}! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
+      message.channel.send(`${message.author.username} decied to kill themself and died! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
     message.channel.send(`${gif[result2]}`)
     }else if (killed.displayName === message.author.user){
     message.channel.send(`${message.author.username} decied to kill themself and died, ${replies[result]}! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
