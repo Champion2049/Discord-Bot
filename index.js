@@ -508,16 +508,28 @@ client.on('message', async message => {
       let gifa = ["https://media.giphy.com/media/Z9JtPniLKdNzPjsEn6/giphy.gif", "https://media.giphy.com/media/fTn01fiFdTd5pL60ln/giphy.gif", "https://media.giphy.com/media/RLi2oeVZiVkE8/giphy.gif", "https://media.giphy.com/media/uAH7abSiUAlPO/giphy.gif", "https://media.giphy.com/media/Z8kck6EIMQGXK/giphy.gif", "https://media.giphy.com/media/ZT7NnaezicELu/giphy.gif", "https://media.giphy.com/media/O3qU4OEp8RUe4/giphy.gif"]
       let result2 = Math.floor((Math.random() * gif.length));
       let result3 = Math.floor((Math.random() * gifa.length));
+      var gifr = gif[result2]
       var gifra = gifa[result3]
     let killed = message.mentions.members.first();
     if(!killed) {
-      let sembed = new Discord.MessageEmbed()
-      message.channel.send(`${message.author.username} decied to kill themself and died! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
-    message.channel.send(`${gif[result2]}`)
-    }else if (killed.displayName === message.author.user){
-    message.channel.send(`${message.author.username} decied to kill themself and died, ${replies[result]}! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
-    message.channel.send(`${gif[result2]}`)
-    }else {
+      const sembed = {
+        "color": "BLUE",
+        "timestamp": new Date(),
+        "footer": {"text": "Bot made by Champion2049#3714", "icon_url": 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256'},
+        "image": {
+          "url": gifr
+        },
+        "fields": [
+          {
+            "name": `${message.author.username} decied to kill themself and died!`,
+            "value": "<a:RooPandaCry:758614164641415168> REST IN PEACE 💀",
+            "inline": true
+          }
+        ]
+      }
+      return message.channel.send({sembed})
+    }else if (killed.displayName === message.author.user) return message.channel.send({sembed})
+     else {
       const embed = {
         "color": "BLUE",
         "timestamp": new Date(),
@@ -564,7 +576,7 @@ const embed = new Discord.MessageEmbed()
 .addField("Emoji Count", `<a:nitroboost:744884824015110204> This server has ${message.guild.emojis.cache.size} emojis <a:nitroboost:744884824015110204>`)
 .addField("Creation Date", `<a:Timer:744890944557678722> ${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
 .addField("You Joined the server on", `<a:chahal_welcome:758211451046723585> ${message.member.joinedAt}`)
-.setColor("#00ff00")
+.setColor("BLUE")
 .setFooter(`Information about: ${message.guild.name} provided by Easy Use Bot\n Bot made by Champion2049#3714`, 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
 .setThumbnail(message.guild.iconURL)
 message.channel.send({embed});
