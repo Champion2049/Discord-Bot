@@ -512,17 +512,52 @@ client.on('message', async message => {
       let result1 = Math.floor((Math.random() * repliesa.length));
       let result2 = Math.floor((Math.random() * gif.length));
       let result3 = Math.floor((Math.random() * gifa.length));
+      var gifra = gifa[result3]
     let killed = message.mentions.members.first();
     if(!killed) {
       let sembed = new Discord.MessageEmbed()
       message.channel.send(`${message.author.username} decied to kill themself and died, ${replies[result]}! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
     message.channel.send(`${gif[result2]}`)
-    } else {
-    message.channel.send(`${killed.username} was killed by ${message.author.username}! Ouch....  <a:fireduck:758214180918132776> REST IN PEACE 💀`)
-    message.channel.send(`${gifa[result3]}`)
-    }
+    }else if (killed.displayName === message.author.user){
+    message.channel.send(`${message.author.username} decied to kill themself and died, ${replies[result]}! <a:RooPandaCry:758614164641415168> REST IN PEACE 💀`)
+    message.channel.send(`${gif[result2]}`)
+    }else {
+      const embed = {
+        "color": "BLUE",
+        "timestamp": new Date(),
+        "footer": {"text": "Bot made by Champion2049#3714", "icon_url": 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256'},
+        "image": {
+          "url": gifra
+        },
+        "fields": [
+          {
+            "name": `${killed.displayName} was killed by ${message.author.username}! Ouch....`,
+            "value": "<a:fireduck:758214180918132776> REST IN PEACE 💀",
+            "inline": true
+          }
+        ]
+      }
+      return message.channel.send({embed})
+    //message.channel.send(`${killed.displayName} was killed by ${message.author.username}! Ouch....  <a:fireduck:758214180918132776> REST IN PEACE 💀`)
+    //message.channel.send(`${gifa[result3]}`)
+    };
   }
 })
+/*const embed = {
+    "color": 	"BLUE",
+    "timestamp": new Date(),
+    "footer": "Bot made by Champion2049#3714",
+    "image": {
+      "url": gifa
+    },
+    "fields": [
+      {
+        "name": `${message.author.username} had a nice laugh`,
+        "value": "Hehehe",
+        "inline": true
+      }
+    ]
+  }; */
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -991,7 +1026,7 @@ client.on('message', async message => {
     let result = Math.floor((Math.random() * gif.length));
     var gifa = gif[result]
     const embed = {
-    "color": 3066993,
+    "color": 	"BLUE",
     "timestamp": new Date(),
     "footer": "Bot made by Champion2049#3714",
     "image": {
