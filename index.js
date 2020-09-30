@@ -507,7 +507,7 @@ client.on('message', async message => {
       let replies = ["by slipping over a leaf", "by using a gun", "I don't know how he died", "by jumping in a well", " by hanging himself to death", "because he was bored", "by watching too much tv", "go ask him how", "by falling from his bed", "by crying too much", "I wonder why" ];
       let repliesa = ["for laughing too much", "for not using the bot", "by drowning him in a swimming pool", "by stabbing him in the chest", "because he farted too much", "with his sniper", "by running him over by a car", "by feeding him to his pet lion", "because he was not worthy of living"];
       let gif = ["https://tenor.com/view/anime-sleeping-im-dead-gif-15157935", "https://tenor.com/view/lol-sherlock-death-dead-dying-gif-5196637", "https://tenor.com/view/dead-anime-death-soulless-gif-11385161", "https://tenor.com/view/mati-bodoh-bangang-keranda-menari-gif-16794417", "https://tenor.com/view/imout-bye-gif-4989183", "https://tenor.com/view/finger-gun-barney-himym-nph-neil-patrick-harris-gif-4524247", "https://giphy.com/gifs/season-13-the-simpsons-13x14-l2JeiuwmhZlkrVOkU", "https://giphy.com/gifs/gta-wasted-gta5-AHMHuF12pW4b6"]
-      let gifa = ["https://giphy.com/gifs/zenitsu-fTn01fiFdTd5pL60ln", "https://giphy.com/gifs/zenitsu-Z9JtPniLKdNzPjsEn6", "https://giphy.com/gifs/wasted-RLi2oeVZiVkE8"]
+      let gifa = ["https://media.giphy.com/media/Z9JtPniLKdNzPjsEn6/giphy.gif", "https://media.giphy.com/media/fTn01fiFdTd5pL60ln/giphy.gif", "https://media.giphy.com/media/RLi2oeVZiVkE8/giphy.gif", "https://media.giphy.com/media/uAH7abSiUAlPO/giphy.gif", "https://media.giphy.com/media/Z8kck6EIMQGXK/giphy.gif"]
       let result = Math.floor((Math.random() * replies.length));
       let result1 = Math.floor((Math.random() * repliesa.length));
       let result2 = Math.floor((Math.random() * gif.length));
@@ -538,26 +538,9 @@ client.on('message', async message => {
         ]
       }
       return message.channel.send({embed})
-    //message.channel.send(`${killed.displayName} was killed by ${message.author.username}! Ouch....  <a:fireduck:758214180918132776> REST IN PEACE 💀`)
-    //message.channel.send(`${gifa[result3]}`)
     };
   }
 })
-/*const embed = {
-    "color": 	"BLUE",
-    "timestamp": new Date(),
-    "footer": "Bot made by Champion2049#3714",
-    "image": {
-      "url": gifa
-    },
-    "fields": [
-      {
-        "name": `${message.author.username} had a nice laugh`,
-        "value": "Hehehe",
-        "inline": true
-      }
-    ]
-  }; */
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
