@@ -1357,6 +1357,15 @@ client.on('message', message => {
     })
   }
 })
-
+client.on('message', message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(!message.content.startsWith(prefix)) return
+  const args = message.content.substring(prefix.length).split(" ")
+  if(message.content.startsWith(`${prefix}dadjoke`)){
+    giveMeAJoke.getRandomCNJoke (function(joke) {
+      message.channel.send(joke)
+  })
+}
+})
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
