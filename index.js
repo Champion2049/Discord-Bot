@@ -528,8 +528,9 @@ client.on('message', async message => {
         ]
       }
       return message.channel.send({sembed})
-    }else if (killed.displayName === message.author.user) return message.channel.send({sembed})
-     else {
+    }else if (killed.displayName === message.author.user){
+       return message.channel.send({sembed})
+    }else {
       const embed = {
         "color": "BLUE",
         "timestamp": new Date(),
