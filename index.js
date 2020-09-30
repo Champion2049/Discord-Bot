@@ -528,8 +528,23 @@ client.on('message', async message => {
         ]
       }
       return message.channel.send({sembed})
-    }else if (killed.displayName === message.author.user){
-       return message.channel.send({sembed})
+    }else if (killed.displayName === message.author.username){
+      const lembed = {
+        "color": "BLUE",
+        "timestamp": new Date(),
+        "footer": {"text": "Bot made by Champion2049#3714", "icon_url": 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256'},
+        "image": {
+          "url": gifr
+        },
+        "fields": [
+          {
+            "name": `${message.author.username} decied to kill themself and died!`,
+            "value": "<a:RooPandaCry:758614164641415168> REST IN PEACE 💀",
+            "inline": true
+          }
+        ]
+      }
+       return message.channel.send({lembed})
     }else {
       const embed = {
         "color": "BLUE",
