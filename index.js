@@ -1,5 +1,9 @@
 const Discord = require('discord.js');
-const client = new Discord.Client(); 
+const client = new Discord.Client();
+const Fortnite = require('fortnite')
+const ft = new Fortnite('795afe47-6cdf-49ce-9ed2-753c88d80c8b')
+const fortnite = require('simple-fortnite-api')
+const stripIndents = require('common-tags')
 var version = '3.1';
 var servers = {};
 const covid = require('novelcovid')
@@ -1367,17 +1371,8 @@ client.on('message', message => {
   })
 }
 })
-client.on('message', message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix)) return
-  const args = message.content.substring(prefix.length).split(" ")
-  if(message.content.startsWith(`${prefix}joke`)){
-    const fn = "Jackie"
-    const ln = "Chan"
-    giveMeAJoke.getCustomJoke(fn, ln, function(joke) {
-      message.channel.send(joke)
-  })
+module.exports.help = {
+  name: "fortnite",
 }
-})
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
