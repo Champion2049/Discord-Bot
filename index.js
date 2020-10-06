@@ -700,6 +700,8 @@ client.on('message', async message => {
   if(!muterole){
       message.guild.roles.create({ data: { name: 'Muted', permissions: 0,reason: 'Muted role not present in server!' } }); 
     }
+    if(!message.member.hasPermission('MUTE_MEMBERS')) return message.channel.send("You don't have the permission to advocate this command")
+  if(!message.guild.me.hasPermission("MUTE_MEMBERS")) return message.channel.send("I don't have the permission to advocate this command")
   let mutetime = args[1];
   if(!mutetime) return message.reply("You didn't specify a time!");
 
