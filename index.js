@@ -809,7 +809,7 @@ client.on('message', async message =>{
     const voiceChannel = message.member.voice.channel
     if(args.length < 2) message.channel.send('Please enter a song name!');
         const video = await youtube.searchVideos(args[1]);
-        const url = `https://www.youtube.com/watch?v=${video.id}` || args[1]
+        const url = `https://www.youtube.com/watch?v=${video.id}`
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
     const permissions = voiceChannel.permissionsFor(message.client.user)
     if(!permissions.has("CONNECT")) return message.reply('I dont have the required permissions to join a Voice Channel!')
