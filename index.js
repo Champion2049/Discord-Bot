@@ -803,12 +803,12 @@ client.on('message', async message =>{
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(message.author.bot) return
   if(!message.content.startsWith(prefix)) return
-  const args = message.content.substring(prefix.length).split(" ");
+  const args = message.content.substring(prefix.length).split(/ +/);
   const serverQueue = queue.get(message.guild.id)
   if(message.content.startsWith(`${prefix}play`)){
     const voiceChannel = message.member.voice.channel
     if(args.length < 2) message.channel.send('Please enter a song name!');
-        const video = await youtube.searchVideos(args[1]);
+        const video = await youtube.searchVideos(args);
         const url = `https://www.youtube.com/watch?v=${video.id}`
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
     const permissions = voiceChannel.permissionsFor(message.client.user)
@@ -885,8 +885,8 @@ client.on('message', async message =>{
     if(!args[1]) return message.channel.send(`Current Volume is: **${serverQueue.volume}**`)
     if(isNaN(args[1])) return message.channel.send("Please enter a valid amount to change the volume!") 
     serverQueue.volume = args[1]
-    serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 5)
-    message.channel.send(`I have changed the volume to: **${args[1]}**`)
+    serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5)
+    message.channel.send(`I have changed the volume to: **${args[0]}**`)
     return undefined
   }else if(message.content.startsWith(`${prefix}np`)){
     if(!serverQueue) return message.channel.send("There is nothing playing right now!")
