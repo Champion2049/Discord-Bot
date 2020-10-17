@@ -885,8 +885,8 @@ client.on('message', async message =>{
     if(!args[1]) return message.channel.send(`Current Volume is: **${serverQueue.volume}**`)
     if(isNaN(args[1])) return message.channel.send("Please enter a valid amount to change the volume!") 
     serverQueue.volume = args[1]
-    serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5)
-    message.channel.send(`I have changed the volume to: **${args[0]}**`)
+    serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 5)
+    message.channel.send(`I have changed the volume to: **${args[1]}**`)
     return undefined
   }else if(message.content.startsWith(`${prefix}np`)){
     if(!serverQueue) return message.channel.send("There is nothing playing right now!")
