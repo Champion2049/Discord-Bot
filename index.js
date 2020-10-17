@@ -435,7 +435,7 @@ client.on('message', async message => {
                                     const muembed = new Discord.MessageEmbed()
                                     .setTitle('**<a:MusicDance:745128069869862922>__Music Commands__<a:BearMusic:745122983751843910>**')
                                     .setFooter("Bot Made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-                                    .setDescription('**dcplay**- plays music from provided link\n**dcstop**- stops playing music and leaves the voice channel\n**dcpause**- pauses the music that is playing\n**dcresume**- resumes the paused music\n**dcqueue**- shows the currents song queue\n**dcskip**- skips the song\n**dcvolume**- shows the current volume and if volume value is written after it changes volume to that\n**dcnp**- shows the song that is currently playing\n**dcloop**- loops the queued music(if already looped enter again to exit from loop)')
+                                    .setDescription('**dcplay**- plays music from  the given song name\n**dcstop**- stops playing music and leaves the voice channel\n**dcpause**- pauses the music that is playing\n**dcresume**- resumes the paused music\n**dcqueue**- shows the currents song queue\n**dcskip**- skips the song\n**dcvolume**- shows the current volume and if volume value is written after it changes volume to that\n**dcnp**- shows the song that is currently playing\n**dcloop**- loops the queued music(if already looped enter again to exit from loop)')
                                     .setColor(0x14c9ed)
                                     m.edit(muembed)
                                     m.reactions.removeAll()                                 
@@ -809,7 +809,6 @@ client.on('message', async message =>{
     const voiceChannel = message.member.voice.channel
     if(args.length < 2) message.channel.send('Please enter a song name!');
         const video = await youtube.searchVideos(args[1]);
-        message.channel.send(video.id)
         const url = `https://www.youtube.com/watch?v=${video.id}`
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
     const permissions = voiceChannel.permissionsFor(message.client.user)
