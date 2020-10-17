@@ -809,7 +809,7 @@ client.on('message', async message =>{
     const voiceChannel = message.member.voice.channel
     if(args.length < 2) message.channel.send('Please enter a song name!');
         const video = await youtube.searchVideos(args[1]);
-        const url = `https://www.youtube.com/watch?v=${video.id}`
+        const url = `https://www.youtube.com/watch?v=${video.id}` || args[1]
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
     const permissions = voiceChannel.permissionsFor(message.client.user)
     if(!permissions.has("CONNECT")) return message.reply('I dont have the required permissions to join a Voice Channel!')
@@ -915,7 +915,7 @@ client.on('message', async message =>{
     if(!message.member.voice.channel) return message.channel.send("You need to be in a Voice Channel to loop the music!")
     if(!serverQueue) return message.channel.send("There is nothing playing right now!")
     serverQueue.loop = !serverQueue.loop
-    return message.channel.send(`I have now ${serverQueue.loop ? `**Enabled**`: `**Disabled**`}the loop!`)
+    return message.channel.send(`I have now ${serverQueue.loop ? `**Enabled**`: `**Disabled**`} the loop!`)
   }
 })
 client.on('message', async message=>{
