@@ -27,6 +27,7 @@
     "mongoose": "^5.10.7",
     "ms": "^2.1.2",
     "novelcovid": "^3.0.0",
+    "opusscript": "0.0.7",
     "quick.db": "^7.1.2",
     "simple-fortnite-api": "^0.1.9",
     "urban": "^0.3.2",

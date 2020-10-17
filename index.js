@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const Fortnite = require('fortnite')
-const ft = new Fortnite('795afe47-6cdf-49ce-9ed2-753c88d80c8b')
-const fortnite = require('simple-fortnite-api')
+const Client = require('fortnite')
+const fortnite = new Client("795afe47-6cdf-49ce-9ed2-753c88d80c8b")
+//const fortnite = require('simple-fortnite-api')
 const stripIndents = require('common-tags')
 var version = '3.1';
 var servers = {};
@@ -807,12 +807,15 @@ client.on('message', async message =>{
   const serverQueue = queue.get(message.guild.id)
   if(message.content.startsWith(`${prefix}play`)){
     const voiceChannel = message.member.voice.channel
-    if(!args[1]) return message.channel.send("Please give a url to play Music from!")
+    if(args.length < 2) message.channel.send('Please enter a song name!');
+        const video = await youtube.searchVideos(args[1]);
+        message.channel.send(video.id)
+        const url = `https://www.youtube.com/watch?v=${video.id}`
     if(!voiceChannel) return message.reply("Please join a Voice Channel first!")
     const permissions = voiceChannel.permissionsFor(message.client.user)
     if(!permissions.has("CONNECT")) return message.reply('I dont have the required permissions to join a Voice Channel!')
     if(!permissions.has("SPEAK")) return message.reply('I dont have the permission to speak in the Voice Channel!')
-    const songInfo = await ytdl.getInfo(args[1])
+    const songInfo = await ytdl.getInfo(url)
     const song = {
       title: Discord.Util.escapeMarkdown(songInfo.videoDetails.title),
       url: songInfo.videoDetails.video_url
@@ -838,10 +841,10 @@ client.on('message', async message =>{
     queue.delete(message.guild.id)
     return message.reply(`There was an error in connecting to the Voice Channel: ${error}`)
     }
-    let validate = ytdl.validateURL(args[1]);
+    /*let validate = ytdl.validateURL(args[1]);
       if (!validate){
         return message.reply("Please provide a valid URL");  
-      }
+      }*/
     }else{
         serverQueue.songs.push(song)
         return message.channel.send(`**${song.title}** has been added to the queue! `)
@@ -853,7 +856,7 @@ client.on('message', async message =>{
           queue.delete(guild.id)
           return
       } 
-        const dispatcher = connection.play(ytdl(args[1]))
+        const dispatcher = connection.play(ytdl(url))
         .on('finish', () => {
           if(!serverQueue.loop) {serverQueue.songs.shift()}
           play(guild, serverQueue.songs[0])
@@ -1373,8 +1376,40 @@ client.on('message', message => {
   })
 }
 })
-module.exports.help = {
-  name: "fortnite",
-}
+/*client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'fortnite') {
+  message.delete()
+    if(!args[0]) return message.channel.send('Please enter your Epic Games username!')
+    const username = args[0]
+    const platform = args[1] || "pc";
+    const data = fortnite.user(username, platform[pc, xbl, psn]).then(message =>{
+      let stats = data.stats.lifetime;
+      let kills = stats.find(s => s.stat == 'kills');
+      let wins = stats.find(s => s.stat == 'wins');
+      let kd = stats.find(s => s.stat == 'kd');
+      let matchesPlayed = stats.find(s => s.stat == 'matchesPlayed');
+      let timePlayed = stats.find(s => s.stat == 'timePlayed');
+      let asTime = stats.find(s => s.stat == 'avgSurvivalTime');
+      const embed = new Discord.MessageEmbed()
+      .setTitle(`Fortnite Stats for ${data.username}`)
+      .addField(`Kills`, kills.value, true)
+      .addField(`Wins`, wins.value, true)
+      .addField(`KD`, kd.value, true)
+      .addField(`Matches Played`, matchesPlayed.value, true)
+      .addField(`Time Played`, timePlayed.value, true)
+      .addField(`Average Survival Time`, asTime.value, true)
+      .setColor("BLUE");
+      console.log(data)
+      message.channel.send(embed)
+    }).catch(e => {
+      console.log(e);
+      message.channel.send("I could not find that username in the database!")
+    })
+  }
+})*/
 
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
