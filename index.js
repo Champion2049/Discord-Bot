@@ -679,7 +679,7 @@ client.on('message', async message => {
   if (command === 'support') {
     const embed = new Discord.MessageEmbed()
     .setTitle("Join our support server!")
-    .setURL('https://discord.gg/yeuS2WH')
+    .setURL('https://discord.gg/kxgrnGP')
     .setDescription('Join our support server if you need any more assistance')
     .setColor("BLUE")
     message.channel.send(embed);
