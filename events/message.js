@@ -32,7 +32,7 @@ module.exports = (client, message) => {
             const expirationDate = timestamps.get(message.author.id) + cooldownAmount
             if(now < expirationDate){
                 const timeLeft = (expirationDate - now) / 1000
-                return message.channel.send(`Please wait **${timeLeft.toFixed(1)}** before executing the ``${command.name}`` again!`)
+                return message.channel.send(`Please wait **${timeLeft.toFixed(1)}** before executing the **${command.name}** command again!`)
             }
         }
         timestamps.set(message.author.id, now)
