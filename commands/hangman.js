@@ -1,17 +1,20 @@
 const Discord = require('discord.js');
 const HangmanGame = require('hangcord');
+const db = require('quick.db')
 module.exports = {
     name: 'hangman',
     description: 'Who want to play hangman???',
-    usage: '',
+    cooldown: 5,
     guildOnly: false,
     category: 'Game',
-    execute(client, message, args) {
+    execute(message) {
+        const prefix = db.get(`guild_${message.guild.id}_prefix`) || "dc"
        const hangman = new HangmanGame({
   title: 'Hangman',
-  color: 'RANDOM',
+  color: 'BLUE',
   timestamp: true,
   gameOverTitle: 'Game Over'
+  gameOverDescription: 'You Won!'
 }); 
 
   hangman.newGame(message);
