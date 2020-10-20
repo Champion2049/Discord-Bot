@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
-const db = require('quick.db')
+const db = require('quick.db');
 module.exports = {
     name: 'help', 
     description: 'shows the help menu',
     aliases: ['h'],
     cooldown: 5,
-    execute(message){
+    async execute(message){
         const prefix = db.get(`guild_${message.guild.id}_prefix`) || "dc"
         if(!message.content.startsWith(prefix) || message.author.bot) return;
              const args = message.content.slice(prefix.length).split(/ +/);
@@ -94,5 +94,5 @@ module.exports = {
                               })
           message.delete();
         }
+      }
     }
-}
