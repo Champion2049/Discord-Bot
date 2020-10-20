@@ -14,7 +14,6 @@ module.exports = {
   color: 'BLUE',
   timestamp: true,
   gameOverTitle: 'Game Over'
-  gameOverDescription: 'You Won!'
 }); 
 
   hangman.newGame(message);
