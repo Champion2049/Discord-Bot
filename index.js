@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const Client = require('fortnite')
+const imdb = require("imdb-api");
+const got = require('got');
 const fortnite = new Client("795afe47-6cdf-49ce-9ed2-753c88d80c8b")
 const giphy = require('giphy-api')("9O0XEVL8AnPAKSEp8xE9vlO3Al8OX6QT");
 //const fortnite = require('simple-fortnite-api')
@@ -130,81 +132,6 @@ client.on('message', message => {
           console.log(err);
       }
   });*/
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-  if (command === 'serverinfo') {
-  function checkDays(date) {
-      let now = new Date();
-      let diff = now.getTime() - date.getTime();
-      let days = Math.floor(diff / 86400000);
-      return days + (days == 1 ? " day" : " days") + " ago";
-  }
-  
-  const verifLevels = ["None", "Low", "Medium", "High", "Highest"];
-const embed = new Discord.MessageEmbed()
-.setTitle("**Server Information**")
-.addField("Name", `<:Discord:744889665164804157> ${message.guild.name}`, true)
-.addField("ID", `<:005idcard:744890183782236201> ${message.guild.id}`, true)
-.addField("Owner", `<a:crown:744885017511198791> ${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
-.addField("Region", `🏘 ${message.guild.region}`, true)
-.addField("Total | Humans | Bots", `<a:dc:744888395041341460> ${message.guild.members.cache.size} | ${message.guild.members.cache.filter(member => !member.user.bot).size} | ${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
-.addField("Verification Level", `<a:lcgreen:745884544309133352> ${message.guild.verificationLevel}`, true)
-.addField("Channels", `<:version:744891034152075345> ${message.guild.channels.cache.size}`, true)
-.addField("Roles", `📋 ${message.guild.roles.cache.size}`, true)
-.addField("Emoji Count", `<a:nitroboost:744884824015110204> This server has ${message.guild.emojis.cache.size} emojis <a:nitroboost:744884824015110204>`)
-.addField("Creation Date", `<a:Timer:744890944557678722> ${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
-.addField("You Joined the server on", `<a:chahal_welcome:758211451046723585> ${message.member.joinedAt}`)
-.setColor("BLUE")
-.setFooter(`Information about: ${message.guild.name} provided by Easy Use Bot\n Bot made by Champion2049#3714`, 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-.setThumbnail(message.guild.iconURL)
-message.channel.send({embed});
-}
-})
-const imdb = require("imdb-api");
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-  if (command === 'tv') {
-module.exports = {
-name: "imdb",
-  description: "Get the information about series and movie",
-  category: "info",
-  usage: "imdb <name>",
-  run: async (client, message, args, color) => {
-
-}
-    }
-    if(!args.length) {
-      return message.channel.send("Please give the name of the movie or anime/tv series")
-    }
-    const imob = new imdb.Client({apiKey: "5e36f0db"}) 
-    let movie = await imob.get({'name': args.join(" ")})
-    let embed = new Discord.MessageEmbed()
-    .setTitle(movie.title)
-    .setColor("#ff2050")
-    .setThumbnail(movie.poster)
-    .setDescription(movie.plot)
-    .setFooter(`Ratings: ${movie.rating}`)
-    .addField("Country", movie.country, true)
-    .addField("Languages", movie.languages, true)
-    .addField("Type", movie.type, true)
-    .addField("Main Actors", movie.actors, true)
-    .addField("Release Date", movie.released, true)
-    .addField("Ratings", `${movie.rating}/10`, true)
-    .addField("Director", movie.director, true)
-    .addField("Score", movie.metascore, true)
-    .addField("Awards Received", movie.awards, true)
-    .addField("Genres", movie.genres, true)
-    .setFooter("Powered by IMDb || Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256');
-    message.channel.send(embed)
-  }
-})
-const got = require('got');
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -971,4 +898,11 @@ if (command === 'fortnite') {
     })
   }
 })*/
+const badwordlist = require("./badword.json")
+client.on('message',message => {
+if (badwordlist.some((word) => message.content.toLowerCase().includes(word))) {
+  message.delete();
+  message.channel.send('This word is not allowed here!')
+}
+})
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
