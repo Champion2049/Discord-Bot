@@ -9,7 +9,7 @@ module.exports = {
     cooldown: 5,
     execute(message){
         const prefix = db.get(`guild_${message.guild.id}_prefix`) || "dc"
-        if (badwordlist.some((word) => message.content.toLowerCase().includes(word))) return
+        if (badwordlist.some((word) => message.content.toLowerCase().includes(word))) return message.channel.send("Please do not request for inapropriate content!")
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
