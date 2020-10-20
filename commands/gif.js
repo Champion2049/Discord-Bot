@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const db = require('quick.db')
+const badwordlist = require("./badword.json")
 const giphy = require('giphy-api')("9O0XEVL8AnPAKSEp8xE9vlO3Al8OX6QT");
 module.exports = {
     name: 'gif', 
@@ -8,6 +9,7 @@ module.exports = {
     cooldown: 5,
     execute(message){
         const prefix = db.get(`guild_${message.guild.id}_prefix`) || "dc"
+        if (badwordlist.some((word) => message.content.toLowerCase().includes(word))) return
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
