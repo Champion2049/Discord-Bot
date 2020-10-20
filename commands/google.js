@@ -11,8 +11,8 @@ module.exports = {
              const args = message.content.slice(prefix.length).split(/ +/);
              const command = args.shift().toLowerCase();
              if(command === 'google'){
-          if(args.length < 1) message.channel.send('I need to know what to search...');
-          message.channel.send('\nhttps://google.com/search?q='+args)
+          if(args.length < 1)return message.channel.send('I need to know what to search...') 
+          else{ returnmessage.channel.send('\nhttps://google.com/search?q='+args)}
       }
     }
 }

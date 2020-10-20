@@ -1,8 +1,12 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const Client = require('fortnite')
+const ms = require("ms");
+const {timeStamp} = require('console');
 const imdb = require("imdb-api");
 const got = require('got');
+const YouTube = require("discord-youtube-api");
+const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
 const fortnite = new Client("795afe47-6cdf-49ce-9ed2-753c88d80c8b")
 const giphy = require('giphy-api')("9O0XEVL8AnPAKSEp8xE9vlO3Al8OX6QT");
 //const fortnite = require('simple-fortnite-api')
@@ -132,159 +136,40 @@ client.on('message', message => {
           console.log(err);
       }
   });*/
-client.on('message', async message => {
+client.on('message', message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
-  if (command === 'meme') {
-    const embed = new Discord.MessageEmbed();
-    got('https://www.reddit.com/r/memes/random/.json').then(response => {
-        let content = JSON.parse(response.body);
-        let permalink = content[0].data.children[0].data.permalink;
-        let memeUrl = `https://reddit.com${permalink}`;
-        let memeImage = content[0].data.children[0].data.url;
-        let memeTitle = content[0].data.children[0].data.title;
-        let memeUpvotes = content[0].data.children[0].data.ups;
-        let memeDownvotes = content[0].data.children[0].data.downs;
-        let memeNumComments = content[0].data.children[0].data.num_comments;
-        embed.addField(`${memeTitle}`, `[View thread](${memeUrl})`);
-        embed.setImage(memeImage);
-        embed.setColor("BLUE")
-        embed.setFooter(`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments} || Bot made by Champion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`);
-        message.channel.send(embed)
-            .then(sent => console.log(`Sent a reply to ${sent.author.username}`))
-        console.log('Bot responded with: ' + memeImage);
-    }).catch(console.error);
-}
-})
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-  if (command === 'support') {
-    const embed = new Discord.MessageEmbed()
-    .setTitle("Join our support server!")
-    .setURL('https://discord.gg/kxgrnGP')
-    .setDescription('Join our support server if you need any more assistance')
+  if (command === 'botinfo') {
+    let inline = true
+    let bicon = client.user.displayAvatarURL;
+    let usersize = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+    let chansize = client.channels
+    let uptimxd = client.uptime 
+    let servsize = client.guilds.cache.size
+    let days = Math.floor(client.uptime / 86400000);
+    let hours = Math.floor(client.uptime / 3600000) % 24;
+    let minutes = Math.floor(client.uptime / 60000) % 60;
+    let seconds = Math.floor(client.uptime / 1000) % 60;
+    let botembed = new Discord.MessageEmbed()
     .setColor("BLUE")
-    message.channel.send(embed);
+    .setThumbnail(`https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
+    .addField("Bot Name", `<a:nitroboost:744884824015110204>${client.user.username}<a:nitroboost:744884824015110204>`, inline)
+    .addField("Bot Owner", "<a:crown:744885017511198791> Champion2049#3714" , inline )
+    .addField("Bot ID", '<:005idcard:744890183782236201>  730644349897015307')
+    .addField("Servers", `<:Discord:744889665164804157> ${servsize}`, inline)
+    .addField("Users", `<a:dc:744888395041341460>${usersize}`, inline)
+    .addField("Bot Library", "<:Visual_Studio_Code:744887180849053696> Discord.js", inline)
+    .addField("Created On",`<a:UnderConstruction:744891721854222367>${client.user.createdAt}`)
+    .addField("Bot Version", `<:version:744891034152075345>${version}`)
+    .addField("Uptime", `<a:Timer:744890944557678722>${days}d ${hours}h ${minutes}m ${seconds}s`)
+    .setTitle(`Click here to Invite the bot!`)
+    .setURL('https://discordapp.com/oauth2/authorize?client_id=730644349897015307&scope=bot&permissions=2146958847')
+    .setFooter(`Information about: ${client.user.username}. Developed by: Champion2049`, 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
+    .setTimestamp()
+    message.channel.send(botembed);
   }
-})
-const ms = require("ms");
-const {timeStamp} = require('console');
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-       if (command === 'mute') {
-  const tomute = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
-  if(!tomute) return message.reply("Couldn't find user.");
-  let muterole = message.guild.roles.cache.find(muterole => muterole.name === "Muted");
-  let removerole = message.guild.roles.cache.find(removerole => removerole.name === "Member")
-  if(!muterole){
-      message.guild.roles.create({ data: { name: 'Muted', permissions: 0,reason: 'Muted role not present in server!' } }); 
-    }
-    if(!message.member.hasPermission('MUTE_MEMBERS')) return message.channel.send("You don't have the permission to advocate this command")
-  if(!message.guild.me.hasPermission("MUTE_MEMBERS")) return message.channel.send("I don't have the permission to advocate this command")
-  let mutetime = args[1];
-  if(!mutetime) return message.reply("You didn't specify a time!");
-
-  await(tomute.roles.add(muterole)) 
-  message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
-
-  setTimeout(function(){
-    tomute.roles.remove(muterole);
-    message.channel.send(`<@${tomute.id}> has been unmuted!`);
-  }, ms(mutetime));
-}
-})
-module.exports = {
-  name: "giveaway",
-  description: "Create a simple giveaway",
-  usage: "<time> <channel> <prize>",
-  category: "fun"
-}
-  client.on('message', async message => {
-    const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
-         const args = message.content.slice(prefix.length).split(/ +/);
-         const command = args.shift().toLowerCase();
-         if (command === 'giveaway') {
-    if (!args[0]) return message.channel.send(`You did not specify your time (please specify the time in d-days,h-hours,m-minutes,s-seconds)`);
-    if (
-      !args[0].endsWith("d") &&
-      !args[0].endsWith("h") &&
-      !args[0].endsWith("m") &&
-      !args[0].endsWith("s")
-    )
-      return message.channel.send(
-        `You did not use the correct formatting for the time!(please specify the time in d-days,h-hours,m-minutes,s-seconds)`
-      );
-    if (isNaN(args[0][0])) return message.channel.send(`That is not a number!`);
-    const channel = message.mentions.channels.first();
-    if (!channel)
-      return message.channel.send(
-        `I could not find that channel in the guild!`
-      );
-    let prize = args.slice(3).join(" ");
-    if (!prize) return message.channel.send(`No prize specified!`);
-    let req = args.slice(2,3).join(" ");
-    if (!req) return message.channel.send("Are there any requirements for this Giveaway, if none type nothing")
-    message.delete();
-    message.channel.send(`*Giveaway created in ${channel}*`);
-    const Embed = new Discord.MessageEmbed()
-      .setTitle('**<a:kjsc:758210180755750922>New Giveaway<a:kjsc:758210180755750922>** `Please react to 🎉 to Participate!`')
-      .addField(`<:pc_present:758212896295092265> Prize:`, `${prize}`)
-      .addField(`📝 Giveaway Hosted by:`, ` ${message.author}`)
-      .addField(`<a:Timer:744890944557678722> Time:`, `${args[0]}`)
-      .addField(`📑 Requirements:`, `Must join: ${req}`)
-      .setTimestamp()
-      .setFooter("Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-      .setColor(0xFFFF);
-    const m = await channel.send(Embed);
-    m.react("🎉");
-    setTimeout(() => {
-      if (m.reactions.cache.get("🎉").count <= 1) {
-        message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`);
-        return message.channel.send(
-          `**Sufficient** amount of people did not participate in the Giveaway, hence I was unable to determine a <a:medal:744879424628981790>Winner!`
-        );
-      }
-
-      const winner = m.reactions.cache
-        .get("🎉")
-        .users.cache.filter((u) => !u.bot)
-        .random();
-      let wembed = new Discord.MessageEmbed()
-        .setDescription(`The <a:medal:744879424628981790>Winner of the <a:ff:744878566675841144>Giveaway<a:ff:744878566675841144> for **${prize}** is ||${winner}||! \n 🎊Congrats on winning ${prize}🎊\n Dm ${message.author} to claim your prize <:pc_present:745145491716833303>!`)
-        .setTitle(`<a:medal:744879424628981790>Winner`)
-        .setFooter("Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-        .setTimestamp()
-        .setColor(0xFFFF);
-        m.edit(wembed)
-        winner.send(`<a:ff:744878566675841144> You won **${prize}** in ${message.guild.name} <a:ff:744878566675841144>\n Dm ${message.author} to claim your prize before the giveaway is rerolled!`)
-    }, ms(args[0]));
-  }
-})
-const YouTube = require("discord-youtube-api");
-const { userInfo } = require('os');
-const { url } = require('inspector');
-const message = require('./events/message');
-const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-       if(command === 'youtube'){
-        if(args.length < 1) message.channel.send('I need to know what to search...');
-        const video = await youtube.searchVideos(args);
-        message.channel.send(`https://www.youtube.com/watch?v=${video.id}`);
-        console.log(video);
-       }
 })
 require('dotenv').config()
 client.on('message', async message =>{
