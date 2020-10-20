@@ -69,100 +69,6 @@ client.on('message', message => {
     return message.channel.send(`I have now set your prefix to ${args[1]}`)
   }
 })
-client.on('message', message =>{
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-       if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-       if(command === 'ping'){
-        message.channel.send("Pinging...").then(m =>{
-            var ping = m.createdTimestamp - message.createdTimestamp;
-            var embed = new Discord.MessageEmbed()
-            .setAuthor(`The Bot's current ping is ${ping}ms`)
-            .setColor("BLUE")
-            m.edit(embed)
-        });
-    }
-       }
-);
-client.on('message', message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-  if (!message.guild) return;
-  if (command === 'ban') {
-    const user = message.mentions.users.first();
-    if (user) {
-      const member = message.guild.member(user);
-      if (member) {
-        member
-          .ban({
-            reason: 'They were bad!',
-          })
-          .then(() => {
-            message.reply(`Successfully banned ${user.tag}\nhttps://tenor.com/view/trump-donaldtrump-interview-banned-cnn-gif-7677105`);
-          })
-          .catch(err => {
-            message.reply('I was unable to ban the member');
-            console.error(err);
-          });
-      } else {
-        message.reply("That user isn't in this guild!");
-      }
-    } else {
-      message.reply("You didn't mention the user to ban!");
-    }
-  }
-});
-
-client.on('message', message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-  if (command === 'avatar') {
-  if (message.mentions.users.first()) {
-    user = message.mentions.users.first();
-  } else if (args[0]) {
-    user = message.guild.members.cache.get(args[0]).user;
-  } else {
-    user = message.author;
-  }
-  
-  let avatar = user.displayAvatarURL({size: 4096, dynamic: true});
-  const embed = new Discord.MessageEmbed()
-  .setTitle(`${user.tag}'s Avatar`)
-  .setDescription(`[Download Avatar of **${user.tag}**](${avatar})`)
-  .setColor(0x1d1d1d)
-  .setImage(avatar)
-  .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-  .setColor("BLUE");
-  return message.channel.send(embed);
-  }
-})
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-  if (command === 'poll') {
-    if (!args) return message.reply("You must have something to vote for!")
-    if (!message.content.includes("?")) return message.reply("Please include a ? in your vote!")
-    let msgArgs = args.slice(1).join("");
-    const embed = new Discord.MessageEmbed()
-   .setTitle(message.content.slice(6))
-   .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-   .setColor(0x14C9ED)
-   .setDescription('React with ✅ if you **agree** and to ❌ if you **disagree**')
-   .setAuthor(`🗳 ${message.author.username} started a poll! 🗳`)
-   message.channel.send(embed).then(messageReaction => {
-   messageReaction.react('✅');
-   messageReaction.react('❌');
-   message.delete();
-  })
-}
-})
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 client.on('message', message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
@@ -536,13 +442,13 @@ client.on('message', async message => {
         },
         "fields": [
           {
-            "name": `${message.author.username} decied to kill themself and died!`,
+            "name": `${message.author.username} decided to kill themself and died!`,
             "value": "<a:RooPandaCry:758614164641415168> REST IN PEACE 💀",
             "inline": true
           }
         ]
       }
-      message.channel.send({sembed})
+       return message.channel.send({sembed})
     }else if (killed.displayName === message.author.username){
       const lembed = {
         "color": "BLUE",
@@ -553,14 +459,14 @@ client.on('message', async message => {
         },
         "fields": [
           {
-            "name": `${message.author.username} decied to kill themself and died!`,
+            "name": `${message.author.username} decided to kill themself and died!`,
             "value": "<a:RooPandaCry:758614164641415168> REST IN PEACE 💀",
             "inline": true
           }
         ]
       }
-        message.channel.send({lembed})
-    }else {
+        return message.channel.send({lembed})
+    }else{
       const embed = {
         "color": "BLUE",
         "timestamp": new Date(),

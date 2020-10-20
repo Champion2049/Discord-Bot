@@ -1,8 +1,8 @@
 const Discord = require("discord.js")
-const prefix = 'dc'
-/*client.on('message', message => {
-const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-if(!message.content.startsWith(prefix)) return
+//const prefix = 'dc'
+const db = require('quick.db')
+//client.on('message', message => {
+/*if(!message.content.startsWith(prefix)) return
   const args = message.content.substring(prefix.length).split(" ")
   if(message.content.startsWith(`${prefix}setprefix`)){
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
@@ -15,6 +15,7 @@ if(!message.content.startsWith(prefix)) return
   }
 })*/
 module.exports = (client, message) => {
+    const prefix = db.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix)) return 
     if(message.author.bot) return
     if(message.channel.type === 'dm') return
@@ -32,7 +33,9 @@ module.exports = (client, message) => {
             const expirationDate = timestamps.get(message.author.id) + cooldownAmount
             if(now < expirationDate){
                 const timeLeft = (expirationDate - now) / 1000
-                return message.channel.send(`Please wait **${timeLeft.toFixed(1)}** before executing the **${command.name}** command again!`)
+                const m = message.channel.send(`Please wait **${timeLeft.toFixed(1)}** seconds before executing the **${command.name}** command again!`)
+                return m.then(m => m.delete({timeout:5000}))
+
             }
         }
         timestamps.set(message.author.id, now)
