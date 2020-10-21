@@ -400,16 +400,6 @@ client.on('message', async message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
-  if (command === 'animated') {
-   message.channel.send('<a:hypGirl:737005994839769114>');
-   message.channel.send('<a:s_dcstaff:727439000343674911> hi')
-  }
-})
-client.on('message', async message => {
-  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
-  if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
   if (command === 'laugh') {
     let gif = ["https://media.giphy.com/media/dC9DTdqPmRnlS/giphy.gif", "https://media.giphy.com/media/ZqlvCTNHpqrio/giphy.gif", "https://media.giphy.com/media/Z9OGuQyrfHAE8/giphy.gif", "https://media.giphy.com/media/10JhviFuU2gWD6/giphy.gif", "https://media.giphy.com/media/gE6IUBRWZd744/giphy.gif", "https://media.giphy.com/media/B0vFTrb0ZGDf2/giphy.gif", "https://media.giphy.com/media/MaDPRbg28hwMITPEq2/giphy.gif", "https://media.giphy.com/media/T5S0EmJb2BFv2/giphy.gif"]
     let result = Math.floor((Math.random() * gif.length));
