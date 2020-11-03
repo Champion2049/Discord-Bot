@@ -773,11 +773,11 @@ if (command === 'fortnite') {
     })
   }
 })*/
-const badwordlist = require("./badword.json")
+/*const badwordlist = require("./badword.json")
 client.on('message',message => {
 if (badwordlist.some((word) => message.content.toLowerCase().includes(word))) {
   message.delete();
   message.channel.send(`That word is not allowed here!`)
 }
-})
+})*/
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
