@@ -17,8 +17,8 @@ module.exports = {
               if(!message.guild.me.hasPermission("MUTE_MEMBERS")) return message.channel.send("I don't have the permission to advocate this command")
               let muterole = message.guild.roles.cache.find(muterole => muterole.name === "Muted");
               let user = message.mentions.users.first();
-              if (!message.guild.member(user).roles.has(muterole)) return message.reply(`That member is :no_entry_sign: muted!`);
-              else {message.guild.member(user).removeRole(role) 
+              if (!user.roles.has(muterole)) return message.reply(`That member is :no_entry_sign: muted!`);
+              else {user.removeRole(role) 
                 return message.channel.send(`${user} has been unmuted!`)}
           
           }
