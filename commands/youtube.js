@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const db = require('quick.db')
 const YouTube = require("discord-youtube-api");
-const youtube = new YouTube("AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws");
+const youtube = new YouTube(/*"AIzaSyB_-z54JR-_BSQUg2JdF4CpQ9KYu9UkYws"*/"AIzaSyCyr33G7A1pDclHJVeeHueAZnItOGO1O4s");
 module.exports = {
     name: 'youtube', 
     description: 'searches youtube',
