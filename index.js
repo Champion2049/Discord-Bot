@@ -524,9 +524,9 @@ if (command === 'userinfo') {
   const user = message.mentions.users.first();
   if(message.mentions.users.first()){
     if(args[0]){
-      const act = user.presence.activities
+      /*const act = user.presence.activities
       if(user.presence.activities.values(0)) {var activities = 'Nothing'}
-      else {var activities = act}
+      else {var activities = act}*/
       const avatar = user.displayAvatarURL({dynamic: true})
       let embed = new Discord.MessageEmbed()
       .setTitle(`Information about ${user.tag}`)
@@ -534,14 +534,14 @@ if (command === 'userinfo') {
       .addField(`Discriminator:`, `${user.discriminator}`)
     .addField(`ID:`, `${user.id}`)
     .addField(`Last Message:`, `${user.lastMessage}`)
-    .addField(`Activity`, `${activities}`)
+    .addField(`Activity`, `${user.presence.activities || "He is doing nothing right now!"}`)
     .setThumbnail(avatar)
     .addField(`Bot:`, `${user.bot}`)
     .addField(`Presence:`, `${user.presence.status}`)
     .addField(`Created At:`, `${user.createdAt}`)
     .setColor("BLUE")
     .setTimestamp()
-    .setFooter(`Bot made by Champion2049#3714`, `https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256`)
+    .setFooter(`Bot made by Champion2049#3714`, `https://images-ext-2.discordapp.net/external/QfXXsBa5_d1G4ZQ__4IdA0mi1nYorI9EHL2f0H2hnkc/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/730644349897015307/a0048cb10064dd3adb06dc1c3c0abc98.webp`)
       message.channel.send(embed)
     }
   }
