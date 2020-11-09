@@ -787,7 +787,7 @@ client.on('message', async message => {
   const command = args.shift().toLowerCase();
 if (command === 'serverlist') {
   client.guilds.cache.forEach(guild => {
-    await message.channel.send(`${guild.name} | ${guild.id}`);
+    message.channel.send(`${guild.name} | ${guild.id}`);
   })      
 }
 })
