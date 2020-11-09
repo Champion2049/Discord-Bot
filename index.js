@@ -780,4 +780,15 @@ if (badwordlist.some((word) => message.content.toLowerCase().includes(word))) {
   message.channel.send(`That word is not allowed here!`)
 }
 })*/
+client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+if (command === 'serverlist') {
+  client.guilds.cache.forEach(guild => {
+    await message.channel.send(`${guild.name} | ${guild.id}`);
+  })      
+}
+})
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
