@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const Client = require('fortnite')
+const Genius = require("genius-lyrics");
+const genius = new Genius.Client("aZonE2yyifqJ8uq_LVobvdKT5ZZbpg4Xux22-Bbt5yvVsaxcPPW2zy9bpI26vqjq");
 const ms = require("ms");
 const {timeStamp} = require('console');
 const imdb = require("imdb-api");
@@ -612,7 +614,7 @@ client.on('message', async message => {
     .setTitle("**COVID19 Stats**")
     .setColor("BLUE")
     .setImage('https://images-ext-2.discordapp.net/external/sDq8ardBtIlvciU5MDlnIRd9XkLev2Pn9UTKy3I6dAo/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/695465125230018562/a75db4b231deb1f54149afaa48779fe5.webp')
-    .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
+    .setFooter('Bot made by Champion2049#3714', 'https://images-ext-2.discordapp.net/external/3Vzt9TC-qNbog5byWTTbQXKI1VEAUDhsBa20AQtt8Rc/https/images-ext-2.discordapp.net/external/QfXXsBa5_d1G4ZQ__4IdA0mi1nYorI9EHL2f0H2hnkc/%253Fsize%253D4096/https/cdn.discordapp.com/avatars/730644349897015307/a0048cb10064dd3adb06dc1c3c0abc98.webp?width=600&height=600')
     .addFields(
       {name: `Total Cases`, value: covidStats.cases.toLocaleString(), inline: true},
       {name: `Today's Cases`, value: covidStats.todayCases.toLocaleString(), inline: true},
@@ -789,6 +791,27 @@ if (command === 'serverlist') {
   client.guilds.cache.forEach(guild => {
     message.channel.send(`${guild.name} | ${guild.id}`);
   })      
+}
+})
+client.on('message', async message => {
+  const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).split(" ");
+  const command = args.shift().toLowerCase();
+if (command === 'lyrics') {
+  if(!args[0]) return message.channel.send("Please enter a song name!")
+  const searches = await genius.songs.search(args[0]).catch(err => message.channel.send(err))
+    const song = searches[0]
+    const lyrics = await song.lyrics()
+    //message.channel.send(`**${song.title}** by **${song.artist.name}**\n<${song.url}>`)
+    const embed = new Discord.MessageEmbed()
+    .setDescription(`${lyrics.substring(0, 2043)}.....`)
+    .setTitle(`**${song.title}** by **${song.artist.name}**`)
+    .setURL(song.url)
+    .setColor("BLUE")
+    .setFooter("Bot made by Champion2049#3714","https://images-ext-2.discordapp.net/external/3Vzt9TC-qNbog5byWTTbQXKI1VEAUDhsBa20AQtt8Rc/https/images-ext-2.discordapp.net/external/QfXXsBa5_d1G4ZQ__4IdA0mi1nYorI9EHL2f0H2hnkc/%253Fsize%253D4096/https/cdn.discordapp.com/avatars/730644349897015307/a0048cb10064dd3adb06dc1c3c0abc98.webp?width=600&height=600")
+    .setThumbnail("https://images-ext-1.discordapp.net/external/4v6OiuGi2cBT0B77XJOJl0ghFEMaUNTi6MUY1APEQ9A/%3F1605635080/http/assets.genius.com/images/sharing_fallback.png?width=600&height=600")
+    message.channel.send(embed)
 }
 })
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');

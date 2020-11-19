@@ -12,7 +12,7 @@ module.exports = {
              const command = args.shift().toLowerCase();
              if(command === 'google'){
           if(args.length < 1)return message.channel.send('I need to know what to search...') 
-          else{ returnmessage.channel.send('\nhttps://google.com/search?q='+args)}
+          else{ return message.channel.send('\nhttps://google.com/search?q='+args)}
       }
     }
 }
