@@ -809,7 +809,7 @@ if (command === 'lyrics') {
     .setTitle(`**${song.title}** by **${song.artist.name}**`)
     .setURL(song.url)
     .setColor("BLUE")
-    .setFooter("Bot made by Champion2049#3714","https://images-ext-2.discordapp.net/external/3Vzt9TC-qNbog5byWTTbQXKI1VEAUDhsBa20AQtt8Rc/https/images-ext-2.discordapp.net/external/QfXXsBa5_d1G4ZQ__4IdA0mi1nYorI9EHL2f0H2hnkc/%253Fsize%253D4096/https/cdn.discordapp.com/avatars/730644349897015307/a0048cb10064dd3adb06dc1c3c0abc98.webp?width=600&height=600")
+    .setFooter("Bot made by Champion2049#3714 || Lyrics powered by Genius Lyrics","https://images-ext-2.discordapp.net/external/3Vzt9TC-qNbog5byWTTbQXKI1VEAUDhsBa20AQtt8Rc/https/images-ext-2.discordapp.net/external/QfXXsBa5_d1G4ZQ__4IdA0mi1nYorI9EHL2f0H2hnkc/%253Fsize%253D4096/https/cdn.discordapp.com/avatars/730644349897015307/a0048cb10064dd3adb06dc1c3c0abc98.webp?width=600&height=600")
     .setThumbnail("https://images-ext-1.discordapp.net/external/4v6OiuGi2cBT0B77XJOJl0ghFEMaUNTi6MUY1APEQ9A/%3F1605635080/http/assets.genius.com/images/sharing_fallback.png?width=600&height=600")
     message.channel.send(embed)
 }
