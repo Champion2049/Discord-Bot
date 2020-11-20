@@ -613,7 +613,6 @@ client.on('message', async message => {
     const embed = new Discord.MessageEmbed()
     .setTitle("**COVID19 Stats**")
     .setColor("BLUE")
-    .setImage('https://images-ext-2.discordapp.net/external/sDq8ardBtIlvciU5MDlnIRd9XkLev2Pn9UTKy3I6dAo/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/695465125230018562/a75db4b231deb1f54149afaa48779fe5.webp')
     .setFooter('Bot made by Champion2049#3714', 'https://images-ext-2.discordapp.net/external/3Vzt9TC-qNbog5byWTTbQXKI1VEAUDhsBa20AQtt8Rc/https/images-ext-2.discordapp.net/external/QfXXsBa5_d1G4ZQ__4IdA0mi1nYorI9EHL2f0H2hnkc/%253Fsize%253D4096/https/cdn.discordapp.com/avatars/730644349897015307/a0048cb10064dd3adb06dc1c3c0abc98.webp?width=600&height=600')
     .addFields(
       {name: `Total Cases`, value: covidStats.cases.toLocaleString(), inline: true},
@@ -626,6 +625,7 @@ client.on('message', async message => {
       {name: `Critical Condition`, value: covidStats.critical.toLocaleString(), inline: true},
       {name: `Total Tested(negative+positive)`, value: covidStats.tests.toLocaleString(), inline: true}
     )
+    .setThumbnail('https://cdn.discordapp.com/attachments/239446877953720321/691020838379716698/unknown.png')
     return message.channel.send(embed)
   }
 })
