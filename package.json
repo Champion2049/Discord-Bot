@@ -20,6 +20,7 @@
     "discord.js": "^12.4.1",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^8.2.0",
+    "dqq-api": "^0.1.0",
     "fortnite": "^4.3.2",
     "fortnite-api": "^3.4.0",
     "fs": "0.0.1-security",
@@ -38,6 +39,7 @@
     "quick.db": "^7.1.2",
     "simple-fortnite-api": "^0.1.9",
     "urban": "^0.3.2",
-    "ytdl-core": "^3.3.0"
+    "ytdl-core": "^3.3.0",
+    "zoro-api": "^0.3.5"
   }
 }

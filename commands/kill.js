@@ -35,7 +35,7 @@ module.exports = {
           }
         ]
       }
-       return message.channel.send({sembed})
+       return message.channel.send({ sembed })
     }else if (killed.displayName === kill.username){
       const lembed = {
         "color": "BLUE",
@@ -52,7 +52,7 @@ module.exports = {
           }
         ]
       }
-        return message.channel.send({lembed})
+        return message.channel.send({ lembed })
     }else{
       const embed = {
         "color": "BLUE",
@@ -69,7 +69,7 @@ module.exports = {
           }
         ]
       }
-      return message.channel.send({embed})
+      return message.channel.send({ embed })
     };
   }
     }
