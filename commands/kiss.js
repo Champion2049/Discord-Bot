@@ -3,16 +3,16 @@ const db = require('quick.db')
 const Zoro = require("zoro-api");
 const { hug } = require('zoro-api/src/module/DIG');
 module.exports = {
-    name: 'bang', 
-    description: 'bang gif',
-    aliases: ['bangy'],
+    name: 'kiss', 
+    description: 'kiss gif',
+    aliases: ['ki'],
     cooldown: 5,
     async execute(message){
         const prefix = db.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix) || message.author.bot) return;
          const args = message.content.slice(prefix.length).split(/ +/);
          const command = args.shift().toLowerCase();
-    if (command === 'bang') {
+    if (command === 'kiss') {
         const user = message.mentions.users.first();
         if(!message.mentions.users.first()) return message.channel.send("Please mention someone to kiss!")
         const image = await Zoro.kiss()
