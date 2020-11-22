@@ -13,10 +13,10 @@ module.exports = {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
   if (command === 'fortnite') {
-    if(!args[0]) return message.channel.send("Please enter the platform you play on(ex:psn,xbl or pc)!")
-    if(!args[1]) return message.channel.send("Please enter your fortnite username!")
-const user = args[1],
-  platform = args[0];
+    if(!args[0]) return message.channel.send("Please enter your fortnite username!")
+    if(!args[1]) return message.channel.send("Please enter the platform you play on(ex:psn,xbl or pc)!")
+const user = args[0],
+  platform = args[1];
 const image = await stat
   .setToken("795afe47-6cdf-49ce-9ed2-753c88d80c8b")
   .setUser(user)
