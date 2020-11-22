@@ -20,6 +20,7 @@ module.exports = {
           .addField('<a:kjsc:758210180755750922>__Giveaway Commands__<a:ck_partypack:745123439664169102>', `Commands that are related to Giveaways`)
           .addField('🤪__Fun Commands__<a:BearLaugh:745125674360111145>', "Commands to solve your Boredom issues")
           //.addField('📝__Captcha (inbuilt)__<:Protection:745124390601228358>', 'Protection against Raiders')
+          .addField('<:PanPaint:779989645416726548>__Canvas Commands__<a:Painting:779989802313318420>')
           .addField('<:botverificado:745124688048554054>__Extra Commands__<:botverificado:745124688048554054>', "More Information")
           .setTimestamp()
           const m = await message.channel.send(embed)
@@ -27,10 +28,11 @@ module.exports = {
           m.react("🎵")
           m.react("🎉")
           m.react("🤪")
+          m.react("🖼")
           //m.react("📝")
           m.react("🤖")
           m.react("❌")
-          m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '🛠' || reaction.emoji.name === '🎵' || reaction.emoji.name === '🎉' || reaction.emoji.name === '🤪' /*|| reaction.emoji.name === '📝' */|| reaction.emoji.name === '🤖' || reaction.emoji.name === '❌'),
+          m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '🛠' || reaction.emoji.name === '🎵' || reaction.emoji.name === '🎉' || reaction.emoji.name === '🤪' /*|| reaction.emoji.name === '📝' */|| reaction.emoji.name === '🤖' || reaction.emoji.name === '❌'|| reaction.emoji.name === '🖼'),
                               { max: 1, time: 30000 }).then(collected => {
                                       if (collected.first().emoji.name === '🛠') {
                                               const membed = new Discord.MessageEmbed()
@@ -63,9 +65,18 @@ module.exports = {
                                         const fembed = new Discord.MessageEmbed()
                                         .setTitle('**<a:BearLaugh:745125674360111145>__Fun Commands__<:HAHAHA:745129345999175730>**')
                                         .setFooter("Bot made by Champion2049#3714", 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-                                        .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit\n **dcping**- shows you the bot's ping\n **dcinvites**- check how many invites you have in the current server\n**dcdadjoke**- sends a funny dad joke\n**dccnjoke**- sends a funny Chuck Norris joke\n**dchangman**- starts a hangman game\n**dccry**- sends a crying gif\n**dcwasted**- sends a wasted gif\n**dchug**- sends a cute hug gif\n**dckiss**- sends a kiss gif\n**dcinvert**- sends an inverted colour image\n**dcgay**- sends an altered avatar\n**dcerror**- error 404\n**dcdog**- sends a random cute dog picture\n**dccontrast**- sends a colour contrasted image of the mentioned user or message author's avatar\n**dccat**- sends a random cute cat image\n**dcblur**- sends a blurred image of the avatar of the mentioned user or the message author\n**dcbang**- bang!bang! sends a bang gif\n**dctrigger**- triggered avatar of mentioned user or message author\n**dctele**- your tv star dreams have come true\n**dctrash**- best way to roast someone\n**dcsepia**- sepia filter\n**dcps4pegi**- pg required\n**ps4**- become a ps4 game\n**dcpixel**- pixelated verison of your or the mentioned user's avatar\n**dcjail**- how did you end up in jail\n**dcconvolute**- convoluted avatar of the message author and the mentioned user\n**dccircle**- shows how your or the mentioned user's avatar looks when displayed next to your username\n**dcb&w**- sends a black and white avatar of you or the mentioned user\n**dcfortniteshop**- sends the current day's fortnite item shop")
+                                        .setDescription("**dcgif**- searches giphy for the mentioned word(s)\n **dc8ball**- ask a question and it will answer it\n **dcgoogle**- googles the mentioned word(s)\n **dcyoutube**- searches the word(s) on youtube\n **dcurban**- searches the urban dictionary for the mentioned word(s)\n **dcavatar**- shows your or mentioned user's profile picture\n **dckill**- sends a funny message of how the person/ mentioned person died/ was killed\n **dctv**- searches the mentioned word(s) on imdb(movies,series,anime) and gives you the result\n **dcmeme**- gives you a meme from reddit\n **dcping**- shows you the bot's ping\n **dcinvites**- check how many invites you have in the current server\n**dcdadjoke**- sends a funny dad joke\n**dccnjoke**- sends a funny Chuck Norris joke\n**dchangman**- starts a hangman game\n**dccry**- sends a crying gif\n**dcwasted**- sends a wasted gif\n**dchug**- sends a cute hug gif\n**dckiss**- sends a kiss gif\n**dcbang**- bang!bang! sends a bang gif\n**dcdog**- sends a random cute dog picture\n**dccat**- sends a random cute cat image\n**dcfortniteshop**- sends the current day's fortnite item shop\n**dcfortnite <username> <platform>**- gives detailed info about the player whose username is given")
                                         .setColor(0x14c9ed)
                                         m.edit(fembed)
+                                        m.reactions.removeAll()
+                                      }
+                                      else if(collected.first().emoji.name === '🖼'){
+                                        const cembed = new Discord.MessageEmbed()
+                                        .setTitle('**<:PanPaint:779989645416726548>__Canvas Commands__<a:Painting:779989802313318420>**')
+                                        .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
+                                        .setDescription(`**dcinvert**- sends an inverted colour image\n**dcgay**- sends an altered avatar\n**dcerror**- error 404\n**dccontrast**- sends a colour contrasted image of the mentioned user or message author's avatar\n**dcblur**- sends a blurred image of the avatar of the mentioned user or the message author\n**dctrigger**- triggered avatar of mentioned user or message author\n**dctele**- your tv star dreams have come true\n**dctrash**- best way to roast someone\n**dcsepia**- sepia filter\n**dcps4pegi**- pg required\n**dcps4**- become a ps4 game\n**dcpixel**- pixelated verison of your or the mentioned user's avatar\n**dcjail**- how did you end up in jail\n**dcconvolute**- convoluted avatar of the message author and the mentioned user\n**dccircle**- shows how your or the mentioned user's avatar looks when displayed next to your username\n**dcb&w**- sends a black and white avatar of you or the mentioned user`)
+                                        .setColor(0x14c9ed)
+                                        m.edit(cembed)
                                         m.reactions.removeAll()
                                       }
                                       /*else if(collected.first().emoji.name === '📝'){
