@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const Client = require('fortnite')
 const Genius = require("genius-lyrics");
+const Canvas = require("canvas")
 const genius = new Genius.Client("aZonE2yyifqJ8uq_LVobvdKT5ZZbpg4Xux22-Bbt5yvVsaxcPPW2zy9bpI26vqjq");
 const ms = require("ms");
 const {timeStamp} = require('console');
@@ -21,7 +22,6 @@ const fs = require('fs');
 const { ALL } = require('dns');
 const { title } = require('process');
 const giveMeAJoke = require('discord-jokes');
-const Canvas = require("discord-canvas")
 const YOUTUBE_API = "AIzaSyCSKVPpO4Ke-FIDFR9HnWeQ2TvKtuVz9yE"
 const queue = new Map()
 const moment = require('moment')
@@ -426,7 +426,6 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
-  var welcome = db1.get(`guild_${message.guild.id}_welcome`)
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
@@ -447,16 +446,47 @@ client.on('message', async message => {
   }else(message.reply("Sorry you dont have the permission to advocate this command!"))
     const n = channel
     db1.set(`guild_${message.guild.id}_welcome`, n)
-     client.on('guildMemberAdd', member => {
+     client.on('guildMemberAdd', async member => {
       if (!n) return;
-      const embed = new Discord.MessageEmbed()
-      .setTitle(`<a:chahal_welcome:758211451046723585> Welcome to ${message.guild.name} <a:lala:745584123011137577>`)
-      .setDescription(`<a:YAY:745576439222370375> Thanks for joining the server ${member} <a:YAY:745576439222370375>`)
-      .setTimestamp()
-      .setColor("GREEN")
-      .setFooter('Bot made by Champion2049#3714', 'https://cdn.discordapp.com/avatars/730644349897015307/6eff6602ff525e3170f13444942fcba0.png?size=256')
-      .setThumbnail()
-      welcome.send(embed)
+      const canvas = Canvas.createCanvas(700,250);
+        const ctx = canvas.getContext('2d');
+        const background = await Canvas.loadImage('./bg.jpg')
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+        ctx.strokeStyle = '#74037b';
+    ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    const applyText = (canvas, text) => {
+      let fontSize = 70;
+      do {
+        ctx.font = `${fontSize -= 10}px sans-serif`;
+      } while (ctx.measureText(text).width > canvas.width - 300);
+      return ctx.font;
+    }
+  ctx.font = '28px sans-serif';
+	ctx.fillStyle = '#ffffff';
+  ctx.fillText(`Welcome to ${member.guild.name},`, canvas.width / 2.5, canvas.height / 3.5);
+  ctx.font = '28px sans-serif';
+	ctx.fillStyle = '#ffffff';
+  ctx.fillText(`🎉Thanks for Joining🎉`, canvas.width / 2.5, canvas.height / 1.4);
+  ctx.font = '26px sans-serif';
+  ctx.fillStyle = '#ffffff';
+  if(member.guild.size%10 == 1){var pre = "st"}
+  if(member.guild.size%10 == 2){var pre = "nd"}
+  if(member.guild.size%10 == 3){var pre = "rd"}
+  else{var pre = "th"}
+	ctx.fillText(`-${member.guild.memberCount}${pre} Member`, canvas.width / 3.5, canvas.height / 1.025);
+  ctx.font = applyText(canvas, `${member.displayName}!`);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(`${member.displayName}!`, canvas.width / 2.5, canvas.height / 1.8);
+	ctx.beginPath();
+	ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+	ctx.closePath();
+	ctx.clip();
+        const avatar = await Canvas.loadImage(member.user.displayAvatarURL({format: "jpg"}))
+        ctx.drawImage(avatar, 25, 25, 200, 200)
+        const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'canvas.png')
+        if(message.guild.name == member.guild.name){
+      n.send(attachment)}
+      else return
     })
   }
 })
@@ -802,7 +832,7 @@ const canvas = require("discord-canvas"),
     const command = args.shift().toLowerCase();
   if (command === 'fortnite') {
     if(!args[0]) return message.channel.send("Please enter your fortnite username!")
-    if(!args[1]) return message.channel.send("Please enter the platform you play on(ex:psn,xbl or pc)!")
+    if(!args[1]) return message.channel.send("Please enter the platform you play on(ex:psn,xbl or pc)")
 const user = args[0],
   platform = args[1];
 const image = await stat
@@ -816,4 +846,5 @@ const attachment = new Discord.MessageAttachment(image.toBuffer(), "FortniteStat
 message.channel.send(attachment);
   }
 })
+
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
