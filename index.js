@@ -429,20 +429,20 @@ client.on('message', async message => {
   const n = db1.get(`guild_${message.guild.id}_welcome`)
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
-       const args = message.content.slice(prefix.length).split(/ +/);
-       const command = args.shift().toLowerCase();
-       const channel = message.mentions.channels.first();
-  if (command === 'set_welcome_channel') {
-    const check = message.guild.channels.cache.find(chan => chan.name === `${channel}`);
+       const args = message.content.slice(prefix.length).split(" ");
+       if(message.content.startsWith(`${prefix}set_welcome_channel`)){
+    const check = message.guild.channels.cache.find(chan => chan.name === `${args[1]}`);
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
-    if(!channel) return message.channel.send("Please specify a channel!")
-    if(!check === channel) return message.channel.send("Please enter a valid channel name!")
-    if(channel === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send("That is already set as the welcome channel!")
-    db1.set(`guild_${message.guild.id}_welcome`, channel)
-    return message.channel.send(`I have now set ${channel} as the welcome channel for this server!`)
+    if(!args[1]) return message.channel.send("Please specify a channel name!")
+    if(!check === args[1]) return message.channel.send("Please enter a valid channel name!")
+    if(args[1] === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send(`${n} is already set as the welcome channel!`)
+    db1.set(`guild_${message.guild.id}_welcome`, args[1])
+    message.channel.send(`I have now set ${n} as the welcome channel for this server!`)
+    return n.send("This is now set as the welcome channel for this server!")
   }
      client.on('guildMemberAdd', async member => {
-      if (!n) return;
+      const n = db1.get(`guild_${message.guild.id}_welcome`)
+      let channel = n
       const canvas = Canvas.createCanvas(700,250);
         const ctx = canvas.getContext('2d');
         const background = await Canvas.loadImage('./bg.jpg')
@@ -479,11 +479,9 @@ client.on('message', async message => {
         const avatar = await Canvas.loadImage(member.user.displayAvatarURL({format: "jpg"}))
         ctx.drawImage(avatar, 25, 25, 200, 200)
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'canvas.png')
-        if(message.guild.name == member.guild.name){
-      n.send(attachment)}
-      else return
+        n.send(attachment)
     })
-})
+  })
 client.on('message', message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
