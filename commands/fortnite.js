@@ -8,7 +8,7 @@ module.exports = {
     aliases: ['fort'],
     cooldown: 5,
     async execute(message){
-        const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+        const prefix = db.get(`guild_${message.guild.id}_prefix`) || "dc"
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
