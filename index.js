@@ -433,10 +433,10 @@ client.on('message', async message => {
        const command = args.shift().toLowerCase();
        const channel = message.mentions.channels.first();
   if (command === 'set_welcome_channel') {
-    const check = message.guild.channels.cache.find(chan => chan.name === channel);
+    const check = message.guild.channels.cache.find(chan => chan.name === `${channel}`);
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
     if(!channel) return message.channel.send("Please specify a channel!")
-    if(!check) return message.channel.send("Please enter a valid channel name!")
+    if(!check === channel) return message.channel.send("Please enter a valid channel name!")
     if(channel === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send("That is already set as the welcome channel!")
     db1.set(`guild_${message.guild.id}_welcome`, channel)
     return message.channel.send(`I have now set ${channel} as the welcome channel for this server!`)
