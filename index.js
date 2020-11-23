@@ -426,26 +426,21 @@ client.on('message', async message => {
   }
 })
 client.on('message', async message => {
+  const n = db1.get(`guild_${message.guild.id}_welcome`)
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(/ +/);
        const command = args.shift().toLowerCase();
        const channel = message.mentions.channels.first();
   if (command === 'set_welcome_channel') {
-    db1.get(`guild_${message.guild.id}_welcome`)
-    if(!args[0]){
-      message.reply("Please type a channel name")
-    if(!args[1] === channel){
-      message.reply("Please Enter a valid channel name!")
-    }
-    if(args[1] === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send("This is already set as the welcome channel!")
-  }if(message.member.hasPermission("MANAGE_GUILD")){
-    if(channel){
-      message.reply(`${channel} has been set as the Welcome channel for ${message.guild.name}`)
-    }
-  }else(message.reply("Sorry you dont have the permission to advocate this command!"))
-    const n = channel
-    db1.set(`guild_${message.guild.id}_welcome`, n)
+    const check = message.guild.channels.cache.find(chan => chan.name === channel);
+    if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
+    if(!channel) return message.channel.send("Please specify a channel!")
+    if(!check) return message.channel.send("Please enter a valid channel name!")
+    if(channel === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send("That is already set as the welcome channel!")
+    db1.set(`guild_${message.guild.id}_welcome`, channel)
+    return message.channel.send(`I have now set ${channel} as the welcome channel for this server!`)
+  }
      client.on('guildMemberAdd', async member => {
       if (!n) return;
       const canvas = Canvas.createCanvas(700,250);
@@ -488,7 +483,6 @@ client.on('message', async message => {
       n.send(attachment)}
       else return
     })
-  }
 })
 client.on('message', message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
