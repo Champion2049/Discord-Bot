@@ -431,18 +431,22 @@ client.on('message', async message => {
   if(!message.content.startsWith(prefix) || message.author.bot) return;
        const args = message.content.slice(prefix.length).split(" ");
        if(message.content.startsWith(`${prefix}set_welcome_channel`)){
-    const check = message.guild.channels.cache.find(chan => chan.name === `${args[1]}`);
+        const channel = message.mentions.channels.first()
+    const check = message.guild.channels.cache.find(chan => chan.name === `${channel}`);
+    const checki = message.guild.channels.cache.find(chan => chan.name === `${n}`);
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You dont have the Required permissions to advocate this command!')
-    if(!args[1]) return message.channel.send("Please specify a channel name!")
-    if(!check === args[1]) return message.channel.send("Please enter a valid channel name!")
-    if(args[1] === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send(`${n} is already set as the welcome channel!`)
-    db1.set(`guild_${message.guild.id}_welcome`, args[1])
-    message.channel.send(`I have now set ${n} as the welcome channel for this server!`)
-    return n.send("This is now set as the welcome channel for this server!")
+    if(!channel) return message.channel.send("Please specify a channel name!")
+    if(!check === channel) return message.channel.send("Please enter a valid channel name!")
+    if(channel === db1.get(`guild_${message.guild.id}_welcome`)) return message.channel.send(`${n} is already set as the welcome channel!`)
+    db1.set(`guild_${message.guild.id}_welcome`, channel)
+    message.channel.send(`I have now set ${channel} as the welcome channel for this server!`)
+    const c = message.guild.channels.cache.get(n)
+    c.send("This is now set as the welcome channel for this server!")
+    if(!checki) return message.channel.send("Nope")
+    else return message.channel.send("Yes")
   }
      client.on('guildMemberAdd', async member => {
-      const n = db1.get(`guild_${message.guild.id}_welcome`)
-      let channel = n
+      const channel = member.guild.channels.cache.get(n)
       const canvas = Canvas.createCanvas(700,250);
         const ctx = canvas.getContext('2d');
         const background = await Canvas.loadImage('./bg.jpg')
@@ -479,7 +483,7 @@ client.on('message', async message => {
         const avatar = await Canvas.loadImage(member.user.displayAvatarURL({format: "jpg"}))
         ctx.drawImage(avatar, 25, 25, 200, 200)
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'canvas.png')
-        n.send(attachment)
+        channel.send(attachment)
     })
   })
 client.on('message', message => {
@@ -557,7 +561,7 @@ if (command === 'userinfo') {
       .addField(`Username:`, `${user.username}`)
       .addField(`Discriminator:`, `${user.discriminator}`)
     .addField(`ID:`, `${user.id}`)
-    .addField(`Last Message:`, `${user.lastMessage}`)
+    .addField(`Custom Status:`, `${user.presence.clientStatus || "He has not set a custom status yet!"}`)
     .addField(`Activity`, `${user.presence.activities || "He is doing nothing right now!"}`)
     .setThumbnail(avatar)
     .addField(`Bot:`, `${user.bot}`)
@@ -579,8 +583,8 @@ if (command === 'userinfo') {
     .addField(`Username:`, `${message.author.username}`)
     .addField(`Discriminator:`, `${message.author.discriminator}`)
     .addField(`ID:`, `${message.author.id}`)
-    .addField(`Last Message:`, `${message.author.lastMessage}`)
-    .addField(`Activity:`, `${activities}`)
+    .addField(`Custom Status:`, `${message.author.presence.clientStatus || "You have not set a custom status yet!"}`)
+    .addField(`Activity:`, `${message.author.presence.activities || "You are doing nothing right now!"}`)
     .setThumbnail(avatar1)
     .addField(`Bot:`, `${message.author.bot}`)
     .addField(`Presence:`, `${message.author.presence.status}`)
