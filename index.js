@@ -146,6 +146,7 @@ client.on('message', message => {
   if (command === 'botinfo') {
     let inline = true
     let bicon = client.user.displayAvatarURL;
+    //let memberCount = client.users.fetch()
     let usersize = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
     let chansize = client.channels
     let uptimxd = client.uptime 
@@ -634,6 +635,9 @@ client.on('messageReactionAdd', async(reaction,user)=>{
 })
 client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+  const country = args.slice(command);
   if(message.content.startsWith(`${prefix}covid`)){
     const covidStats = await covid.all()
     const embed = new Discord.MessageEmbed()
@@ -654,6 +658,26 @@ client.on('message', async message => {
     .setThumbnail('https://cdn.discordapp.com/attachments/239446877953720321/691020838379716698/unknown.png')
     return message.channel.send(embed)
   }
+  /*else{
+    const covidStats = await covid.countries(country)
+    const embed = new Discord.MessageEmbed()
+    .setTitle("**COVID19 Stats**")
+    .setColor("BLUE")
+    .setFooter('Bot made by Champion2049#3714', 'https://images-ext-2.discordapp.net/external/3Vzt9TC-qNbog5byWTTbQXKI1VEAUDhsBa20AQtt8Rc/https/images-ext-2.discordapp.net/external/QfXXsBa5_d1G4ZQ__4IdA0mi1nYorI9EHL2f0H2hnkc/%253Fsize%253D4096/https/cdn.discordapp.com/avatars/730644349897015307/a0048cb10064dd3adb06dc1c3c0abc98.webp?width=600&height=600')
+    .addFields(
+      {name: `Total Cases`, value: covidStats.cases.toLocaleString(), inline: true},
+      {name: `Today's Cases`, value: covidStats.todayCases.toLocaleString(), inline: true},
+      {name: `Total Deaths`, value: covidStats.deaths.toLocaleString(), inline: true},
+      {name: `Deaths Today`, value: covidStats.todayDeaths.toLocaleString(), inline: true},
+      {name: `Total Recoveries`, value: covidStats.recovered.toLocaleString(), inline: true},
+      {name: `Today's Recoveries`, value: covidStats.todayRecovered.toLocaleString(), inline: true},
+      {name: `Active Infections`, value: covidStats.active.toLocaleString(), inline: true},
+      {name: `Critical Condition`, value: covidStats.critical.toLocaleString(), inline: true},
+      {name: `Total Tested(negative+positive)`, value: covidStats.tests.toLocaleString(), inline: true}
+    )
+    .setThumbnail('https://cdn.discordapp.com/attachments/239446877953720321/691020838379716698/unknown.png')
+    return message.channel.send(embed)
+  }*/
 })
 /*client.on('message', async message => {
   const prefix = db1.get(`guild_${message.guild.id}_prefix`) || "dc"
