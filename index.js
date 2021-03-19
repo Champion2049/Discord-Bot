@@ -29,6 +29,7 @@ const db = require('mongoose')
 const Canvacord = require("canvacord")
 const urban = require("urban")
 const db1 = require('quick.db')
+const fetch = require("node-fetch").default
 const dbOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -843,4 +844,13 @@ if (command === 'serverlist') {
   })      
 }
 })
+/*client.on('message', message => {
+  if(message.channel.id === '758669741693992990'){
+    fetch(`https://api.monkedev.com/fun/chat?msg=${message.content}&uid=${message.author.id}`)
+    .then(response => response.json())
+    .then(data => {
+        message.channel.send(data.response)
+    })
+  }
+})*/
 client.login('NzMwNjQ0MzQ5ODk3MDE1MzA3.Xwafkw.wFHybJO8bgC45AC8y7GbKT3-mD0');
